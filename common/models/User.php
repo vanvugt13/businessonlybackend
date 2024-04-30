@@ -102,6 +102,8 @@ class User extends ActiveRecord implements IdentityInterface
             'company_id'=>'Bedrijfsnaam',
             'username'=>'Gebruikersnaam',
             'phone_number'=>'Telefoonnummer',
+            'created_at'=>'Aangemaakt op',
+            'status'=>'Status',
         ];
     }
 

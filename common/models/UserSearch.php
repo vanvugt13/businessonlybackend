@@ -41,6 +41,13 @@ class UserSearch extends User
     public function search($params)
     {
         $query = User::find();
+        $query->select([
+            'id',
+            'email',
+            'username',
+            'status',
+            'created_at',
+        ]);
 
         // add conditions that should always apply here
 

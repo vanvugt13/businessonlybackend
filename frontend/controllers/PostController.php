@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use frontend\models\Post;
 use frontend\models\PostSearch;
 use Yii;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -22,6 +23,22 @@ class PostController extends Controller
         return array_merge(
             parent::behaviors(),
             [
+                'access' => [
+                'class' => AccessControl::class,
+                'only' => ['logout', 'signup'],
+                'rules' => [
+                    [
+                        'actions' => ['signup'],
+                        'allow' => true,
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'actions' => ['logout'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [
