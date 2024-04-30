@@ -330,7 +330,13 @@ class ApiController extends Controller
         $query->select(['*'])->from($post)->orderBy('have_seen');
             $post = (array)$query->one();
 
-       
+            //$subscribed_users =[];
+            $subscribed_users = Subscribe::find()
+                ->select(['user_id'])
+                ->where(['news_id'=>$post["id"]])
+                ->asArray()
+                ->all();
+            
             $array = [
                 'id'=>$post["id"],
                 'user_id'=>$post["user_id"],
@@ -344,6 +350,7 @@ class ApiController extends Controller
                 'afbeelding'=>$post["image"],
                 'url'=>User::baseUrl().'/api/bc-news-item?id='.$post["id"],
                 'subscribe_news'=>$post["subscribe_news"],
+                'subscibed_users'=>$subscribed_users,
             ];
 
         return json_encode($array);
