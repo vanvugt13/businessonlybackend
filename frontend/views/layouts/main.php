@@ -36,10 +36,11 @@ AppAsset::register($this);
     ]);
     $menuItems = [
         ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'Gebruikers', 'url' => ['/user/index']],
-        ['label' => 'Nieuws', 'url' => ['/news/index']],
-        ['label' => 'Post', 'url' => ['/post/index']],
         ['label' => 'Bedrijven', 'url' => ['/company/index']],
+        ['label' => 'Gebruikers', 'url' => ['/user/index']],
+      //  ['label' => 'Nieuws', 'url' => ['/news/index']],
+        ['label' => 'Items', 'url' => ['/post/index']],
+        
 
     ];
     if (Yii::$app->user->isGuest) {

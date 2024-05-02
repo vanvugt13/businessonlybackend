@@ -118,6 +118,24 @@ class CompanyController extends Controller
         Yii::$app->session->setFlash('success','Data is opgehaald');
         return $this->redirect(['/company/index']);
     }
+
+
+    // public function actionFetchDataOne(string $type,int $id=null){
+    //     $model = new Company();
+
+    //     if ($this->request->isPost) {
+    //         if ($model->load($this->request->post()) && $model->save()) {
+    //             $model->fetchData();
+    //             return $this->redirect([$type,'id'=>$id]);
+    //         }
+    //     } else {
+    //         $model->loadDefaultValues();
+    //     }
+
+    //     return $this->render($type, [
+    //         'model' => $model,
+    //     ]);
+    // }
     /**
      * Creates a new Company model.
      * If creation is successful, the browser will be redirected to the 'view' page.

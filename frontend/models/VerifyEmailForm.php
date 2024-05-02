@@ -47,6 +47,14 @@ class VerifyEmailForm extends Model
     {
         $user = $this->_user;
         $user->status = User::STATUS_ACTIVE;
-        return $user->save(false) ? $user : null;
+        if($user->save(false)){
+            $user->password = rand(10000,1000000);
+            $user->setPassword($user->password);
+            if($user->save()){
+                $user->sendPassword();
+            }
+            
+        }
+        return  $user??null;
     }
 }

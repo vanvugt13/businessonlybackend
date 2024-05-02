@@ -16,11 +16,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'description')->textarea(['rows' => 6,'readonly'=>'readonly']) ?>
     <?php //$form->field($model, 'contactperson_id')->dropDownList(ArrayHelper::map(User::find()->all(),'id','username')) ?>
     <?= $form->field($model, 'url')->textInput() ?>
     <?= $form->field($model, 'company_url')->textInput() ?>
-    <?= $form->field($model, 'logo')->textInput() ?>
+    <?php //= $form->field($model, 'logo')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

@@ -75,6 +75,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             [['company_id'],'required','on'=>['create','update']],
+            [['company_id'],'number'],
             [['password','token','username','auth_key','description','company_name','email','phone_number','url','imageApp','contactperson','chat_user_id','last_message','last_message_datetime'],'safe'],
             [['image'],'file'],
             [
@@ -100,10 +101,11 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             'contactperson'=>"Naam contactpersoon",
             'company_id'=>'Bedrijfsnaam',
-            'username'=>'Gebruikersnaam',
+            'username'=>'Gebruikersnaam/Email',
             'phone_number'=>'Telefoonnummer',
             'created_at'=>'Aangemaakt op',
             'status'=>'Status',
+            'email'=>'Email / Gebruikersnaam',
         ];
     }
 
@@ -262,6 +264,21 @@ class User extends ActiveRecord implements IdentityInterface
         $this->password_reset_token = null;
     }
 
+    public function sendPassword()
+    {
+        
+        return Yii::$app
+            ->mailer
+            ->compose(
+                ['html' => 'emailFirstPassword-html', 'text' => 'emailFirstPassword-text'],
+                ['user' => $this]
+            )
+            ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
+            ->setTo($this->email)
+            ->setSubject('Uw account is aangemaakt voor ' . Yii::$app->name)
+            ->send();
+    }
+
 
     public function sendEmail()
     {
@@ -281,6 +298,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function afterSave($insert, $changedAttributes)
     {
         parent::afterSave($insert,$changedAttributes);
+
       
     }
     public function beforeSave($insert)
@@ -298,6 +316,9 @@ class User extends ActiveRecord implements IdentityInterface
                 $this->image = $this->oldAttributes['image']??null;
             }
             if(isset($this->imageApp))  $this->image = $this->imageApp;
+            if($insert){
+                $this->email = $this->username;
+            }
             return true;
         }
         return false;

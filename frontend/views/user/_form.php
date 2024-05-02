@@ -27,7 +27,7 @@ use yii\widgets\ActiveForm;
     ?> 
 
     <?= $form->field($model, 'phone_number')->textInput() ?>
-    <?= $form->field($model, 'email')->textInput() ?>
+    <?php // $form->field($model, 'email')->textInput() ?>
 
 
     <?php // $form->field($model, 'status')->dropDownList([User::STATUS_ACTIVE=>"Active",User::STATUS_INACTIVE=>"In-actief",User::STATUS_DELETED=>"Deleted"]) ?>

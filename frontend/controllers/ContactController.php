@@ -454,6 +454,9 @@ class ContactController extends Controller
             if($usermodel){
                 $profileImage = $usermodel->image;
             }
+            if($chat->chat_user_id == null){
+                continue;
+            }
             $data = ['partner_id'=>$chat->chat_user_id,
                 'profile_image'=>$profileImage??'',
                 'last_message'=>$this->truncateMessage($chat->last_message),
