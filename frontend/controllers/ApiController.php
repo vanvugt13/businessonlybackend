@@ -491,7 +491,7 @@ class ApiController extends Controller
     }
 
     public function actionGetSponsorEvents($events_encoded){
-        if(empty($this->user->id))
+        if(empty($this->user?->id))
         {
             return json_encode(['error'=>'not authorized']);
         }
