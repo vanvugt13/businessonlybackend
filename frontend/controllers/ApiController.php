@@ -479,7 +479,10 @@ class ApiController extends Controller
         $data = json_decode($rawdata);
 
         if($this->request->isPost){
-            $eventsponsor = new EventSponsor();
+
+            $eventsponsor = EventSponsor::find()
+                ->where(['user_id'=>$this->user->id,'event_id'=>$data->eventid??null,'sponsor_type'=>$data->type??null])
+                ->one()?? new EventSponsor();
             $eventsponsor->user_id = $this->user->id;
             $eventsponsor->event_id = $data->eventid??null;
             $eventsponsor->sponsor_type = $data->type??null;
@@ -488,12 +491,17 @@ class ApiController extends Controller
     }
 
     public function actionGetSponsorEvents($events_encoded){
+        if(empty($this->user->id))
+        {
+            return json_encode(['error'=>'not authorized']);
+        }
         $event_ids = json_decode($events_encoded);
         $sponsorevents = EventSponsor::find()->where(['event_id'=>$event_ids[0]])->all();
         $event =[];
         foreach($sponsorevents as $sponsorevent){
             $event[]    =   [
                 'user_id'=>$sponsorevent->user_id,
+                'profile_image'=>$sponsorevent->user->image,
                 'sponsor_type'=>$sponsorevent->sponsor_type
             ];
         }
