@@ -523,7 +523,7 @@ class ApiController extends Controller
                 $post->user_id = $this->user->id;
                 $post->title = $titel;
                 $post->description = $omschrijving;
-                $post->category = Post::CATEGORY_POST;
+                $post->category = [Post::CATEGORY_POST];
                 if($post->save()){
                     return json_encode(['success'=>'gelukt']);
                 }
