@@ -445,6 +445,7 @@ class ContactController extends Controller
         'chat_user_id',
         ])
         ->groupBy('chat_user_id')
+
         // echo $chats->createCommand()->getRawSql();
         // exit;
         ->all();

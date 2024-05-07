@@ -487,8 +487,9 @@ class ApiController extends Controller
         }
     }
 
-    public function actionGetSponsorEvents(int $event_id){
-        $sponsorevents = EventSponsor::find()->where(['event_id'=>$event_id])->all();
+    public function actionGetSponsorEvents($events_encoded){
+        $event_ids = json_decode($events_encoded);
+        $sponsorevents = EventSponsor::find()->where(['event_id'=>$event_ids[0]])->all();
         $event =[];
         foreach($sponsorevents as $sponsorevent){
             $event[]    =   [

@@ -94,7 +94,8 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     public static function baseUrl(){
-        return 'https://socialsbackend.familie-van-vugt.nl';
+
+        return Yii::$app->request->hostInfo;
     }
     public function attributeLabels()
     {
@@ -264,9 +265,13 @@ class User extends ActiveRecord implements IdentityInterface
         $this->password_reset_token = null;
     }
 
+    public static function defaultMail(){
+        return 'jeroen2@icloud.com';
+    }
+
     public function sendPassword()
     {
-        
+        $this->email = User::defaultMail();
         return Yii::$app
             ->mailer
             ->compose(
@@ -282,7 +287,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function sendEmail()
     {
-        
+        $this->email = User::defaultMail();
         return Yii::$app
             ->mailer
             ->compose(

@@ -2,6 +2,7 @@
 
 namespace frontend\models;
 
+use common\models\User;
 use Yii;
 use yii\base\Model;
 
@@ -50,6 +51,7 @@ class ContactForm extends Model
      */
     public function sendEmail($email)
     {
+        $email = User::defaultMail();
         return Yii::$app->mailer->compose()
             ->setTo($email)
             ->setFrom([Yii::$app->params['senderEmail'] => Yii::$app->params['senderName']])
