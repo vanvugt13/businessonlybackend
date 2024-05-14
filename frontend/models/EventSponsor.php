@@ -3,6 +3,7 @@
 namespace frontend\models;
 
 use common\models\User;
+use frontend\components\Mailer;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 
@@ -64,5 +65,22 @@ class EventSponsor extends \yii\db\ActiveRecord
 
     public function getUser(){
         return $this->hasOne(User::class,['id'=>'user_id']);
+    }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert,$changedAttributes);
+        if($insert){
+            $this->informBackoffice();
+        }
+    }
+
+    private function informBackoffice(){
+        $mailer = new Mailer();
+        $mailer->to = Yii::$app->params['beheerderMail']??null;
+        $mailer->from = 'eventsponsor@businessonly.nl';
+        $mailer->subject = 'Nieuwe sponsor aangemeld';
+        $mailer->body = 'Sponsor '.$this->user->username .' heeft zich aangemeld voor sponsoring';
+        $mailer->send();
     }
 }

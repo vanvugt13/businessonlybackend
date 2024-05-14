@@ -487,6 +487,8 @@ class ApiController extends Controller
             $eventsponsor->event_id = $data->eventid??null;
             $eventsponsor->sponsor_type = $data->type??null;
             $eventsponsor->save();
+                
+            
         }
     }
 
