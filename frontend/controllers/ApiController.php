@@ -527,6 +527,7 @@ class ApiController extends Controller
             $rawdata = file_get_contents("php://input");
             $titel = Yii::$app->request->post('titel');
             $omschrijving = Yii::$app->request->post('omschrijving');
+            $duur = Yii::$app->request->post('duur');
            $image = \yii\web\UploadedFile::getInstanceByName('image');
    
             if($image){
@@ -537,6 +538,18 @@ class ApiController extends Controller
                 $post->user_id = $this->user->id;
                 $post->title = $titel;
                 $post->description = $omschrijving;
+                if($duur == 'dag'){
+                    $post->visible_till = date("Y-m-d",strtotime("+ 1 day"));
+                }
+                if($duur == 'week'){
+                    $post->visible_till = date("Y-m-d",strtotime("+ 1 week"));
+                }
+                if($duur == 'maand'){
+                    $post->visible_till = date("Y-m-d",strtotime("+ 1 month"));
+                }
+                
+
+                
                 $post->category = [Post::CATEGORY_POST];
                 if($post->save()){
                     return json_encode(['success'=>'gelukt']);
