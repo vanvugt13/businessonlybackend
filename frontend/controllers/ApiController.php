@@ -367,6 +367,7 @@ class ApiController extends Controller
             $array[] = [
                 'id'=>$subscribe->id,
                 'profile_image'=>$subscribe->user->image,
+                'user_id'=>$subscribe->user_id,
             ];
         }
         return json_encode($array);
