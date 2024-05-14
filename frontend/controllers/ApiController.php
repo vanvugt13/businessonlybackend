@@ -357,11 +357,16 @@ class ApiController extends Controller
     }
 
     public function actionSubscribedNews($id){
+        if(empty($this->user->id))
+        {
+            return json_encode(['error'=>'not authorized']);
+        }
         $subscribes = Subscribe::find()->where(['news_id'=>$id])->all();
         $array= [];
         foreach($subscribes as $subscribe){
             $array[] = [
                 'id'=>$subscribe->id,
+                'profile_image'=>$subscribe->user->image,
             ];
         }
         return json_encode($array);
@@ -375,10 +380,16 @@ class ApiController extends Controller
             return $this->actionSubscribedNews($id);
         }
     }
+
+    private function checkAccess(){
+        if(empty($this->user->id))  {
+            return false;
+        }
+        return true;
+    }
     public function actionBcNews(){
-        if(empty($this->user->id))
-        {
-            return json_encode(['error'=>'not authorized']);
+        if(!$this->checkAccess()){
+                return json_encode(['error'=>'not authorized']);
         }
         $posts  =   Post::find()
         ->joinWith('user')

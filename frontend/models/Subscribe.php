@@ -34,7 +34,7 @@ class Subscribe extends \yii\db\ActiveRecord
     }
 
     public static function add($user_id,$news_id=null){
-        if(self::find()->where(['user_id'=>$user_id,'news_id'=>$news_id]) !== null){
+        if(self::find()->where(['user_id'=>$user_id,'news_id'=>$news_id])->one() !== null){
             return true;
         }
         $model = new self();
