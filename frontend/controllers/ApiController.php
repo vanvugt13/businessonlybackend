@@ -387,7 +387,9 @@ class ApiController extends Controller
         {
             return json_encode(['error'=>'not authorized']);
         }
-        $events = Post::find()->all();
+        $events = Post::find()
+        ->andWhere(['like','category',Post::CATEGORY_EVENTS])
+        ->all();
 
         $result = [];
         foreach($events as $event){
