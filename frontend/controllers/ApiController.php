@@ -16,6 +16,7 @@ use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 use common\models\User;
+use DateTime;
 use frontend\models\EventSponsor;
 use frontend\models\Post;
 use frontend\models\PostSeen;
@@ -395,7 +396,7 @@ class ApiController extends Controller
         foreach($events as $event){
             $result[] = [
                 'id'=>$event->id,
-                'starttijd'=>$event->created_at,
+                'starttijd'=>date(DateTime::ATOM,$event->created_at),
                 'titel'=>$event->title,
                 'omschrijving'=>$event->description,
                 'type'=>10,
