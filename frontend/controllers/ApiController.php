@@ -445,7 +445,7 @@ class ApiController extends Controller
             new Expression('ifnull((select user_id from post_seen where post_id=post.id and user_id='.$this->user->id.'),0) as have_seen')
         ])
         ->andWhere(['like','category',Post::CATEGORY_POST])
-        ->andWhere(['<','visible_till',time()]);
+        ->andWhere(['>=','visible_till',time()]);
 
         $query = new Query();
         $query->select(['*'])->from($posts)->orderBy('have_seen,created_at desc');
