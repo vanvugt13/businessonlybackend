@@ -396,7 +396,7 @@ class ApiController extends Controller
         foreach($events as $event){
             $result[] = [
                 'id'=>$event->id,
-                'starttijd'=>date(DateTime::ATOM,$event->created_at),
+                'starttijd'=>date("Y-m-dTH:i:s",$event->created_at),
                 'titel'=>$event->title,
                 'omschrijving'=>$event->description,
                 'type'=>10,
