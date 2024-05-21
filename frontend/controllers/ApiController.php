@@ -382,6 +382,30 @@ class ApiController extends Controller
         }
     }
 
+    public function actionGetAllEvents(){
+        if(empty($this->user->id))
+        {
+            return json_encode(['error'=>'not authorized']);
+        }
+        $events = Post::find()->all();
+
+        $result = [];
+        foreach($events as $event){
+            $result[] = [
+                'id'=>$event->id,
+                'starttijd'=>$event->created_at,
+                'titel'=>$event->title,
+                'omschrijving'=>$event->description,
+                'type'=>10,
+                'thuisClub'=>'',
+                'uitClub'=>'',
+                'thuisLogo'=>'',
+                'uitLogo'=>'',
+            ];
+        }
+        return json_encode($events);
+    }
+
     private function checkAccess(){
         if(empty($this->user->id))  {
             return false;
