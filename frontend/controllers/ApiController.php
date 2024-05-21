@@ -479,6 +479,9 @@ class ApiController extends Controller
             'afbeelding'=>$post->image??$post->user->company->logo,
             'tekst'=>$post->description,
             'titel'=>$post->title,
+            'datum'=>date("d-m-Y",$post->created_at),
+            'contactperson'=>$post->user->contactperspon,
+            'company_name'=>$post->user->company->name,
             
 
         ];
