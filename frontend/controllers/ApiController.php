@@ -407,7 +407,7 @@ class ApiController extends Controller
         ->andWhere(['like','category',Post::CATEGORY_NEWS]);
 
         $query = new Query();
-        $query->select(['*'])->from($posts)->orderBy('have_seen');
+        $query->select(['*'])->from($posts)->orderBy('created_at desc');
             $posts = $query->all();
         $array  = [];
         foreach($posts as $post){
