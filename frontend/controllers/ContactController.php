@@ -494,7 +494,7 @@ class ContactController extends Controller
         if($searchTerm != null){
             $otherUsers->orWhere(['like','user.contactperson',$searchTerm]);
         }
-        $otherUsers->orderBy('username');
+        $otherUsers->orderBy('user.contactperson');
         $otherUsers = $otherUsers->all();
         $array=[];
         if(count($otherUsers) > 0)
