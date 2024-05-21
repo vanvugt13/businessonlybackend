@@ -137,7 +137,7 @@ class Post extends \yii\db\ActiveRecord
                 $this->addError('category','U moet minimaal één categorie selecteren');
             }
             
-            if(!isset($this->imageApp)){
+            if(isset($this->imageApp) AND !$this->imageApp instanceof UploadedFile ){
                 $this->imageApp = UploadedFile::getInstance($this,'imageApp');
             }
             if(isset($this->imageApp) !== null AND $this->imageApp instanceof UploadedFile)  $this->image = base64_encode(file_get_contents($this->imageApp->tempName));
