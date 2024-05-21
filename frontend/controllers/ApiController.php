@@ -480,7 +480,7 @@ class ApiController extends Controller
             'tekst'=>$post->description,
             'titel'=>$post->title,
             'datum'=>date("d-m-Y",$post->created_at),
-            'contactperson'=>$post->user->contactperspon,
+            'contactperson'=>$post->user->contactperson,
             'company_name'=>$post->user->company->name,
             
 
