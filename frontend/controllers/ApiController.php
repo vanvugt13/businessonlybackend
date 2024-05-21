@@ -476,7 +476,7 @@ class ApiController extends Controller
             'id'=>$post->id,
             'user_id'=>$post->user_id,
             'have_seen'=>$post->have_seen?1:0,
-            'afbeelding'=>$post->user->image,
+            'afbeelding'=>$post->image,
             'tekst'=>$post->description,
             'titel'=>$post->title,
             
