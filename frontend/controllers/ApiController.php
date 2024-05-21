@@ -476,7 +476,7 @@ class ApiController extends Controller
             'id'=>$post->id,
             'user_id'=>$post->user_id,
             'have_seen'=>$post->have_seen?1:0,
-            'profile_image'=>$post->user->image,
+            'afbeelding'=>$post->user->image,
             'tekst'=>$post->description,
             'titel'=>$post->title,
             
@@ -537,7 +537,7 @@ class ApiController extends Controller
                 $post = new Post();
                 $post->user_id = $this->user->id;
                 $post->title = $titel;
-                $post->image = $image;
+                $post->imageApp = $image;
                 $post->description = $omschrijving;
                 
                 if($duur == 'dag'){

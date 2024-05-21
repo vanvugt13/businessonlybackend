@@ -138,7 +138,7 @@ class Post extends \yii\db\ActiveRecord
             }
             
            
-            if($this->image !== null AND $this->image instanceof UploadedFile)  $this->image = base64_encode(file_get_contents($this->image->tempName));
+            if(isset($this->imageApp) !== null AND $this->imageApp instanceof UploadedFile)  $this->image = base64_encode(file_get_contents($this->imageApp->tempName));
             else{
                 $this->image = $this->oldAttributes['image']??null;
             }
