@@ -531,13 +531,15 @@ class ApiController extends Controller
            $image = \yii\web\UploadedFile::getInstanceByName('image');
    
             if($image){
-                echo "tempname is ".$image->tempName.' met '.$titel;
+                //echo "tempname is ".$image->tempName.' met '.$titel;
             }
             
                 $post = new Post();
                 $post->user_id = $this->user->id;
                 $post->title = $titel;
+                $post->image = $image;
                 $post->description = $omschrijving;
+                
                 if($duur == 'dag'){
                     $post->visible_till = date("Y-m-d",strtotime("+ 1 day"));
                 }

@@ -5,6 +5,7 @@ namespace frontend\models;
 use common\models\User;
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "post".
@@ -134,6 +135,12 @@ class Post extends \yii\db\ActiveRecord
             }
             if(!count($this->category_array)){
                 $this->addError('category','U moet minimaal één categorie selecteren');
+            }
+            
+           
+            if($this->image !== null AND $this->image instanceof UploadedFile)  $this->image = base64_encode(file_get_contents($this->image->tempName));
+            else{
+                $this->image = $this->oldAttributes['image']??null;
             }
             return !$this->hasErrors();
         }
