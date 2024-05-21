@@ -405,7 +405,7 @@ class ApiController extends Controller
                 'uitLogo'=>'',
             ];
         }
-        return json_encode($events);
+        return json_encode($result);
     }
 
     private function checkAccess(){
