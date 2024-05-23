@@ -61,11 +61,12 @@ class Company extends \yii\db\ActiveRecord
            
             
             $logo = UploadedFile::getInstance($this, 'logo');
-            if($logo !== null)  $this->logo = base64_encode(file_get_contents($logo->tempName));
+            if($logo !== null){ $this->unique_id = null;  $this->logo = base64_encode(file_get_contents($logo->tempName)); }
             else{
                 $this->logo = $this->oldAttributes['logo']??null;
             }
-            if(isset($this->logoApp))  $this->logo = $this->logoApp;
+            if(isset($this->logoApp)){ $this->logo = $this->logoApp; $this->unique_id=null;}
+
             return true;
         }
         return false;

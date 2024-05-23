@@ -322,11 +322,11 @@ class User extends ActiveRecord implements IdentityInterface
             $this->auth_key = $this->generateAuthKey();
             $image = UploadedFile::getInstance($this, 'image');
            
-            if($image !== null)  $this->image = base64_encode(file_get_contents($image->tempName));
+            if($image !== null){ $this->image = base64_encode(file_get_contents($image->tempName)); $this->unique_id=null;} 
             else{
                 $this->image = $this->oldAttributes['image']??null;
             }
-            if(isset($this->imageApp))  $this->image = $this->imageApp;
+            if(isset($this->imageApp)){ $this->unique_id=null;  $this->image = $this->imageApp;}
             if($insert){
                 $this->email = $this->username;
             }
