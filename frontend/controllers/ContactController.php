@@ -296,7 +296,8 @@ class ContactController extends Controller
         }
      
         $array    =   ['id'=>$user->id,
-        'profielimage'=>$user->image,
+   //     'profielimage'=>$user->image,
+        'user_image'=>$user->getFilename(),
         'name'=>$user->username,
         'phone_number'=>$user->phone_number,
         'email_address'=>$user->email_address,
@@ -471,8 +472,8 @@ class ContactController extends Controller
                
                 $array[]    =   ['id'=>$users->id,
                // 'image'=>$users->image,
-                'profielimage'=>$users->image,
-
+       //         'profielimage'=>$users->image,
+                'user_image'=>$users->getFilename(),
                 'name'=>$users->username,
                 'company_name'=>$users->company?->name,
                 'contactperson'=>$users->contactperson,
