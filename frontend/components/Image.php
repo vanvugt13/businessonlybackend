@@ -47,7 +47,12 @@ in this example i'll use standard JPG
 
     private static function generateUniqueId(User|Company|Post $model){
         if(!empty($model->logo)){
-            $model->unique_id = uniqid('CP');
+            if($model instanceof User)
+                $model->unique_id = uniqid('US');
+            if($model instanceof Company)
+                $model->unique_id = uniqid('CP');
+            if($model instanceof Post)
+                $model->unique_id = uniqid('PS');
         }
         
     }
