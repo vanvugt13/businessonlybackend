@@ -559,7 +559,8 @@ class ApiController extends Controller
         foreach($sponsorevents as $sponsorevent){
             $event[]    =   [
                 'user_id'=>$sponsorevent->user_id,
-                'profile_image'=>$sponsorevent->user->image,
+          //      'profile_image'=>$sponsorevent->user->image,
+                'user_image'=>$sponsorevent->user->getFilename(),
                 'sponsor_type'=>$sponsorevent->sponsor_type
             ];
         }
