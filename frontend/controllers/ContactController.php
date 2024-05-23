@@ -426,7 +426,7 @@ class ContactController extends Controller
             }
             $data = ['partner_id'=>$chat->chat_user_id,
          //       'profile_image'=>$profileImage??'',
-                'user_image'=>$chat->user->getFilename(),
+                'user_image'=>$usermodel?->getFilename(),
                 'last_message'=>$this->truncateMessage($chat->last_message),
                 'display_name'=>$usermodel->contactperson??'',
                 'last_message_datetime'=>date("d-m-Y H:i:s",$chat->last_message_datetime)];
