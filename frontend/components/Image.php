@@ -51,10 +51,10 @@ in this example i'll use standard JPG
                 $model->unique_id = uniqid('CP');
         }
         if(!empty($model->image) AND $model instanceof User){
-                $model->unique_id = uniqid('CP');
+                $model->unique_id = uniqid('US');
         }
         if(!empty($model->image) AND $model instanceof Post){
-                $model->unique_id = uniqid('CP');
+                $model->unique_id = uniqid('PS');
         } 
     }
 

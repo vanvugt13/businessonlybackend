@@ -339,6 +339,10 @@ class ApiController extends Controller
                 ->all();
             
                 $postmodel = Post::find()->with('user')->select(['id','user_id'])->where(['id'=>$post["id"]])->one();
+                $afbeelding =$postmodel->getFilename();
+                if(empty($afbeelding)){
+                    $afbeelding = $postmodel->user->company->getFilename();
+                }
             $array = [
                 'id'=>$post["id"],
                 'user_id'=>$post["user_id"],
@@ -350,7 +354,7 @@ class ApiController extends Controller
                 'datum'=>date("Y-m-d H:i:s",$post["created_at"]),
                 'tekst'=>$post["description"],
                 'category'=>1,
-                'afbeelding'=>$postmodel->getFilename(),
+                'afbeelding'=>$afbeelding,
                 'url'=>User::baseUrl().'/api/bc-news-item?id='.$post["id"],
                 'subscribe_news'=>$post["subscribe_news"],
                 'subscibed_users'=>$subscribed_users,
