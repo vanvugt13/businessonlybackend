@@ -4,6 +4,7 @@ namespace frontend\components;
 use common\models\User;
 use frontend\models\Company;
 use frontend\models\Post;
+use ParagonIE\Sodium\Compat;
 use Yii;
 use yii\helpers\Url;
 
@@ -54,14 +55,18 @@ in this example i'll use standard JPG
         }
         if(!empty($model->image) AND $model instanceof Post){
                 $model->unique_id = uniqid('CP');
-        }
-          
-        
-        
+        } 
+    }
+
+    private static function getAttribute(User|Company|Post $model){
+       if($model instanceof User || $model instanceof Post)
+        return 'image';
+        if($model instanceof Company )
+        return 'logo';
     }
 
     private static function generateFile(User|Company|Post $model,string $absoluteimagepath){
-        $blob = $model->logo;
+        $blob = $model->{self::getAttribute($model)};
         file_put_contents($absoluteimagepath,base64_decode((string)$blob));
     }
 
