@@ -57,7 +57,7 @@ in this example i'll use standard JPG
         file_put_contents($absoluteimagepath,base64_decode((string)$blob));
     }
 
-    private function getFilename(User|Company|Post $model){
+    private static function getFilename(User|Company|Post $model){
         if(empty($model->unique_id)){
             return null;
         }
