@@ -1,6 +1,8 @@
 <?php
 
 namespace frontend\models;
+
+use frontend\components\Image;
 use PHPHtmlParser\Dom;
 use yii\web\UploadedFile;
 use yii\behaviours\TimeStampBehaviour;
@@ -18,6 +20,7 @@ use yii\behaviors\TimestampBehavior;
  * @property resource|null $logo
  * @property int|null $created_at
  * @property int|null $updated_at
+ * @property string $unique_id
  */
 class Company extends \yii\db\ActiveRecord
 {
@@ -44,7 +47,7 @@ class Company extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['description', 'logo','url','company_url'], 'string'],
+            [['description', 'logo','url','company_url','unique_id'], 'string'],
             [['created_at', 'updated_at'], 'integer'],
             [['name'], 'string', 'max' => 255],
         ];
@@ -68,7 +71,10 @@ class Company extends \yii\db\ActiveRecord
         return false;
     }
 
-    
+    public function getFilename(){
+        return Image::getImageUrl($this);
+    }
+
     public function fetchImage($url){
         $dom = new Dom;
         $dom->loadFromUrl($url);

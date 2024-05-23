@@ -37,6 +37,7 @@ use PHPHtmlParser\Dom;
  * @property int $company_id
  * @property string $contactperson
  * @property string $url
+ * @property string $unique_id
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -76,6 +77,7 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             [['company_id'],'required','on'=>['create','update']],
             [['company_id'],'number'],
+            [['unique_id'],'string'],
             [['password','token','username','auth_key','description','company_name','email','phone_number','url','imageApp','contactperson','chat_user_id','last_message','last_message_datetime'],'safe'],
             [['image'],'file'],
             [
@@ -92,6 +94,7 @@ class User extends ActiveRecord implements IdentityInterface
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
         ];
     }
+
 
     public static function baseUrl(){
 
@@ -110,6 +113,9 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
 
+    public function getFilename(){
+        return Image::getImageUrl($this);
+    }
     public function getCompany(){
         return $this->hasOne(Company::class,['id'=>'company_id']);
     }

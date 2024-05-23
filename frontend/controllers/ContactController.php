@@ -258,40 +258,6 @@ class ContactController extends Controller
 		    //return json_encode('KLaar!!!');
     }
 
-    public function actionAllnews($value='all')
-    {
-	    $all_items	=	[];
-	    $news1	=[
-		    'header'=>'item1',
-		    'body'=>'body1',
-		    'footer'=>'Footer1',
-		    'summary'=>'Summary1',
-		    'id'=>1,
-	    ];
-
-	    $news2	=[
-		    'header'=>'item2',
-		    'body'=>'body2',
-		    'footer'=>'Footer2',
-		    'summary'=>'Summary2',
-		    'id'=>2,
-	    ];
-	    $news3	=[
-		    'header'=>'item3',
-		    'body'=>'body3',
-		    'footer'=>'Footer3',
-		    'summary'=>'Summary3',
-		    'id'=>3,
-	    ];
-
-	    $all_items[]	=	$news1;
-	    $all_items[]	=	$news2;
-	    if($value != 'all')
-	    $all_items[]	=	$news3;
-	    return json_encode($all_items);
-
-    }
-
     public function actionGetChats($id)
     {
         if(empty($this->user->id))
@@ -338,7 +304,7 @@ class ContactController extends Controller
         'contactperson'=>$user->contactperson,
         'companyDescription'=>$user->company?->description,
         'companyUrl'=>$user->company?->company_url,
-        'companyImage'=>$user->company?->logo,
+        'companyImage'=>$user->company?->getFilename(),
         'description'=>$user->description];
 	    return json_encode($array);
     }
@@ -358,13 +324,13 @@ class ContactController extends Controller
             {
                 $array[]    =   ['id'=>$users->id,
               //  'image'=>$users->image,
-                'profielimage'=>$users->image,
+                'userImage'=>$users->getFilename(),
                 'name'=>$users->username,
                 'company_name'=>$users->company?->name,
                 'contactperson'=>$users->contactperson,
                 'companyDescription'=>$users->company?->description,
                 'companyUrl'=>$users->company?->company_url,
-                'companyImage'=>$users->company?->logo,
+                'companyImage'=>$users->company?->getFilename(),
                 'phone_number'=>$users->phone_number,
                 'email_address'=>$users->email,
                 'description'=>$users->description];
@@ -511,7 +477,7 @@ class ContactController extends Controller
                 'contactperson'=>$users->contactperson,
                 'companyDescription'=>$users->company?->description,
                 'companyUrl'=>$users->company?->company_url,
-                'companyImage'=>$users->company?->logo,
+                'companyImage'=>$users->company?->getFilename(),
             ];
             }
         }

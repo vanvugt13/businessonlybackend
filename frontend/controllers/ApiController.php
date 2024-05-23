@@ -318,8 +318,8 @@ class ApiController extends Controller
             'post.user_id',
             'post.title',
             'post.description',
-            'post.image',
-            'user.image as profile_image',
+          //  'post.image',
+         //   'user.image as profile_image',
             'post.subscribe_news',
             'post.created_at',
             new Expression('ifnull((select user_id from post_seen where post_id=post.id and user_id='.$this->user->id.'),0) as have_seen')
@@ -338,17 +338,19 @@ class ApiController extends Controller
                 ->asArray()
                 ->all();
             
+                $postmodel = Post::find()->with('user')->select(['id','user_id'])->where(['id'=>$post["id"]])->one();
             $array = [
                 'id'=>$post["id"],
                 'user_id'=>$post["user_id"],
                 'have_seen'=>$post["have_seen"]?1:0,
-                'profile_image'=>$post['profile_image'],
+            //    'profile_image'=>$post['profile_image'],
+                'user_image'=>$postmodel->user->getFilename(),
                 'titel'=>$post['title'],
                 'intro'=>$post['title'],
                 'datum'=>date("Y-m-d H:i:s",$post["created_at"]),
                 'tekst'=>$post["description"],
                 'category'=>1,
-                'afbeelding'=>$post["image"],
+                'afbeelding'=>$postmodel->getFilename(),
                 'url'=>User::baseUrl().'/api/bc-news-item?id='.$post["id"],
                 'subscribe_news'=>$post["subscribe_news"],
                 'subscibed_users'=>$subscribed_users,
@@ -367,7 +369,8 @@ class ApiController extends Controller
         foreach($subscribes as $subscribe){
             $array[] = [
                 'id'=>$subscribe->id,
-                'profile_image'=>$subscribe->user->image,
+             //   'profile_image'=>$subscribe->user->image,
+                'user_image'=>$subscribe->user->getFilename(),
                 'user_id'=>$subscribe->user_id,
             ];
         }
@@ -396,7 +399,7 @@ class ApiController extends Controller
         foreach($events as $event){
             $result[] = [
                 'id'=>$event->id,
-                'starttijd'=>date(DateTime::ATOM,$event->created_at),
+                'starttijd'=>date(DateTime::ATOM,$event->event_date),
                 'titel'=>$event->title,
                 'omschrijving'=>$event->description,
                 'type'=>10,
@@ -426,8 +429,8 @@ class ApiController extends Controller
             'post.user_id',
             'post.title',
             'post.description',
-            'post.image',
-            'user.image as profile_image',
+           // 'post.image',
+         //   'user.image as profile_image',
             'post.created_at',
             new Expression('ifnull((select user_id from post_seen where post_id=post.id and user_id='.$this->user->id.'),0) as have_seen')
         ])
@@ -438,17 +441,19 @@ class ApiController extends Controller
             $posts = $query->all();
         $array  = [];
         foreach($posts as $post){
+            $postmodel = Post::findOne($post["id"]);
             $array[] = [
                 'id'=>$post["id"],
                 'user_id'=>$post["user_id"],
                 'have_seen'=>$post["have_seen"]?1:0,
-                'profile_image'=>$post['profile_image'],
+            //    'profile_image'=>$post['profile_image'],
+                'user_image'=>$postmodel->user->getFilename(),
                 'titel'=>$post['title'],
                 'intro'=>$post['title'],
                 'datum'=>date("Y-m-d H:i:s",$post["created_at"]),
                 'tekst'=>$post["description"],
                 'category'=>1,
-                'afbeelding'=>$post["image"],
+                'afbeelding'=>$postmodel->user->getFilename(),
                 'url'=>User::baseUrl().'/api/bc-news-item?id='.$post["id"],
             ];
 
@@ -467,7 +472,7 @@ class ApiController extends Controller
         ->select([
             'post.id',
             'post.user_id',
-            'user.image',
+           // 'user.image',
             'post.created_at as created_at',
             new Expression('ifnull((select user_id from post_seen where post_id=post.id and user_id='.$this->user->id.'),0) as have_seen')
         ])
@@ -479,11 +484,13 @@ class ApiController extends Controller
             $posts = $query->all();
         $array  = [];
         foreach($posts as $post){
+            $postmodel = Post::find()->with('user')->select(['id','user_id'])->where(['id'=>$post["id"]])->one();
             $array[] = [
                 'id'=>$post["id"],
                 'user_id'=>$post["user_id"],
                 'have_seen'=>$post["have_seen"]?1:0,
-                'profile_image'=>$post['image'],
+             //   'profile_image'=>$post['image'],
+                'user_image'=>$postmodel->user->getFilename(),
             ];
         }
         return json_encode($array);
@@ -495,17 +502,22 @@ class ApiController extends Controller
         }
         $post  =   Post::find()
             ->select([
-                '*',
+                'id',
+                'user_id',
+                'have_seen',
+                'title',
+                'description',
+                'created_at',
                 new Expression('ifnull((select user_id from post_seen where post_id=post.id),0) as have_seen')
             ])
             ->where(['id'=>$id])
-           
+            ->with('user','user.company')
             ->one();
         $array = [
             'id'=>$post->id,
             'user_id'=>$post->user_id,
             'have_seen'=>$post->have_seen?1:0,
-            'afbeelding'=>$post->image??$post->user->company->logo,
+            'afbeelding'=>$post->getFilename()??$post->user->company->getFilename(),
             'tekst'=>$post->description,
             'titel'=>$post->title,
             'datum'=>date("d-m-Y",$post->created_at),

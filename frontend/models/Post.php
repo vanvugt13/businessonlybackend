@@ -3,6 +3,7 @@
 namespace frontend\models;
 
 use common\models\User;
+use frontend\components\Image;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\web\UploadedFile;
@@ -22,6 +23,7 @@ use yii\web\UploadedFile;
  * @property int $subscribe_event
  * @property int $subscribe_news
  * @property int $event_date
+ * @property string $unique_id
  */
 class Post extends \yii\db\ActiveRecord
 {
@@ -91,13 +93,16 @@ class Post extends \yii\db\ActiveRecord
 
             [['user_id','title','description'],'required'],
             [['user_id', 'created_at', 'updated_at','have_seen','subscribe_event','subscribe_news'], 'integer'],
-            [['description', 'image','username','category_description'], 'string'],
+            [['description', 'image','username','category_description','unique_id'], 'string'],
             [['imageApp'],'file'],
             [['title'], 'string', 'max' => 100],
             [['category','visible_till'],'safe'],
         ];
     }
 
+    public function getFilename(){
+        return Image::getImageUrl($this);
+    }
     public function afterFind()
     {
         if(!empty($this->visible_till)){

@@ -1,7 +1,11 @@
 <?php
 namespace frontend\components;
 
+use common\models\User;
+use frontend\models\Company;
+use frontend\models\Post;
 use Yii;
+use yii\helpers\Url;
 
 class Image 
 {
@@ -39,5 +43,36 @@ in this example i'll use standard JPG
 
 
      //   return $imagedata_resized;
+    }
+
+    private static function generateUniqueId(User|Company|Post $model){
+        if(!empty($model->logo)){
+            $model->unique_id = uniqid('CP');
+        }
+        
+    }
+
+    private static function generateFile(User|Company|Post $model,string $absoluteimagepath){
+        $blob = $model->logo;
+        file_put_contents($absoluteimagepath,base64_decode((string)$blob));
+    }
+
+    private function getFilename(User|Company|Post $model){
+        if(empty($model->unique_id)){
+            return null;
+        }
+        $filename = $model->unique_id.'.png';
+        $absoluteimagepath = Yii::getAlias('@webroot').'/images/'.$filename;
+        if(!file_exists($absoluteimagepath)){
+            self::generateFile($model,$absoluteimagepath);
+        }
+        return Url::base(true).'/images/'.$filename;
+    }
+    public static function getImageUrl(User|Company|Post $model){
+        if(empty($model->unique_id)){
+           self::generateUniqueId($model);
+            $model->save();
+        }
+        return self::getFilename($model);
     }
 }
