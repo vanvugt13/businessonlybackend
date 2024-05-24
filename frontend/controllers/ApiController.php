@@ -508,7 +508,7 @@ class ApiController extends Controller
             ->select([
                 'id',
                 'user_id',
-                'have_seen',
+              //  'have_seen',
                 'title',
                 'description',
                 'created_at',
