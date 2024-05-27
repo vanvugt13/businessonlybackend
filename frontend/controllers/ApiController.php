@@ -512,7 +512,7 @@ class ApiController extends Controller
                 'title',
                 'description',
                 'created_at',
-                new Expression('ifnull((select user_id from post_seen where post_id=post.id),0) as have_seen')
+                new Expression('ifnull((select user_id from post_seen where user_id='.$this->user->id.' and post_id=post.id),0) as have_seen')
             ])
             ->where(['id'=>$id])
             ->with('user','user.company')
