@@ -338,7 +338,7 @@ class ApiController extends Controller
                 ->asArray()
                 ->all();
             
-                $postmodel = Post::find()->with('user')->select(['id','user_id','title','description','category','image'])->where(['id'=>$post["id"]])->one();
+                $postmodel = Post::find()->with('user')->select(['id','user_id','title','description','category','image', 'unique_id'])->where(['id'=>$post["id"]])->one();
                 $afbeelding =$postmodel->getFilename();
                 if(empty($afbeelding)){
                     $afbeelding = $postmodel->user->company->getFilename();
@@ -433,6 +433,7 @@ class ApiController extends Controller
             'post.user_id',
             'post.title',
             'post.description',
+            'post.unique_id',
            // 'post.image',
          //   'user.image as profile_image',
             'post.created_at',
@@ -488,7 +489,7 @@ class ApiController extends Controller
             $posts = $query->all();
         $array  = [];
         foreach($posts as $post){
-            $postmodel = Post::find()->with('user')->select(['id','user_id'])->where(['id'=>$post["id"]])->one();
+            $postmodel = Post::find()->with('user')->select(['id','user_id','unique_id','title','description','image'])->where(['id'=>$post["id"]])->one();
             $array[] = [
                 'id'=>$post["id"],
                 'user_id'=>$post["user_id"],
@@ -514,6 +515,8 @@ class ApiController extends Controller
                 'title',
                 'description',
                 'created_at',
+                'unique_id',
+                
                 new Expression('ifnull((select user_id from post_seen where user_id='.$this->user->id.' and post_id=post.id),0) as have_seen')
             ])
             ->where(['id'=>$id])
