@@ -84,8 +84,8 @@ in this example i'll use standard JPG
     public static function getImageUrl(User|Company|Post $model){
         if(empty($model->unique_id)){
            self::generateUniqueId($model);
-            $model->save();
-            
+            $model->save(true,['unique_id']);
+
         }
         return self::getFilename($model);
     }
