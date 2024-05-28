@@ -122,8 +122,11 @@ class Post extends \yii\db\ActiveRecord
         if(empty($this->category)){
             $this->category=[];
         }
-        $this->category_array = $this->category;
-        $this->category = serialize($this->category);
+        if(is_array($this->category)){
+            $this->category_array = $this->category;
+            $this->category = serialize($this->category);
+        }
+
     }
 
     public function revertValue(){
@@ -144,8 +147,9 @@ class Post extends \yii\db\ActiveRecord
             
             if(isset($this->imageApp) AND !$this->imageApp instanceof UploadedFile ){
                 $this->imageApp = UploadedFile::getInstance($this,'imageApp');
+                $this->unique_id=null;
             }
-            if(isset($this->imageApp) !== null AND $this->imageApp instanceof UploadedFile)  $this->image = base64_encode(file_get_contents($this->imageApp->tempName));
+            if(isset($this->imageApp) !== null AND $this->imageApp instanceof UploadedFile) { $this->unique_id=null; $this->image = base64_encode(file_get_contents($this->imageApp->tempName)); }
             else{
                 $this->image = $this->oldAttributes['image']??null;
             }

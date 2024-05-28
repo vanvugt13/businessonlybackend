@@ -85,6 +85,7 @@ in this example i'll use standard JPG
         if(empty($model->unique_id)){
            self::generateUniqueId($model);
             $model->save();
+            
         }
         return self::getFilename($model);
     }

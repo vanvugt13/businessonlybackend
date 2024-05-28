@@ -338,7 +338,7 @@ class ApiController extends Controller
                 ->asArray()
                 ->all();
             
-                $postmodel = Post::find()->with('user')->select(['id','user_id'])->where(['id'=>$post["id"]])->one();
+                $postmodel = Post::find()->with('user')->select(['id','user_id','title','description','category'])->where(['id'=>$post["id"]])->one();
                 $afbeelding =$postmodel->getFilename();
                 if(empty($afbeelding)){
                     $afbeelding = $postmodel->user->company->getFilename();
@@ -457,7 +457,7 @@ class ApiController extends Controller
                 'datum'=>date("Y-m-d H:i:s",$post["created_at"]),
                 'tekst'=>$post["description"],
                 'category'=>1,
-                'afbeelding'=>$postmodel->user->getFilename(),
+                'afbeelding'=>$postmodel->getFilename()??$postmodel->user->company->getFilename(),
                 'url'=>User::baseUrl().'/api/bc-news-item?id='.$post["id"],
             ];
 
@@ -509,6 +509,8 @@ class ApiController extends Controller
                 'id',
                 'user_id',
               //  'have_seen',
+                'category',
+                'image',
                 'title',
                 'description',
                 'created_at',
