@@ -338,7 +338,7 @@ class ApiController extends Controller
                 ->asArray()
                 ->all();
             
-                $postmodel = Post::find()->with('user')->select(['id','user_id','title','description','category'])->where(['id'=>$post["id"]])->one();
+                $postmodel = Post::find()->with('user')->select(['id','user_id','title','description','category','image'])->where(['id'=>$post["id"]])->one();
                 $afbeelding =$postmodel->getFilename();
                 if(empty($afbeelding)){
                     $afbeelding = $postmodel->user->company->getFilename();
