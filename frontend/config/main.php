@@ -11,6 +11,7 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'name'=>'VVOG Backend',
+    'language'=>'nl',
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
         'request' => [
