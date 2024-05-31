@@ -6,6 +6,7 @@ use DOMDocument;
 use DOMXPath;
 use frontend\components\Image;
 use frontend\models\Company;
+use frontend\models\PasswordResetRequestForm;
 use frontend\models\SignupForm;
 use Yii;
 use yii\base\NotSupportedException;
@@ -275,9 +276,20 @@ class User extends ActiveRecord implements IdentityInterface
         return 'jeroen2@icloud.com';
     }
 
+    public function sendResetPasswordLink():bool{
+        $model = new PasswordResetRequestForm();
+        $model->email = $this->email;
+        if ($model->validate()) {
+            if ($model->sendEmail()) {
+               return true;
+            }
+
+           return false;
+        }
+    }
     public function sendPassword()
     {
-        $this->email = User::defaultMail();
+   //     $this->email = User::defaultMail();
         return Yii::$app
             ->mailer
             ->compose(
@@ -293,7 +305,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function sendEmail()
     {
-        $this->email = User::defaultMail();
+     //   $this->email = User::defaultMail();
         return Yii::$app
             ->mailer
             ->compose(
