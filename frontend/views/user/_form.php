@@ -32,7 +32,7 @@ use yii\widgets\ActiveForm;
 
     <?php // $form->field($model, 'status')->dropDownList([User::STATUS_ACTIVE=>"Active",User::STATUS_INACTIVE=>"In-actief",User::STATUS_DELETED=>"Deleted"]) ?>
 
-    <?php if(!$model->isNewRecord)echo Html::a('Reset password',['/site/request-password-reset']);?>
+    <?php if(!$model->isNewRecord)echo Html::a('Reset wachtwoord',['/site/request-password-reset']);?>
     
 
     
