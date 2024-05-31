@@ -301,7 +301,6 @@ class ApiController extends Controller
     {
         $rawdata = file_get_contents("php://input");
         $post_value = (array)json_decode($rawdata);
-        print_R($post_value);
         if(isset($post_value[0])){
             $email = $post_value[0];
             $user = User::find()->where(['email'=>$email])->one();
