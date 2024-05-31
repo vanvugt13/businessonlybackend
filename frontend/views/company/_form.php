@@ -16,7 +16,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'description')->textarea(['rows' => 6,'readonly'=>'readonly']) ?>
+    <?php if(!$model->isNewRecord) echo $form->field($model, 'description')->textarea(['rows' => 6,'readonly'=>'readonly']) ?>
     <?php //$form->field($model, 'contactperson_id')->dropDownList(ArrayHelper::map(User::find()->all(),'id','username')) ?>
     <?= $form->field($model, 'url')->textInput() ?>
     <?= $form->field($model, 'company_url')->textInput() ?>
