@@ -429,6 +429,7 @@ class ApiController extends Controller
                 'uitClub'=>'',
                 'thuisLogo'=>'',
                 'uitLogo'=>'',
+                'afbeelding'=>$event->getFilename(),
             ];
         }
         return json_encode($result);
