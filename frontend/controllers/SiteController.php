@@ -240,9 +240,6 @@ class SiteController extends Controller
             throw new BadRequestHttpException($e->getMessage());
         }
         if ($model->verifyEmail()) {
-            //Yii::$app->session->setFlash('success', 'Je mailaddress is bevestigd!');
-            echo "het is gelukt. JE wordt doorgestuurd naar ".Yii::$app->params["appUrl"];
-            exit;
             return $this->redirect(Yii::$app->params["appUrl"]);//$this->goHome();
         }
 
