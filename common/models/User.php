@@ -55,6 +55,7 @@ class User extends ActiveRecord implements IdentityInterface
     public $last_message;
     public $last_message_datetime;
     public $imageApp;
+    public string $statusDescription='';
 
     /**
      * {@inheritdoc}
@@ -83,7 +84,7 @@ class User extends ActiveRecord implements IdentityInterface
             [['company_id'],'required','on'=>['create','update']],
             [['company_id','type'],'number'],
             [['unique_id'],'string'],
-            [['password','token','username','auth_key','description','company_name','email','phone_number','url','imageApp','contactperson','chat_user_id','last_message','last_message_datetime'],'safe'],
+            [['password','token','username','auth_key','description','company_name','email','phone_number','url','imageApp','contactperson','chat_user_id','last_message','last_message_datetime','statusDescription'],'safe'],
             [['image'],'file'],
             [
                 'email', 'unique',
