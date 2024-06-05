@@ -11,6 +11,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
+use common\models\User;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
@@ -188,6 +189,11 @@ class SiteController extends Controller
         ]);
     }
 
+    public function actionPasswordChangedAppuser(){
+        $this->layout= 'empty';
+        return $this->render("_password-changed-appuser");
+    }
+
     /**
      * Resets password.
      *
@@ -205,9 +211,12 @@ class SiteController extends Controller
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
-            Yii::$app->session->setFlash('success', 'New password saved.');
-
-            return $this->goHome();
+            Yii::$app->session->setFlash('success', 'Wachtwoord is opgeslagen.');
+            if($model->user->type == User::TYPE_SYSTEMUSER){
+                return $this->goHome();
+            }
+            return $this->redirect('password-changed-appuser');
+            
         }
 
         return $this->render('resetPassword', [

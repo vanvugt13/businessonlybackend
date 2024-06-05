@@ -1,0 +1,1 @@
+Het wachtwoord wijzigen is geslaagd. U kunt inloggen op de app.

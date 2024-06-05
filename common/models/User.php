@@ -39,12 +39,16 @@ use PHPHtmlParser\Dom;
  * @property string $contactperson
  * @property string $url
  * @property string $unique_id
+ * @property int $type System user or App user (20 = app user, 10 = systemuser)
  */
 class User extends ActiveRecord implements IdentityInterface
 {
     const STATUS_DELETED = 0;
     const STATUS_INACTIVE = 9;
     const STATUS_ACTIVE = 10;
+
+    const TYPE_SYSTEMUSER = 10;
+    const TYPE_APPUSER = 20;
 
     public $password;
     public $chat_user_id;
@@ -77,7 +81,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             [['company_id'],'required','on'=>['create','update']],
-            [['company_id'],'number'],
+            [['company_id','type'],'number'],
             [['unique_id'],'string'],
             [['password','token','username','auth_key','description','company_name','email','phone_number','url','imageApp','contactperson','chat_user_id','last_message','last_message_datetime'],'safe'],
             [['image'],'file'],

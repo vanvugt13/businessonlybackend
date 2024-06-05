@@ -39,6 +39,9 @@ class ResetPasswordForm extends Model
         parent::__construct($config);
     }
 
+    protected function getUser(){
+        return $this->_user;
+    }
     /**
      * {@inheritdoc}
      */
