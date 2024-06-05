@@ -82,9 +82,13 @@ class UserController extends Controller
                     }
                 }
                
-                $model->sendEmail();
+                if($model->sendEmail()){
+                    Yii::$app->session->setFlash('success','De gebruiker is succesvol aangemaakt');
+                }
+                
                 return $this->redirect(['index']);
             }
+            Yii::$app->session->setFlash('warning','Er is wat misgegaan met aanmaken van de gebruiker');
         } else {
             $model->loadDefaultValues();
         }

@@ -241,7 +241,7 @@ class SiteController extends Controller
         }
         if ($model->verifyEmail()) {
             //Yii::$app->session->setFlash('success', 'Je mailaddress is bevestigd!');
-            return $this->redirect(Yii::$app->request->hostInfo);//$this->goHome();
+            return $this->redirect(Yii::$app->params["appUrl"]);//$this->goHome();
         }
 
         Yii::$app->session->setFlash('error', 'Sorry, het is niet mogelijk om je mailadres te te verifieren met dit token.');
