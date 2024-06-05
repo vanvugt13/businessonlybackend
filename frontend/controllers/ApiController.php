@@ -17,6 +17,7 @@ use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 use common\models\User;
 use DateTime;
+use frontend\models\Chat;
 use frontend\models\EventSponsor;
 use frontend\models\Post;
 use frontend\models\PostSeen;
@@ -95,73 +96,84 @@ class ApiController extends Controller
      *
      * @return mixed
      */
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
-                Yii::$app->session->setFlash('success', 'Thank you for contacting us. We will respond to you as soon as possible.');
-            } else {
-                Yii::$app->session->setFlash('error', 'There was an error sending your message.');
-            }
+    // public function actionContact()
+    // {
+    //     $model = new ContactForm();
+    //     if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+    //         if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
+    //             Yii::$app->session->setFlash('success', 'Thank you for contacting us. We will respond to you as soon as possible.');
+    //         } else {
+    //             Yii::$app->session->setFlash('error', 'There was an error sending your message.');
+    //         }
 
-            return $this->refresh();
-        }
+    //         return $this->refresh();
+    //     }
 
-        return $this->render('contact', [
-            'model' => $model,
-        ]);
-    }
+    //     return $this->render('contact', [
+    //         'model' => $model,
+    //     ]);
+    // }
 
     /**
      * Displays about page.
      *
      * @return mixed
      */
-    public function actionAbout()
-    {
-        return $this->render('about');
-    }
+    // public function actionAbout()
+    // {
+    //     return $this->render('about');
+    // }
 
     /**
      * Signs user up.
      *
      * @return mixed
      */
-    public function actionSignup()
-    {
-        $model = new SignupForm();
-        if ($model->load(Yii::$app->request->post()) && $model->signup()) {
-            Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
-            return $this->goHome();
-        }
+    // public function actionSignup()
+    // {
+    //     $model = new SignupForm();
+    //     if ($model->load(Yii::$app->request->post()) && $model->signup()) {
+    //         Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
+    //         return $this->goHome();
+    //     }
 
-        return $this->render('signup', [
-            'model' => $model,
-        ]);
-    }
+    //     return $this->render('signup', [
+    //         'model' => $model,
+    //     ]);
+    // }
 
     /**
      * Requests password reset.
      *
      * @return mixed
      */
-    public function actionRequestPasswordReset()
-    {
-        $model = new PasswordResetRequestForm();
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if ($model->sendEmail()) {
-                Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
+    // public function actionRequestPasswordReset()
+    // {
+    //     $model = new PasswordResetRequestForm();
+    //     if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+    //         if ($model->sendEmail()) {
+    //             Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
 
-                return $this->goHome();
+    //             return $this->goHome();
+    //         }
+
+    //         Yii::$app->session->setFlash('error', 'Sorry, we are unable to reset password for the provided email address.');
+    //     }
+
+    //     return $this->render('requestPasswordResetToken', [
+    //         'model' => $model,
+    //     ]);
+    // }
+
+    public function actionDeleteConversation(int $partner_id){
+            if(!$this->checkAccess()){
+                    return json_encode(['error'=>'not authorized']);
             }
-
-            Yii::$app->session->setFlash('error', 'Sorry, we are unable to reset password for the provided email address.');
-        }
-
-        return $this->render('requestPasswordResetToken', [
-            'model' => $model,
-        ]);
+            $deleted = 0;
+            $deleted += Chat::deleteAll(['source_user_id'=>$this->user->id,'destination_user_id'=>$partner_id]);
+            $deleted += Chat::deleteAll(['source_user_id'=>$partner_id,'destination_user_id'=>$this->user->id]);
+            
+            return json_encode($deleted?['success'=>'total '.$deleted.' chats verwijderd']:['error'=>'not authorized']);
     }
 
     /**
@@ -197,42 +209,42 @@ class ApiController extends Controller
      * @throws BadRequestHttpException
      * @return yii\web\Response
      */
-    public function actionVerifyEmail($token)
-    {
-        try {
-            $model = new VerifyEmailForm($token);
-        } catch (InvalidArgumentException $e) {
-            throw new BadRequestHttpException($e->getMessage());
-        }
-        if (($user = $model->verifyEmail()) && Yii::$app->user->login($user)) {
-            Yii::$app->session->setFlash('success', 'Your email has been confirmed!');
-            return $this->goHome();
-        }
+    // public function actionVerifyEmail($token)
+    // {
+    //     try {
+    //         $model = new VerifyEmailForm($token);
+    //     } catch (InvalidArgumentException $e) {
+    //         throw new BadRequestHttpException($e->getMessage());
+    //     }
+    //     if (($user = $model->verifyEmail()) && Yii::$app->user->login($user)) {
+    //         Yii::$app->session->setFlash('success', 'Your email has been confirmed!');
+    //         return $this->goHome();
+    //     }
 
-        Yii::$app->session->setFlash('error', 'Sorry, we are unable to verify your account with provided token.');
-        return $this->goHome();
-    }
+    //     Yii::$app->session->setFlash('error', 'Sorry, we are unable to verify your account with provided token.');
+    //     return $this->goHome();
+    // }
 
     /**
      * Resend verification email
      *
      * @return mixed
      */
-    public function actionResendVerificationEmail()
-    {
-        $model = new ResendVerificationEmailForm();
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if ($model->sendEmail()) {
-                Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
-                return $this->goHome();
-            }
-            Yii::$app->session->setFlash('error', 'Sorry, we are unable to resend verification email for the provided email address.');
-        }
+    // public function actionResendVerificationEmail()
+    // {
+    //     $model = new ResendVerificationEmailForm();
+    //     if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+    //         if ($model->sendEmail()) {
+    //             Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
+    //             return $this->goHome();
+    //         }
+    //         Yii::$app->session->setFlash('error', 'Sorry, we are unable to resend verification email for the provided email address.');
+    //     }
 
-        return $this->render('resendVerificationEmail', [
-            'model' => $model
-        ]);
-    }
+    //     return $this->render('resendVerificationEmail', [
+    //         'model' => $model
+    //     ]);
+    // }
 
     public function actionNotifications($code = null)
     {
@@ -258,38 +270,38 @@ class ApiController extends Controller
         //return json_encode('KLaar!!!');
     }
 
-    public function actionAllnews($value = 'all')
-    {
-        $all_items    =    [];
-        $news1    = [
-            'header' => 'item1',
-            'body' => 'body1',
-            'footer' => 'Footer1',
-            'summary' => 'Summary1',
-            'id' => 1,
-        ];
+    // public function actionAllnews($value = 'all')
+    // {
+    //     $all_items    =    [];
+    //     $news1    = [
+    //         'header' => 'item1',
+    //         'body' => 'body1',
+    //         'footer' => 'Footer1',
+    //         'summary' => 'Summary1',
+    //         'id' => 1,
+    //     ];
 
-        $news2    = [
-            'header' => 'item2',
-            'body' => 'body2',
-            'footer' => 'Footer2',
-            'summary' => 'Summary2',
-            'id' => 2,
-        ];
-        $news3    = [
-            'header' => 'item3',
-            'body' => 'body3',
-            'footer' => 'Footer3',
-            'summary' => 'Summary3',
-            'id' => 3,
-        ];
+    //     $news2    = [
+    //         'header' => 'item2',
+    //         'body' => 'body2',
+    //         'footer' => 'Footer2',
+    //         'summary' => 'Summary2',
+    //         'id' => 2,
+    //     ];
+    //     $news3    = [
+    //         'header' => 'item3',
+    //         'body' => 'body3',
+    //         'footer' => 'Footer3',
+    //         'summary' => 'Summary3',
+    //         'id' => 3,
+    //     ];
 
-        $all_items[]    =    $news1;
-        $all_items[]    =    $news2;
-        if ($value != 'all')
-            $all_items[]    =    $news3;
-        return json_encode($all_items);
-    }
+    //     $all_items[]    =    $news1;
+    //     $all_items[]    =    $news2;
+    //     if ($value != 'all')
+    //         $all_items[]    =    $news3;
+    //     return json_encode($all_items);
+    // }
 
     public function actionCheckLogin()
     {

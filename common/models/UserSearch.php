@@ -5,12 +5,14 @@ namespace common\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use common\models\User;
+use yii\db\Expression;
 
 /**
  * UserSearch represents the model behind the search form of `common\models\User`.
  */
 class UserSearch extends User
 {
+    public string $statusDescription;
     /**
      * {@inheritdoc}
      */
@@ -18,7 +20,7 @@ class UserSearch extends User
     {
         return [
             [['id', 'status', 'created_at', 'updated_at'], 'integer'],
-            [['username', 'auth_key', 'password_hash', 'password_reset_token', 'email', 'verification_token'], 'safe'],
+            [['username', 'auth_key', 'password_hash', 'password_reset_token', 'email', 'verification_token','statusDescription'], 'safe'],
         ];
     }
 
@@ -46,6 +48,7 @@ class UserSearch extends User
             'email',
             'username',
             'status',
+            new Expression('(case when status = 9 then "Moet nog geactiveerd worden" else "Actief" end ) as statusDescription'),
             'created_at',
         ]);
 
