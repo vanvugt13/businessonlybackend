@@ -5,6 +5,7 @@ namespace common\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use common\models\User;
+use yii\data\Sort;
 use yii\db\Expression;
 
 /**
@@ -54,8 +55,16 @@ class UserSearch extends User
 
         // add conditions that should always apply here
 
+        $sort = new Sort(['attributes'=>[
+            'email',
+            'username',
+            'status',
+            'statusDescription',
+            'created_at',
+        ]]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort'=>$sort
         ]);
 
         $this->load($params);
