@@ -107,8 +107,9 @@ class Post extends \yii\db\ActiveRecord
     public function afterSave($insert,$changedAttributes){
         parent::afterSave($insert,$changedAttributes);
         if($insert){
-            (new PushSubscribers())->sendNotification(1,'dit is een test','van mij');
+            (new PushSubscribers())->sendNotification(1,$this->title,$this->description);
         }
+        
     }
     public function afterFind()
     {

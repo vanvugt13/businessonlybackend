@@ -86,22 +86,25 @@ class PushSubscribers extends \yii\db\ActiveRecord
             $payload = [
                 'notification' => [
                     'title' => $title,
-                    'options' => [
-                        'body' => $message,
-                        'icon' => "assets/main-page-logo-small-hat.png",
-                        'badge' => "assets/main-page-logo-small-hat.png",
-                        'vibrate' => [100, 50, 100],
-                        "data" => [
-                            "dateOfArrival" => time(),
-                            'primaryKey' => 1,
-                            'silent' => false,
-                        ],
-                    ],
-                    'actions' => [["action" => "https://nu.nl", "title" => "go to site"]],
+                    'image'=>"https://socialsapp.familie-van-vugt.nl/assets/images/telefoon.png",
+                        'icon'=>"assets/images/profiel.png",
+                         'badge'=>"/assets/images/chat.png",
+                    // 'options' => [
+                    //     'body' => $message,
+                    //     'icon' => "assets/main-page-logo-small-hat.png",
+                    //     'badge' => "assets/main-page-logo-small-hat.png",
+                    //     'vibrate' => [100, 50, 100],
+                    //     "data" => [
+                    //         "dateOfArrival" => time(),
+                    //         'primaryKey' => 1,
+                    //         'silent' => false,
+                    //     ],
+                    // ],
+                    // 'actions' => [["action" => "https://nu.nl", "title" => "go to site"]],
                 ]
             ];
             $notification =         [
-                'subscription' => Subscription::create($item), 'payload' => json_encode($payload)
+                'subscription' => Subscription::create(json_decode($item->raw_data,true)), 'payload' => json_encode($payload)
             ];
             $notifications[]    =    $notification;
         }
