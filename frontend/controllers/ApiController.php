@@ -21,6 +21,7 @@ use frontend\models\Chat;
 use frontend\models\EventSponsor;
 use frontend\models\Post;
 use frontend\models\PostSeen;
+use frontend\models\PushSubscribers;
 use frontend\models\Subscribe;
 use Minishlink\WebPush\WebPush;
 use Minishlink\WebPush\Subscription;
@@ -250,20 +251,25 @@ class ApiController extends Controller
     {
         $this->enableCsrfValidation = false;
         if (Yii::$app->request->isPost) {
-            $notifications_file = Yii::getAlias('@runtime') . '/notifications.json';
-            $array = [];
-            if (file_exists($notifications_file)) {
-                $array = json_decode(file_get_contents($notifications_file), true);
-                if (!is_array($array)) {
-                    $array = [];
-                }
-            }
+
+            // $notifications_file = Yii::getAlias('@runtime') . '/notifications.json';
+            // $array = [];
+            // if (file_exists($notifications_file)) {
+            //     $array = json_decode(file_get_contents($notifications_file), true);
+            //     if (!is_array($array)) {
+            //         $array = [];
+            //     }
+            // }
 
             $rawdata = file_get_contents("php://input");
             $post_value = (array)json_decode($rawdata);
             $array[] = $post_value;
-            
-            file_put_contents($notifications_file, json_encode($array));
+            $pushSubscriber = new PushSubscribers();
+            $pushSubscriber->endpoint = $post_value["endpoint"]??null;
+            $pushSubscriber->keys     = serialize($post_value["keys"]??null);
+            $pushSubscriber->expirationDate = $post_value["expirationDate"]??null;
+            $pushSubscriber->save();
+            // file_put_contents($notifications_file, json_encode($array));
             return json_encode('Gelukt!');
         }
 
