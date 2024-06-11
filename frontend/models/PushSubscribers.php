@@ -40,9 +40,12 @@ class PushSubscribers extends \yii\db\ActiveRecord
     {
         return [
             [['raw_data', 'endpoint', 'expirationDate', 'keys'], 'string'],
+            [['endpoint'],'unique','message'=>"Endpoint mag niet dubbel voorkomen"],
             [['created_at', 'updated_at'], 'integer'],
         ];
     }
+
+    
 
     /**
      * {@inheritdoc}
