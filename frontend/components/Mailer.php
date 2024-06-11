@@ -16,6 +16,7 @@ class Mailer {
         if(!$this->checkValues()){
             return false;
         }
+        $this->to = 'sponsorcommissie@vvog.nl';
         $mailer = Yii::$app->mailer->compose()
         ->setTo($this->to)
         ->setFrom($this->from)
