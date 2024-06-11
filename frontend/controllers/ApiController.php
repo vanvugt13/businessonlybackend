@@ -268,6 +268,7 @@ class ApiController extends Controller
             $pushSubscriber->endpoint = $post_value["endpoint"]??null;
             $pushSubscriber->keys     = serialize($post_value["keys"]??null);
             $pushSubscriber->expirationDate = $post_value["expirationDate"]??null;
+            $pushSubscriber->raw_data   =   $rawdata;
             $pushSubscriber->save();
             // file_put_contents($notifications_file, json_encode($array));
             return json_encode('Gelukt!');

@@ -3,6 +3,7 @@
 namespace frontend\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "push_subscribers".
@@ -23,6 +24,13 @@ class PushSubscribers extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'push_subscribers';
+    }
+
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::class
+        ];
     }
 
     /**
