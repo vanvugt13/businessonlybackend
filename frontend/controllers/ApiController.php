@@ -251,16 +251,6 @@ class ApiController extends Controller
     {
         $this->enableCsrfValidation = false;
         if (Yii::$app->request->isPost) {
-
-            // $notifications_file = Yii::getAlias('@runtime') . '/notifications.json';
-            // $array = [];
-            // if (file_exists($notifications_file)) {
-            //     $array = json_decode(file_get_contents($notifications_file), true);
-            //     if (!is_array($array)) {
-            //         $array = [];
-            //     }
-            // }
-
             $rawdata = file_get_contents("php://input");
             $post_value = (array)json_decode($rawdata);
             $array[] = $post_value;
@@ -270,45 +260,9 @@ class ApiController extends Controller
             $pushSubscriber->expirationDate = $post_value["expirationDate"]??null;
             $pushSubscriber->raw_data   =   $rawdata;
             $pushSubscriber->save();
-            // file_put_contents($notifications_file, json_encode($array));
             return json_encode('Gelukt!');
         }
-
-        //return json_encode('KLaar!!!');
     }
-
-    // public function actionAllnews($value = 'all')
-    // {
-    //     $all_items    =    [];
-    //     $news1    = [
-    //         'header' => 'item1',
-    //         'body' => 'body1',
-    //         'footer' => 'Footer1',
-    //         'summary' => 'Summary1',
-    //         'id' => 1,
-    //     ];
-
-    //     $news2    = [
-    //         'header' => 'item2',
-    //         'body' => 'body2',
-    //         'footer' => 'Footer2',
-    //         'summary' => 'Summary2',
-    //         'id' => 2,
-    //     ];
-    //     $news3    = [
-    //         'header' => 'item3',
-    //         'body' => 'body3',
-    //         'footer' => 'Footer3',
-    //         'summary' => 'Summary3',
-    //         'id' => 3,
-    //     ];
-
-    //     $all_items[]    =    $news1;
-    //     $all_items[]    =    $news2;
-    //     if ($value != 'all')
-    //         $all_items[]    =    $news3;
-    //     return json_encode($all_items);
-    // }
 
     public function actionCheckLogin()
     {

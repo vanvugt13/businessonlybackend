@@ -2,6 +2,8 @@
 
 namespace frontend\models;
 
+use Minishlink\WebPush\Subscription;
+use Minishlink\WebPush\WebPush;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 
@@ -62,4 +64,80 @@ class PushSubscribers extends \yii\db\ActiveRecord
             'updated_at' => 'Updated At',
         ];
     }
+
+    private function getAuth():array{
+        return [
+            'VAPID' => [
+                'subject' => 'mailto:erik@familie-van-vugt.nl', // can be a mailto: or your website address
+                'publicKey' => "BAiH9NsTi0Qh5FqWcUY7TiaWw1nPST63dvrvooj0LjXYBJxrJ8wEdqxNEiJUZnE7AzQ3qvopql08fRw5FvNFg_4", // (recommended) uncompressed public key P-256 encoded in Base64-URL
+                'privateKey' => "BtQgFaO_aQhyphXQvEKzVIeZnmYs6nnfOKL1W0dcNtc", // (recommended) in fact the secret multiplier of the private key encoded in Base64-URL
+            ],
+        ];
+    }
+
+    public function sendNotification(array|int $users,string $title,string $message){
+        $auth = $this->getAuth();
+        $pushSubscribers = PushSubscribers::find()->all();
+       // $notifications_file = Yii::getAlias('@runtime') . '/notifications.json';
+       // $array = json_decode(file_get_contents($notifications_file), true);
+        $webPush = new WebPush($auth);
+        $notifications = [];
+        foreach ($pushSubscribers as $item) {
+            $payload = [
+                'notification' => [
+                    'title' => $title,
+                    'options' => [
+                        'body' => $message,
+                        'icon' => "assets/main-page-logo-small-hat.png",
+                        'badge' => "assets/main-page-logo-small-hat.png",
+                        'vibrate' => [100, 50, 100],
+                        "data" => [
+                            "dateOfArrival" => time(),
+                            'primaryKey' => 1,
+                            'silent' => false,
+                        ],
+                    ],
+                    'actions' => [["action" => "https://nu.nl", "title" => "go to site"]],
+                ]
+            ];
+            $notification =         [
+                'subscription' => Subscription::create($item), 'payload' => json_encode($payload)
+            ];
+            $notifications[]    =    $notification;
+        }
+        // send multiple notifications with payload
+        foreach ($notifications as $notification) {
+            $webPush->queueNotification(
+                $notification['subscription'],
+                $notification['payload'] // optional (defaults null)
+            );
+        }
+        $i = 0;
+        $already_done = [];
+        foreach ($webPush->flush() as $report) {
+            echo '<pre>';
+            $endpoint = $report->getRequest()->getUri()->__toString();
+            echo  "number $i<br>";
+            if (in_array($endpoint, $already_done)) {
+                echo "verwijeren! met $endpoint";
+                $this->removeEndpoint($endpoint);
+                continue;
+            }
+            $already_done[]    =    $endpoint;
+            if ($report->isSuccess()) {
+                echo "[v] Message sent successfully for subscription {$endpoint}.";
+            } else {
+                echo "[x] Message failed to sent for subscription {$endpoint}: {$report->getReason()}";
+                $this->removeEndpoint($endpoint);
+            }
+            $i++;
+        }
+
+        
+    }
+
+    protected function removeEndpoint($endpoint){
+        return PushSubscribers::deleteAll(['endpoint'=>$endpoint]);
+    }
 }
+

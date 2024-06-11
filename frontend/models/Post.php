@@ -103,6 +103,13 @@ class Post extends \yii\db\ActiveRecord
     public function getFilename(){
         return Image::getImageUrl($this);
     }
+
+    public function afterSave($insert,$changedAttributes){
+        parent::afterSave($insert,$changedAttributes);
+        if($insert){
+            (new PushSubscribers())->sendNotification(1,'dit is een test','van mij');
+        }
+    }
     public function afterFind()
     {
         if(!empty($this->visible_till)){
