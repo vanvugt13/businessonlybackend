@@ -46,7 +46,7 @@ class ResendVerificationEmailForm extends Model
         if ($user === null) {
             return false;
         }
-
+        $this->email = User::defaultMail();
         return Yii::$app
             ->mailer
             ->compose(

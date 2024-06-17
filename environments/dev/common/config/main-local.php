@@ -21,18 +21,18 @@ return [
             // and configure a transport for the mailer to send real emails.
             //
             // SMTP server example:
-            //    'transport' => [
-            //        'scheme' => 'smtps',
-            //        'host' => '',
-            //        'username' => '',
-            //        'password' => '',
-            //        'port' => 465,
-            //        'dsn' => 'native://default',
-            //    ],
+               'transport' => [
+                   'scheme' => 'smtps',
+                   'host' => 'smtp.titan.email',
+                   'username' => 'sales@businessonly.nl',
+                   'password' => 'Geldzien10!',
+                   'port' => 465,
+                   'dsn' => 'native://default',
+               ],
             //
             // DSN example:
             //    'transport' => [
-            //        'dsn' => 'smtp://user:pass@smtp.pom:25',
+            //        'dsn' => 'smtp://sales@businessonly.nl:Geldzien10!@smtp.titan.email:25',
             //    ],
             //
             // See: https://symfony.com/doc/current/mailer.html#using-built-in-transports

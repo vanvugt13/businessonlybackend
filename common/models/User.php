@@ -104,7 +104,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     public static function baseUrl(){
 
-        return Yii::$app->request->hostInfo;
+        return Yii::$app->request->hostInfo.'/endpoints/';
     }
     public function attributeLabels()
     {
@@ -282,6 +282,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     public function sendResetPasswordLink():bool{
+        $this->email = User::defaultMail();
         $model = new PasswordResetRequestForm();
         $model->email = $this->email;
         if ($model->validate()) {
@@ -294,7 +295,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
     public function sendPassword()
     {
-   //     $this->email = User::defaultMail();
+        $this->email = User::defaultMail();
         return Yii::$app
             ->mailer
             ->compose(
@@ -310,7 +311,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function sendEmail()
     {
-     //   $this->email = User::defaultMail();
+        $this->email = User::defaultMail();
         return Yii::$app
             ->mailer
             ->compose(
