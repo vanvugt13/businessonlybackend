@@ -27,7 +27,7 @@ return [
                    'username' => 'sales@businessonly.nl',
                    'password' => 'Geldzien10!',
                    'port' => 465,
-                   'dsn' => 'native://default',
+             //      'dsn' => 'native://default',
                ],
             //
             // DSN example:

@@ -296,15 +296,17 @@ class User extends ActiveRecord implements IdentityInterface
     public function sendPassword()
     {
         $this->email = User::defaultMail();
+        //TODO variable subject
+        $subject = 'Activeer jouw account voor de VVOG app';
         return Yii::$app
             ->mailer
             ->compose(
                 ['html' => 'emailFirstPassword-html', 'text' => 'emailFirstPassword-text'],
                 ['user' => $this]
             )
-            ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
+            ->setFrom([Yii::$app->params['supportEmail'] => 'Sales | Business only'])
             ->setTo($this->email)
-            ->setSubject('Uw account is aangemaakt voor ' . Yii::$app->name)
+            ->setSubject($subject)
             ->send();
     }
 
@@ -312,15 +314,16 @@ class User extends ActiveRecord implements IdentityInterface
     public function sendEmail()
     {
         $this->email = User::defaultMail();
+        $subject = 'Activeer jouw account voor de VVOG app';
         return Yii::$app
             ->mailer
             ->compose(
-                ['html' => 'emailVerify-html', 'text' => 'emailVerify-text'],
+                ['html' => 'emailVerify-appuser-html', 'text' => 'emailVerify-appuser-text'],
                 ['user' => $this]
             )
-            ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
+            ->setFrom([Yii::$app->params['supportEmail'] => 'Sales | Business only'])
             ->setTo($this->email)
-            ->setSubject('Uw account is aangemaakt voor ' . Yii::$app->name)
+            ->setSubject($subject)
             ->send();
     }
 
