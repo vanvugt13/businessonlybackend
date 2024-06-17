@@ -29,7 +29,7 @@ class CompanyController extends Controller
                  
                     'rules' => [
                         [
-                            'actions' => ['index', 'view','delete','create','update'],
+                            'actions' => ['index', 'view','delete','create','update','fetchdata','check-images'],
                             'allow' => true,
                             'roles' => ['@'],
                         ],
