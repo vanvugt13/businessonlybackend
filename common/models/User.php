@@ -109,7 +109,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     public static function baseAppLoginUrl(){
 
-        return 'https://vvog.businessonly.nl/';
+        return 'https://vvog.businessonly.nl/endpoints/';
     }
     public static function baseEndpointsUrl(){
 
