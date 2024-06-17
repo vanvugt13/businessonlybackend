@@ -17,17 +17,17 @@ Om er zeker van te zijn dat we het juiste email adres van je hebben, klik hieron
 <br><br>
  
 
-<?= Html::a(Html::encode($verifyLink), $verifyLink) ?>
+<?= Html::a(Html::encode('Activeer nu'), $verifyLink) ?>
 <br><br>
 
  
 
-Deze businessclub app is een product van businessonly.nl. Voor vragen kun je contact opnemen via sales@businessonly.nl of kijk op www.businessonly.nl
+Deze businessclub app is een product van businessonly. Voor vragen kun je contact opnemen via sales@businessonly.nl of kijk op www.businessonly.nl
 
 <br><br>
 
-Met vriendelijke groeten
-<br><br>
+Met vriendelijke groeten,
+<br>
 Team Onboarding</p>
-<p>Businessonly.nl</p>
+<p>Businessonly</p>
 </div>
