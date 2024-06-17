@@ -306,11 +306,11 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->email = User::defaultMail();
         //TODO variable subject
-        $subject = 'Activeer jouw account voor de VVOG app';
+        $subject = 'Welkom en log direct in!';
         return Yii::$app
             ->mailer
             ->compose(
-                ['html' => 'emailFirstPassword-html', 'text' => 'emailFirstPassword-text'],
+                ['html' => 'emailFirstPassword-appuser-html', 'text' => 'emailFirstPassword-appuser-text'],
                 ['user' => $this]
             )
             ->setFrom([Yii::$app->params['supportEmail'] => 'Sales | Business only'])
