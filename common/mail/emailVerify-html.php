@@ -8,7 +8,7 @@ use yii\helpers\Html;
 $verifyLink = Yii::$app->urlManager->createAbsoluteUrl(['site/verify-email', 'token' => $user->verification_token]);
 ?>
 <div class="verify-email">
-    <p>Hallo <?= Html::encode($user->username) ?>,</p>
+    <p>Hallo,</p>
 
     <p>Wat leuk dat je een account hebt aangevraagd voor de business app van VVOG.<br><br>
 
