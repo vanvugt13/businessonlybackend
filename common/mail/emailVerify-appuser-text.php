@@ -3,7 +3,7 @@
 /** @var yii\web\View $this */
 /** @var common\models\User $user */
 
-$verifyLink = Yii::$app->urlManager->createAbsoluteUrl(['site/verify-email', 'token' => $user->verification_token],'https://vvog.businssonly.nl');
+$verifyLink = Yii::$app->request->hostInfo.Yii::$app->urlManager->createUrl(['site/verify-email', 'token' => $user->verification_token]);
 ?>
 Hallo <?= $user->username ?>,
 
