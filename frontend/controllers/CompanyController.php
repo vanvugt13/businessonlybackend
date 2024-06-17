@@ -26,15 +26,10 @@ class CompanyController extends Controller
             [
                 'access' => [
                     'class' => AccessControl::class,
-                    'only' => ['logout', 'signup'],
+                 
                     'rules' => [
                         [
-                            'actions' => ['signup'],
-                            'allow' => true,
-                            'roles' => ['?'],
-                        ],
-                        [
-                            'actions' => ['logout'],
+                            'actions' => ['index', 'view','delete','create','update'],
                             'allow' => true,
                             'roles' => ['@'],
                         ],

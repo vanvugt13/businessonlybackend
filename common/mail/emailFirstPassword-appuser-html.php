@@ -8,16 +8,13 @@ use yii\helpers\Html;
 
 ?>
 <div class="verify-email">
-    <p>Hallo,</p>
-    Hallo,
-
- 
+    <p>Hallo,</p> 
 
 Welkom bij de businessclub app van VVOG! Je bent er bijna.<br><br>
 
 Klik op onderstaande link om naar de inlogpagina van de app te gaan. De app is een webapp, waardoor je deze niet hoeft te downloaden vanuit diverse appstores, maar is via je browser op je telefoon te openen.<br><br>
 
-<?=Html::a('https://www.vvog.businessonly.nl','https://www.vvog.businessonly.nl');?><br><br>
+<?=Html::a('https://vvog.businessonly.nl','https://vvog.businessonly.nl');?><br><br>
 
 Afhankelijk van je telefoon of browser, zal de app direct worden geïnstalleerd op je beginscherm of moet je hem zelf toevoegen door te klikken op de button “Delen”
 <br><br>

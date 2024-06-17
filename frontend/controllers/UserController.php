@@ -7,6 +7,7 @@ use common\models\UserSearch;
 use frontend\components\Image;
 use frontend\models\Company;
 use Yii;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -16,6 +17,7 @@ use yii\filters\VerbFilter;
  */
 class UserController extends Controller
 {
+    
     /**
      * @inheritDoc
      */
@@ -24,8 +26,18 @@ class UserController extends Controller
         return array_merge(
             parent::behaviors(),
             [
+                'access' => [
+                    'class' => AccessControl::class,
+                    'rules' => [
+                        [
+                            'actions' => ['index', 'view','delete','create','update'],
+                            'allow' => true,
+                            'roles' => ['@'],
+                        ],
+                    ],
+                ],
                 'verbs' => [
-                    'class' => VerbFilter::className(),
+                    'class' => VerbFilter::class,
                     'actions' => [
                         'delete' => ['POST'],
                     ],
