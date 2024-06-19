@@ -92,7 +92,7 @@ class ApiController extends Controller
     {
         Yii::$app->user->logout();
 
-        return $this->goHome();
+        return json_encode(['success'=>true]);
     }
 
     /**
