@@ -44,6 +44,9 @@ class ApiController extends Controller
        
         $this->user     =       User::find()->where(['token' => $bearer_token])->one();
 
+        if(!Yii::$app->user->isGuest){
+            $this->user = Yii::$app->user->identity;
+        }
         // return true;
         return parent::beforeAction($action);
     }
