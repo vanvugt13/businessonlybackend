@@ -286,9 +286,10 @@ class ApiController extends Controller
     }
 
     public function actionBcNewsItem($id){
+
         if(empty($this->user->id))
         {
-            return json_encode(['error'=>'not authorized']);
+            return json_encode(['error'=>'not authorized','id'=>Yii::$app->user->id]);
         }
         $post  =   Post::find()
         ->joinWith('user')
