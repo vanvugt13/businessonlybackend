@@ -39,10 +39,10 @@ class ApiController extends Controller
     public function beforeAction($action)
     {
         $this->enableCsrfValidation = false;
-        $getHeaders = Yii::$app->request->headers;
-        $bearer_token = trim(str_replace('Bearer', '', $getHeaders->get('Authorization')));
+    //    $getHeaders = Yii::$app->request->headers;
+     //   $bearer_token = trim(str_replace('Bearer', '', $getHeaders->get('Authorization')));
        
-        $this->user     =       User::find()->where(['token' => $bearer_token])->one();
+      //  $this->user     =       User::find()->where(['token' => $bearer_token])->one();
 
         if(!Yii::$app->user->isGuest){
             $this->user = Yii::$app->user->identity;
@@ -55,33 +55,33 @@ class ApiController extends Controller
      *
      * @return mixed
      */
-    public function actionIndex()
-    {
-        return $this->render('index');
-    }
+    // public function actionIndex()
+    // {
+    //     return $this->render('index');
+    // }
 
     /**
      * Logs in a user.
      *
      * @return mixed
      */
-    public function actionLogin2()
-    {
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
+    // public function actionLogin2()
+    // {
+    //     if (!Yii::$app->user->isGuest) {
+    //         return $this->goHome();
+    //     }
 
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        }
+    //     $model = new LoginForm();
+    //     if ($model->load(Yii::$app->request->post()) && $model->login()) {
+    //         return $this->goBack();
+    //     }
 
-        $model->password = '';
+    //     $model->password = '';
 
-        return $this->render('login', [
-            'model' => $model,
-        ]);
-    }
+    //     return $this->render('login', [
+    //         'model' => $model,
+    //     ]);
+    // }
 
     /**
      * Logs out the current user.
@@ -270,7 +270,7 @@ class ApiController extends Controller
     public function actionCheckLogin()
     {
         $cookie = Yii::$app->request->cookies;
-        return json_encode(['success' => $this->user ? true : false,'data'=>serialize($cookie)]);
+        return json_encode(['success' => $this->user ? true : false,'data'=>$this->user->id]);
     }
 
     public function actionResetPasswordRequest()
@@ -619,6 +619,7 @@ class ApiController extends Controller
 
         $loginmodel->username   =   $post_value["username"] ?? null;
         $loginmodel->password   =   $post_value["password"] ?? null;
+        $loginmodel->rememberMe =   $post_value["rememberMe"] ?? null;
 
         if ($loginmodel->login()) {
             $usermodel = User::find()->where(['username' => $loginmodel->username])->one();
