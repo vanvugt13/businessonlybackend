@@ -622,10 +622,11 @@ class ApiController extends Controller
 
             $usermodel->token = $token;
             $usermodel->save();
-           
-
+            
+            $cookie = Yii::$app->request->cookies;
+            //Save with httponly cookie
             return json_encode([
-                'result' => 'success', 'token' => $token, 'id' => $usermodel->id, 'username' => $loginmodel->username
+                'result' => 'success', 'token' => $token, 'id' => $usermodel->id, 'username' => $loginmodel->username,'cookie'=>serialize($cookie),'loggedinid'=>Yii::$app->user->id
             ]);
         }
         return json_encode(['result' => 'error', 'message' => 'Username and/or password invalid']);
