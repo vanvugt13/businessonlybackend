@@ -270,7 +270,7 @@ class ApiController extends Controller
     public function actionCheckLogin()
     {
         $cookie = Yii::$app->request->cookies;
-        return json_encode(['success' => $this->user ? true : false]);
+        return json_encode(['idis'=>$this->user?->id,'success' => $this->user ? true : false]);
     }
 
     public function actionResetPasswordRequest()
