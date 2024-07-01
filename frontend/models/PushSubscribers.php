@@ -118,19 +118,19 @@ class PushSubscribers extends \yii\db\ActiveRecord
         $i = 0;
         $already_done = [];
         foreach ($webPush->flush() as $report) {
-            echo '<pre>';
+           // echo '<pre>';
             $endpoint = $report->getRequest()->getUri()->__toString();
-            echo  "number $i<br>";
+         //   echo  "number $i<br>";
             if (in_array($endpoint, $already_done)) {
-                echo "verwijeren! met $endpoint";
+          //      echo "verwijeren! met $endpoint";
                 $this->removeEndpoint($endpoint);
                 continue;
             }
             $already_done[]    =    $endpoint;
             if ($report->isSuccess()) {
-                echo "[v] Message sent successfully for subscription {$endpoint}.";
+           //     echo "[v] Message sent successfully for subscription {$endpoint}.";
             } else {
-                echo "[x] Message failed to sent for subscription {$endpoint}: {$report->getReason()}";
+            //    echo "[x] Message failed to sent for subscription {$endpoint}: {$report->getReason()}";
                 $this->removeEndpoint($endpoint);
             }
             $i++;

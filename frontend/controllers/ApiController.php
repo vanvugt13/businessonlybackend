@@ -619,7 +619,7 @@ class ApiController extends Controller
 
         $loginmodel->username   =   $post_value["username"] ?? null;
         $loginmodel->password   =   $post_value["password"] ?? null;
-        $loginmodel->rememberMe =   $post_value["rememberMe"] ?? null;
+      //  $loginmodel->rememberMe =   $post_value["rememberMe"] ?? null;
 
         if ($loginmodel->login()) {
             $usermodel = User::find()->where(['username' => $loginmodel->username])->one();
