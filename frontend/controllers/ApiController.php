@@ -92,7 +92,7 @@ class ApiController extends Controller
     {
         Yii::$app->user->logout();
 
-        return json_encode(['success'=>true]);
+        return json_encode(['success'=>Yii::$app->user->isGuest?true:false]);
     }
 
     /**
