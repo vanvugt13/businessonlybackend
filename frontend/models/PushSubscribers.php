@@ -86,6 +86,7 @@ class PushSubscribers extends \yii\db\ActiveRecord
             $payload = [
                 'notification' => [
                     'title' => $title,
+                    'tag'=>'post',
                     //'image'=>"https://socialsapp.familie-van-vugt.nl/assets/images/telefoon.png",
                         'icon'=>"assets/icons/icon-144x144.png",
                       //   'badge'=>"/assets/images/chat.png",
