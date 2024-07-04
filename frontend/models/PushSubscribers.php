@@ -75,13 +75,24 @@ class PushSubscribers extends \yii\db\ActiveRecord
         ];
     }
 
-    public function sendNotification(array|int $users,string $title,string $message){
+    public function sendNotification(array|int $users,string $title,string $message,int $type){
         $auth = $this->getAuth();
         $pushSubscribers = PushSubscribers::find()->all();
        // $notifications_file = Yii::getAlias('@runtime') . '/notifications.json';
        // $array = json_decode(file_get_contents($notifications_file), true);
         $webPush = new WebPush($auth);
         $notifications = [];
+
+        if($type == Post::CATEGORY_POST){
+            $page = '/news';
+        }
+        if($type == Post::CATEGORY_EVENTS){
+            $page = '/calendar';
+        }
+        if($type == Post::CATEGORY_NEWS){
+            $page = '/news';
+        }
+        $url = Yii::$app->params["appUrl"].$page;
         foreach ($pushSubscribers as $item) {
             $payload = [
                 'notification' => [
@@ -105,7 +116,7 @@ class PushSubscribers extends \yii\db\ActiveRecord
                     //  ["action"=>"URI","uri" => "https://socialsapp.familie-van-vugt.nl", "title" => "Ga de testapp"]],
                     "data"=>[
                         "onActionClick"=>[
-                          "default"=>["operation"=>"openWindow", "url"=> "https://socialsapp.familie-van-vugt.nl"]
+                          "default"=>["operation"=>"openWindow", "url"=> $url]
                         ]
                     ]
                 ],
