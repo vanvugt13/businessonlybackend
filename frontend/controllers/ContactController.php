@@ -260,6 +260,11 @@ class ContactController extends Controller
 		    //return json_encode('KLaar!!!');
     }
 
+    public function actionSetChatsToSeen($id){
+
+            Chat::updateAll(['seen'=>1],'(source_user_id='.$id.' AND destination_user_id='.$this->user->id.') OR (source_user_id='.$this->user->id.' AND destination_user_id='.$id.')');
+            return json_encode('Gelukt!'); 
+    }
     public function actionGetChats($id)
     {
         if(empty($this->user->id))
