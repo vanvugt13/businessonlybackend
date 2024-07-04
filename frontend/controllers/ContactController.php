@@ -404,7 +404,7 @@ class ContactController extends Controller
         $subQuery = Chat::find()
         ->select([
             new Expression('(case when source_user_id='.$this->user->id.' then destination_user_id else source_user_id end) as chat_user_id'),
-            new Expression('(case when seen =0 then 1 else 0 end) as unseen'),
+            new Expression('(case when seen =0 and source_user_id != '.$this->user->id.' then 1 else 0 end) as unseen'),
             new Expression('id AS message_id'),
             
         ]
