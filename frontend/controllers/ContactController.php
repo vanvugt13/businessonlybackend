@@ -276,7 +276,8 @@ class ContactController extends Controller
 			    'message'=>$chat->message,
 			    'way'=>($id == $chat->source_user_id)?"in":"out",
 			    'created_at'=>date("H:i",$chat->created_at),
-				'contact_id'=>$id
+				'contact_id'=>$id,
+                'seen'=>$chat->seen
 		    ];
 	    }
 	    return json_encode($array);
@@ -399,8 +400,6 @@ class ContactController extends Controller
         ->select([
             new Expression('(case when source_user_id='.$this->user->id.' then destination_user_id else source_user_id end) as chat_user_id'),
             new Expression('id AS message_id'),
-            //new Expression('max(created_at) as last_message_datetime'),
-           // new Expression('max(id) as last_message_id'),
         ]
         )
         ->orWhere(['source_user_id'=>$this->user->id])
@@ -413,11 +412,11 @@ class ContactController extends Controller
         'max(message_id) as last_message_id',
         'chat_user_id',
         ])
-        ->groupBy('chat_user_id')
+        ->groupBy('chat_user_id');
 
-        // echo $chats->createCommand()->getRawSql();
-        // exit;
-        ->all();
+        echo $chats->createCommand()->getRawSql();
+        exit;
+      //  ->all();
         foreach($chats as $chat){
             $usermodel = User::findOne($chat->chat_user_id);
             

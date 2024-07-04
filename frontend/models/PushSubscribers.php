@@ -93,7 +93,7 @@ class PushSubscribers extends \yii\db\ActiveRecord
             $page = '/news';
         }
         $url = Yii::$app->request->hostInfo.$page;
-        $url = 'https://socialsapp.familie-van-vugt.nl/calendar';
+      //  $url = 'https://socialsapp.familie-van-vugt.nl/calendar';
         foreach ($pushSubscribers as $item) {
             $payload = [
                 'notification' => [

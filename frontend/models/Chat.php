@@ -12,6 +12,7 @@ use Yii;
  * @property string|null $message
  * @property int|null $destination_user_id
  * @property int|null $created_at
+ * @property int|null $seen
  */
 class Chat extends \yii\db\ActiveRecord
 {
@@ -30,7 +31,7 @@ class Chat extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['source_user_id', 'destination_user_id', 'created_at'], 'integer'],
+            [['source_user_id', 'destination_user_id', 'created_at', 'seen'], 'integer'],
             [['message'], 'string'],
         ];
     }
@@ -46,6 +47,7 @@ class Chat extends \yii\db\ActiveRecord
             'message' => 'Message',
             'destination_user_id' => 'Destination User ID',
             'created_at' => 'Created At',
+            'seen'=>'Gezien',
         ];
     }
 }
