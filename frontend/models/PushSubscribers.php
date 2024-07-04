@@ -101,7 +101,7 @@ class PushSubscribers extends \yii\db\ActiveRecord
                     //         'silent' => false,
                     //     ],
                     // ],
-                     'actions' => [["action" => "vvog.businessonly.nl", "title" => "Ga naar app"]],
+                     'actions' => [["action" => "https://vvog.businessonly.nl", "title" => "Ga naar app"]],
                 ]
             ];
             $notification =         [
