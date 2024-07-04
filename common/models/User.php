@@ -54,6 +54,7 @@ class User extends ActiveRecord implements IdentityInterface
     public $chat_user_id;
     public $last_message;
     public $last_message_datetime;
+    public int $total_unseen;
     public $imageApp;
     public string $statusDescription='';
 

@@ -16,7 +16,7 @@ use Yii;
  */
 class Chat extends \yii\db\ActiveRecord
 {
-    public int $total_unseen;
+
     /**
      * {@inheritdoc}
      */
