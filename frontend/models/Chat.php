@@ -31,7 +31,7 @@ class Chat extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['source_user_id', 'destination_user_id', 'created_at', 'seen','total_unseen'], 'integer'],
+            [['source_user_id', 'destination_user_id', 'created_at', 'seen'], 'integer'],
             [['message'], 'string'],
         ];
     }
