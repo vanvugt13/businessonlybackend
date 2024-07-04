@@ -72,7 +72,7 @@ in this example i'll use standard JPG
 
     private static function getFilename(User|Company|Post $model){
         if(empty($model->unique_id)){
-            return Url::base(true).'/images/profiel.png'; //null;
+            return '/assets/images/profiel.png'; //null;
         }
         $filename = $model->unique_id.'.png';
         $absoluteimagepath = Yii::getAlias('@webroot').'/images/'.$filename;
