@@ -399,7 +399,9 @@ class ContactController extends Controller
         $subQuery = Chat::find()
         ->select([
             new Expression('(case when source_user_id='.$this->user->id.' then destination_user_id else source_user_id end) as chat_user_id'),
+            new Expression('(case when seen =0 then 1 else 0 end) as unseen'),
             new Expression('id AS message_id'),
+            
         ]
         )
         ->orWhere(['source_user_id'=>$this->user->id])
@@ -410,13 +412,14 @@ class ContactController extends Controller
         ->select([new Expression('(select message from chat where id=max(chatquery.message_id)) as last_message'),
         new Expression('(select created_at from chat where id=chatquery.message_id) as last_message_datetime'),
         'max(message_id) as last_message_id',
+        'sum(unseen) as total_unseen',
         'chat_user_id',
         ])
-        ->groupBy('chat_user_id');
+        ->groupBy('chat_user_id')
 
-        echo $chats->createCommand()->getRawSql();
-        exit;
-      //  ->all();
+        // echo $chats->createCommand()->getRawSql();
+        // exit;
+       ->all();
         foreach($chats as $chat){
             $usermodel = User::findOne($chat->chat_user_id);
             
