@@ -434,7 +434,9 @@ class ContactController extends Controller
                 'user_image'=>$usermodel?->getFilename(),
                 'last_message'=>$this->truncateMessage($chat->last_message),
                 'display_name'=>$usermodel->contactperson??'',
+                'unseen'=>$chat->total_unseen,
                 'last_message_datetime'=>date("d-m-Y H:i:s",$chat->last_message_datetime)];
+
             $returnarray[] = $data;
         }
        

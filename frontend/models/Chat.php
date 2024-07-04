@@ -16,7 +16,7 @@ use Yii;
  */
 class Chat extends \yii\db\ActiveRecord
 {
-    
+    public int $total_unseen;
     /**
      * {@inheritdoc}
      */
@@ -31,7 +31,7 @@ class Chat extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['source_user_id', 'destination_user_id', 'created_at', 'seen'], 'integer'],
+            [['source_user_id', 'destination_user_id', 'created_at', 'seen','total_unseen'], 'integer'],
             [['message'], 'string'],
         ];
     }
