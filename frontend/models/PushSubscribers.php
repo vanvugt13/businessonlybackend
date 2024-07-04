@@ -101,8 +101,13 @@ class PushSubscribers extends \yii\db\ActiveRecord
                     //         'silent' => false,
                     //     ],
                     // ],
-                     'actions' => [["action"=>"URI","uri" => "https://vvog.businessonly.nl", "title" => "Ga naar app2"],
-                     ["action"=>"URI","uri" => "https://socialsapp.familie-van-vugt.nl", "title" => "Ga de testapp"]],
+                    //  'actions' => [["action"=>"URI","uri" => "https://vvog.businessonly.nl", "title" => "Ga naar app2"],
+                    //  ["action"=>"URI","uri" => "https://socialsapp.familie-van-vugt.nl", "title" => "Ga de testapp"]],
+                    "data"=>[
+                        "onActionClick"=>[
+                          "default"=>["operation"=>"openWindow", "url"=> "https://socialsapp.familie-van-vugt.nl"]
+                        ]
+                    ]
                 ],
                 // 'webpush'=>[
                 //     'fcmOptions'=>[
