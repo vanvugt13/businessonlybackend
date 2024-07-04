@@ -101,13 +101,13 @@ class PushSubscribers extends \yii\db\ActiveRecord
                     //         'silent' => false,
                     //     ],
                     // ],
-                   //  'actions' => [["action" => "https://vvog.businessonly.nl", "title" => "Ga naar app"]],
+                     'actions' => [["action"=>"URI","uri" => "https://vvog.businessonly.nl", "title" => "Ga naar app"]],
                 ],
-                'webpush'=>[
-                    'fcmOptions'=>[
-                        'link'=>'https://vvog.businessonly.nl'
-                    ]
-                ]
+                // 'webpush'=>[
+                //     'fcmOptions'=>[
+                //         'link'=>'https://vvog.businessonly.nl'
+                //     ]
+                // ]
             ];
             $notification =         [
                 'subscription' => Subscription::create(json_decode($item->raw_data,true)), 'payload' => json_encode($payload)
