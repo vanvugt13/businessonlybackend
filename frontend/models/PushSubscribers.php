@@ -92,7 +92,7 @@ class PushSubscribers extends \yii\db\ActiveRecord
         if($type == Post::CATEGORY_NEWS){
             $page = '/news';
         }
-        $url = Yii::$app->params["appUrl"].$page;
+        $url = Yii::$app->request->hostInfo.$page;
         foreach ($pushSubscribers as $item) {
             $payload = [
                 'notification' => [
