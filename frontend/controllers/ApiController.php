@@ -257,7 +257,7 @@ class ApiController extends Controller
             $rawdata = file_get_contents("php://input");
             $rawdata_array = (array)json_decode($rawdata);
          //   $array[] = $post_value;
-            $post_value = $rawdata_array[0];
+            $post_value = (array)$rawdata_array[0];
             $uuid        =   $rawdata_array[1];
             $pushSubscriber = new PushSubscribers();
             $pushSubscriber->endpoint = $post_value["endpoint"]??null;
