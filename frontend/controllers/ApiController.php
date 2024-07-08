@@ -259,12 +259,14 @@ class ApiController extends Controller
          //   $array[] = $post_value;
             $post_value = (array)$rawdata_array[0];
             $uuid        =   $rawdata_array[1];
+            $user_id        =   $rawdata_array[2];
             $pushSubscriber = new PushSubscribers();
             $pushSubscriber->endpoint = $post_value["endpoint"]??null;
             $pushSubscriber->keys     = serialize($post_value["keys"]??null);
             $pushSubscriber->expirationDate = $post_value["expirationDate"]??null;
             $pushSubscriber->raw_data   =   $rawdata;
             $pushSubscriber->uuid       = $uuid;
+            $pushSubscriber->user_id       =    $user_id;
             $pushSubscriber->save();
             return json_encode('Gelukt!');
         }

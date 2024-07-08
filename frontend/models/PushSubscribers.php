@@ -16,6 +16,7 @@ use yii\behaviors\TimestampBehavior;
  * @property string|null $expirationDate
  * @property resource|null $keys
  * @property int|null $created_at
+ * @property int|null $user_id
  * @property int|null $updated_at
  * @property string $uuid
  */
@@ -44,7 +45,7 @@ class PushSubscribers extends \yii\db\ActiveRecord
         return [
             [['raw_data', 'endpoint', 'expirationDate', 'keys','uuid'], 'string'],
             [['endpoint'],'unique','message'=>"Endpoint mag niet dubbel voorkomen"],
-            [['created_at', 'updated_at'], 'integer'],
+            [['created_at', 'updated_at','user_id'], 'integer'],
         ];
     }
 
