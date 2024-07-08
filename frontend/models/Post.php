@@ -110,7 +110,7 @@ class Post extends \yii\db\ActiveRecord
         if($insert){
             (new PushSubscribers())->sendNotification(
                 ArrayHelper::map(User::find()->select('id')->all(),'id','id')
-                ,$this->title,$this->description,type:Post::CATEGORY_POST);
+                ,$this->title,$this->description,type:PushSubscribers::TYPE_POST);
         }
         
     }

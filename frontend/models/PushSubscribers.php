@@ -26,7 +26,10 @@ class PushSubscribers extends \yii\db\ActiveRecord
      * {@inheritdoc}
      */
 
-     const TYPE_CHAT = 'push-chat';
+     const TYPE_CHAT = 10;
+     const TYPE_EVENT = 20;
+     const TYPE_POST = 30;
+     const TYPE_NEWS = 40;
     public static function tableName()
     {
         return 'push_subscribers';
@@ -89,13 +92,13 @@ class PushSubscribers extends \yii\db\ActiveRecord
         $webPush = new WebPush($auth);
         $notifications = [];
 
-        if($type == Post::CATEGORY_POST){
+        if($type == self::TYPE_POST){
             $page = '/news';
         }
-        if($type == Post::CATEGORY_EVENTS){
+        if($type == self::TYPE_EVENT){
             $page = '/calendar';
         }
-        if($type == Post::CATEGORY_NEWS){
+        if($type == self::TYPE_NEWS){
             $page = '/news';
         }
         if($type == self::TYPE_CHAT){
