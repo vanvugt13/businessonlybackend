@@ -91,7 +91,7 @@ class PushSubscribers extends \yii\db\ActiveRecord
        // $array = json_decode(file_get_contents($notifications_file), true);
         $webPush = new WebPush($auth);
         $notifications = [];
-
+        $tag = 'post';
         if($type == self::TYPE_POST){
             $page = '/news';
         }
@@ -103,13 +103,14 @@ class PushSubscribers extends \yii\db\ActiveRecord
         }
         if($type == self::TYPE_CHAT){
             $page = '/chat';
+            $tag = 'chat';
         }
         $url = Yii::$app->request->hostInfo.$page;
         foreach ($pushSubscribers as $item) {
             $payload = [
                 'notification' => [
                     'title' => $title,
-                    'tag'=>'post',
+                    'tag'=>$tag,
                     //'image'=>"https://socialsapp.familie-van-vugt.nl/assets/images/telefoon.png",
                         'icon'=>"assets/icons/icon-144x144.png",
                       //   'badge'=>"/assets/images/chat.png",
