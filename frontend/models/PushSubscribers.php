@@ -143,6 +143,8 @@ class PushSubscribers extends \yii\db\ActiveRecord
             ];
             $notifications[]    =    $notification;
         }
+        print_r($notifications);
+        exit;
         // send multiple notifications with payload
         foreach ($notifications as $notification) {
             $webPush->queueNotification(
