@@ -255,13 +255,16 @@ class ApiController extends Controller
         $this->enableCsrfValidation = false;
         if (Yii::$app->request->isPost) {
             $rawdata = file_get_contents("php://input");
-            $post_value = (array)json_decode($rawdata);
-            $array[] = $post_value;
+            $rawdata_array = (array)json_decode($rawdata);
+         //   $array[] = $post_value;
+            $post_value = $rawdata_array[0];
+            $uuid        =   $rawdata_array[1];
             $pushSubscriber = new PushSubscribers();
             $pushSubscriber->endpoint = $post_value["endpoint"]??null;
             $pushSubscriber->keys     = serialize($post_value["keys"]??null);
             $pushSubscriber->expirationDate = $post_value["expirationDate"]??null;
             $pushSubscriber->raw_data   =   $rawdata;
+            $pushSubscriber->uuid       = $uuid;
             $pushSubscriber->save();
             return json_encode('Gelukt!');
         }
