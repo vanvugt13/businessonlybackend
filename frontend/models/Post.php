@@ -46,6 +46,8 @@ class Post extends \yii\db\ActiveRecord
     public $profile_image;
 
     public $have_seen;
+
+    public $from_appuser = true;
     /**
      * {@inheritdoc}
      */
@@ -108,8 +110,15 @@ class Post extends \yii\db\ActiveRecord
     public function afterSave($insert,$changedAttributes){
         parent::afterSave($insert,$changedAttributes);
         if($insert){
+            if($this->from_appuser){
+                $notify_users =ArrayHelper::map(User::find()->select('id')->where(['!=','user_id',$this->user->id])->all(),'id','id');
+            }
+            else{
+                $notify_users =ArrayHelper::map(User::find()->select('id')->all(),'id','id');
+            }
+            
             (new PushSubscribers())->sendNotification(
-                ArrayHelper::map(User::find()->select('id')->all(),'id','id')
+                $notify_users
                 ,$this->title,$this->description,type:PushSubscribers::TYPE_POST);
         }
         

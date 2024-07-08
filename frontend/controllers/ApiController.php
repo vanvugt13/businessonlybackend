@@ -567,11 +567,10 @@ class ApiController extends Controller
     public function actionAddPost(){
 
         if($this->request->isPost){
-            $rawdata = file_get_contents("php://input");
             $titel = Yii::$app->request->post('titel');
             $omschrijving = Yii::$app->request->post('omschrijving');
             $duur = Yii::$app->request->post('duur');
-           $image = \yii\web\UploadedFile::getInstanceByName('image');
+            $image = \yii\web\UploadedFile::getInstanceByName('image');
    
             if($image){
                 //echo "tempname is ".$image->tempName.' met '.$titel;
