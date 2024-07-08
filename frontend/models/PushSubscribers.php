@@ -25,6 +25,8 @@ class PushSubscribers extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
+
+     const TYPE_CHAT = 'push-chat';
     public static function tableName()
     {
         return 'push_subscribers';
@@ -79,7 +81,9 @@ class PushSubscribers extends \yii\db\ActiveRecord
 
     public function sendNotification(array|int $users,string $title,string $message,int $type){
         $auth = $this->getAuth();
-        $pushSubscribers = PushSubscribers::find()->all();
+        $pushSubscribers = PushSubscribers::find();  
+        $pushSubscribers->where(['user_id'=>$users]); 
+        $pushSubscribers = $pushSubscribers->all();
        // $notifications_file = Yii::getAlias('@runtime') . '/notifications.json';
        // $array = json_decode(file_get_contents($notifications_file), true);
         $webPush = new WebPush($auth);
@@ -94,8 +98,10 @@ class PushSubscribers extends \yii\db\ActiveRecord
         if($type == Post::CATEGORY_NEWS){
             $page = '/news';
         }
+        if($type == self::TYPE_CHAT){
+            $page = '/chat';
+        }
         $url = Yii::$app->request->hostInfo.$page;
-      //  $url = 'https://socialsapp.familie-van-vugt.nl/calendar';
         foreach ($pushSubscribers as $item) {
             $payload = [
                 'notification' => [

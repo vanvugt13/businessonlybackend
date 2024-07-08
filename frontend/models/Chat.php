@@ -50,4 +50,11 @@ class Chat extends \yii\db\ActiveRecord
             'seen'=>'Gezien',
         ];
     }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        if($insert){
+            (new PushSubscribers())->sendNotification($this->destination_user_id,'Nieuw chat bericht','Nieuw bericht',type:PushSubscribers::TYPE_CHAT);
+        }
+    }
 }

@@ -6,6 +6,7 @@ use common\models\User;
 use frontend\components\Image;
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\helpers\ArrayHelper;
 use yii\web\UploadedFile;
 
 /**
@@ -107,7 +108,9 @@ class Post extends \yii\db\ActiveRecord
     public function afterSave($insert,$changedAttributes){
         parent::afterSave($insert,$changedAttributes);
         if($insert){
-            (new PushSubscribers())->sendNotification(1,$this->title,$this->description,type:Post::CATEGORY_POST);
+            (new PushSubscribers())->sendNotification(
+                ArrayHelper::map(User::find()->select('id')->all(),'id','id')
+                ,$this->title,$this->description,type:Post::CATEGORY_POST);
         }
         
     }
