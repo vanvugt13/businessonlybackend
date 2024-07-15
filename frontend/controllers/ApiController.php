@@ -267,7 +267,10 @@ class ApiController extends Controller
             $pushSubscriber->raw_data   =   json_encode($post_value);//$rawdata;
             $pushSubscriber->uuid       = $uuid;
             $pushSubscriber->user_id       =    $user_id;
-            $pushSubscriber->save();
+            if($user_id != null){
+                $pushSubscriber->save();
+            }
+            
             return json_encode('Gelukt!');
         }
     }
