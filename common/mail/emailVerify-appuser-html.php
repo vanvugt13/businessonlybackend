@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /** @var yii\web\View $this */
 /** @var common\models\User $user */
 
-$verifyLink = User::baseAppLoginUrl().Yii::$app->urlManager->createUrl(['site/verify-email', 'token' => $user->verification_token]);
+$verifyLink = User::baseAppLoginUrl().Yii::$app->urlManager->createUrl(['/site/verify-email', 'token' => $user->verification_token]);
 ?>
 <div class="verify-email">
     <p>Hallo,</p>
