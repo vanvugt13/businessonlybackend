@@ -466,7 +466,8 @@ class ContactController extends Controller
       
         $otherUsers=    User::find()
             ->joinWith('company')
-            ->where(['not in','user.id',$this->user->id]);
+            ->where(['not in','user.id',$this->user->id])
+            ->andWhere(['type'=>User::TYPE_APPUSER]);
         if($searchTerm != null){
             $otherUsers->andWhere(['like','company.name',$searchTerm]);
         }
