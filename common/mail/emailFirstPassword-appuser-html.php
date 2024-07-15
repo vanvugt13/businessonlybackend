@@ -16,7 +16,7 @@ Klik op onderstaande link om naar de inlogpagina van de app te gaan. De app is e
 
 <?=Html::a('https://vvog.businessonly.nl','https://vvog.businessonly.nl');?><br><br>
 
-Afhankelijk van je telefoon of browser, zal de app direct worden geïnstalleerd op je beginscherm of moet je hem zelf toevoegen door te klikken op de button “Delen”
+Afhankelijk van je telefoon of browser, zal de app direct worden geïnstalleerd op je beginscherm of moet je hem zelf toevoegen door te klikken op de button "Toevoegen aan beginscherm"
 <br><br>
  Je Gebruikersnaam is je emailadres.
 <br><br>
