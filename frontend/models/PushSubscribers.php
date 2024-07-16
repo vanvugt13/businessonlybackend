@@ -96,9 +96,11 @@ class PushSubscribers extends \yii\db\ActiveRecord
             $page = '/news';
         }
         if($type == self::TYPE_EVENT){
+            $tag = 'event';
             $page = '/calendar';
         }
         if($type == self::TYPE_NEWS){
+            $tag = 'news';
             $page = '/news';
         }
         if($type == self::TYPE_CHAT){
