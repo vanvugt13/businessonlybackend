@@ -116,10 +116,16 @@ class Post extends \yii\db\ActiveRecord
             else{
                 $notify_users =ArrayHelper::map(User::find()->select('id')->all(),'id','id');
             }
-            
+            $type = PushSubscribers::TYPE_POST;
+            if(in_array(Post::CATEGORY_EVENTS,$this->category_array)){
+                $type = PushSubscribers::TYPE_EVENT;
+            }
+            if(in_array(Post::CATEGORY_NEWS,$this->category_array)){
+                $type = PushSubscribers::TYPE_NEWS;
+            }
             (new PushSubscribers())->sendNotification(
                 $notify_users
-                ,$this->title,$this->description,type:PushSubscribers::TYPE_POST);
+                ,$this->title,$this->description,type:$type);
         }
         
     }
