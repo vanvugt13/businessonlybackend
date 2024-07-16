@@ -415,7 +415,7 @@ class ContactController extends Controller
         $returnarray = [];
         $chats = User::find()->leftJoin(['chatquery'=>$subQuery],'chatquery.chat_user_id=user.id')
         ->select([new Expression('(select message from chat where id=max(chatquery.message_id)) as last_message'),
-        new Expression('(select created_at from chat where id=chatquery.message_id) as last_message_datetime'),
+        new Expression('(select created_at from chat where id=max(chatquery.message_id)) as last_message_datetime'),
         'max(message_id) as last_message_id',
         'sum(unseen) as total_unseen',
         'chat_user_id',
