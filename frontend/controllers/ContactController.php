@@ -421,7 +421,7 @@ class ContactController extends Controller
         'chat_user_id',
         ])
         ->groupBy('chat_user_id')
-        ->orderBy(new Expression('(select created_at from chat where id=max(chatquery.message_id))'))
+        ->orderBy(new Expression('(select created_at from chat where id=max(chatquery.message_id)) desc'))
 
         // echo $chats->createCommand()->getRawSql();
         // exit;
