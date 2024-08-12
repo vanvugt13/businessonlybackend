@@ -508,6 +508,8 @@ class ApiController extends Controller
                 'description',
                 'created_at',
                 'unique_id',
+                'subscribe_event',
+                'subscribe_news',
                 
                 new Expression('ifnull((select user_id from post_seen where user_id='.$this->user->id.' and post_id=post.id),0) as have_seen')
             ])
@@ -519,11 +521,13 @@ class ApiController extends Controller
             'user_id'=>$post->user_id,
             'have_seen'=>$post->have_seen?1:0,
             'afbeelding'=>$post->getFilename()??$post->user->company->getFilename(),
-            'tekst'=>$post->description,
+            'tekst'=>nl2br($post->description),
             'titel'=>$post->title,
             'datum'=>date("d-m-Y",$post->created_at),
             'contactperson'=>$post->user->contactperson,
             'company_name'=>$post->user->company->name,
+            'subscribe_news'=>$post->subscribe_news,
+            'subscribe_event'=>$post->subscribe_event,
             
 
         ];
