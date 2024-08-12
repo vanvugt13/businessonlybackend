@@ -99,7 +99,7 @@ class Post extends \yii\db\ActiveRecord
             [['description', 'image','username','category_description','unique_id'], 'string'],
             [['imageApp'],'file'],
             [['title'], 'string', 'max' => 100],
-            [['category','visible_till'],'safe'],
+            [['category','visible_till','visible_till_options'],'safe'],
         ];
     }
 
@@ -166,15 +166,16 @@ class Post extends \yii\db\ActiveRecord
 
             switch($this->visible_till_options){
                 case Post::VISIBLE_ONE_DAY:
-                $this->visible_till = date("Y-m-d",strtotime("+ 1 day"));
+                $this->visible_till = strtotime(date("Y-m-d",strtotime("+ 1 day")));
                 break;
                 case Post::VISIBLE_WEEK:
-                $this->visible_till = date("Y-m-d",strtotime("+ 1 week"));
+                $this->visible_till = strtotime(date("Y-m-d",strtotime("+ 1 week")));
                 break;
                 case Post::VISIBLE_MONTH:
-                $this->visible_till = date("Y-m-d",strtotime("+ 1 month"));
+                $this->visible_till = strtotime(date("Y-m-d",strtotime("+ 1 month")));
                 break;
             }
+            
             if(!in_array(self::CATEGORY_POST,$this->category_array)){
                 $this->visible_till = null;
             }
