@@ -164,6 +164,17 @@ class Post extends \yii\db\ActiveRecord
         if(parent::beforeSave($insert)){
             $this->convertValue();
 
+            switch($this->visible_till_options){
+                case Post::VISIBLE_ONE_DAY:
+                $this->visible_till = date("Y-m-d",strtotime("+ 1 day"));
+                break;
+                case Post::VISIBLE_WEEK:
+                $this->visible_till = date("Y-m-d",strtotime("+ 1 week"));
+                break;
+                case Post::VISIBLE_MONTH:
+                $this->visible_till = date("Y-m-d",strtotime("+ 1 month"));
+                break;
+            }
             if(!in_array(self::CATEGORY_POST,$this->category_array)){
                 $this->visible_till = null;
             }
