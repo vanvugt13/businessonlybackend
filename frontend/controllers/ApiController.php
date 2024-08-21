@@ -381,6 +381,33 @@ class ApiController extends Controller
         }
     }
 
+    public function actionSubscribedEvent($id){
+        if(empty($this->user->id))
+        {
+            return json_encode(['error'=>'not authorized']);
+        }
+        $subscribes = Subscribe::find()->where(['event_id'=>$id])->all();
+        $array= [];
+        foreach($subscribes as $subscribe){
+            $array[] = [
+                'id'=>$subscribe->id,
+             //   'profile_image'=>$subscribe->user->image,
+                'user_image'=>$subscribe->user->getFilename(),
+                'user_id'=>$subscribe->user_id,
+            ];
+        }
+        return json_encode($array);
+    }
+    public function actionSubscribeEvent($id){
+        if(empty($this->user->id))
+        {
+            return json_encode(['error'=>'not authorized']);
+        }
+        if(Subscribe::add(user_id:$this->user->id,event_id:$id)){
+            return $this->actionSubscribedEvent($id);
+        }
+    }
+
     public function actionGetAllEvents(){
         if(empty($this->user->id))
         {

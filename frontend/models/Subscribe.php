@@ -34,14 +34,26 @@ class Subscribe extends \yii\db\ActiveRecord
         ];
     }
 
-    public static function add($user_id,$news_id=null){
-        if(($existingmodel = self::find()->where(['user_id'=>$user_id,'news_id'=>$news_id])->one()) !== null){
-            $existingmodel->delete();
-            return true;
+    public static function add($user_id,$news_id=null,$event_id=null){
+        if($news_id !== null){
+            if(($existingmodel = self::find()->where(['user_id'=>$user_id,'news_id'=>$news_id])->one()) !== null){
+                $existingmodel->delete();
+                return true;
+            }
+            $model = new self();
+            $model->user_id =$user_id;
+            $model->news_id = $news_id;
         }
-        $model = new self();
-        $model->user_id =$user_id;
-        $model->news_id = $news_id;
+        if($event_id !== null){
+            if(($existingmodel = self::find()->where(['user_id'=>$user_id,'event_id'=>$event_id])->one()) !== null){
+                $existingmodel->delete();
+                return true;
+            }
+            $model = new self();
+            $model->user_id =$user_id;
+            $model->event_id = $event_id;
+        }
+        
         return $model->save();
         
     }
