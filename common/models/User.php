@@ -336,9 +336,12 @@ $html =<<<HTML
 
 Om er zeker van te zijn dat we het juiste email adres van je hebben, klik hieronder op de activatie button en je ontvangt direct daarna een email met instructies en inlog gegevens.
 <br><br>
+HTML;
  
 
-<?= Html::a(Html::encode('Activeer nu'), $verifyLink) ?>
+$html.= Html::a(Html::encode('Activeer nu'), $verifyLink);
+
+$html .= <<<HTML
 <br><br>
 
  
