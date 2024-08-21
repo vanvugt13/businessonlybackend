@@ -20,15 +20,15 @@ class Mailer {
         }
         if((new Mailer())->getFrom()===null){
             $error =true;
-            $error_message[] = '"defaultFrom" niet goed geset';
+            $error_message[] = '"defaultFrom" niet ingesteld';
         }
         if((new Mailer())->getTo()===null){
             $error =true;
-            $error_message[] = '"defaultTo" niet goed geset';
+            $error_message[] = '"defaultTo" niet ingesteld';
         }
         if((new Mailer())->getBeheerderMail()===null){
             $error = true;
-            $error_message[] = '"beheerderMail" niet goed geset';
+            $error_message[] = '"beheerderMail" niet  ingesteld';
         }
         if($error){
             echo  implode(',',$error_message);

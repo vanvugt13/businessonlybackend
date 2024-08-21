@@ -5,6 +5,7 @@ namespace common\models;
 use DOMDocument;
 use DOMXPath;
 use frontend\components\Image;
+use frontend\components\Mailer;
 use frontend\models\Company;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\SignupForm;
@@ -15,6 +16,7 @@ use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 use yii\web\UploadedFile;
 use PHPHtmlParser\Dom;
+use yii\helpers\Html;
 
 /**
  * User model
@@ -321,20 +323,61 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
 
+
+    private static function bodyNewUser(User $user){
+      
+        $verifyLink = User::baseAppLoginUrl();
+$verifyLink = Yii::$app->urlManager->createAbsoluteUrl(['/site/verify-email', 'token' => $user->verification_token]);
+$html =<<<HTML
+<div class="verify-email">
+    <p>Hallo,</p>
+
+    <p>Wat leuk dat je een account hebt aangevraagd voor de business app van VVOG.<br><br>
+
+Om er zeker van te zijn dat we het juiste email adres van je hebben, klik hieronder op de activatie button en je ontvangt direct daarna een email met instructies en inlog gegevens.
+<br><br>
+ 
+
+<?= Html::a(Html::encode('Activeer nu'), $verifyLink) ?>
+<br><br>
+
+ 
+
+Deze businessclub app is een product van businessonly. Voor vragen kun je contact opnemen via sales@businessonly.nl of kijk op www.businessonly.nl
+
+<br><br>
+
+Met vriendelijke groeten,
+<br>
+Team Onboarding</p>
+<p>Businessonly</p>
+</div>
+HTML;
+        return $html;
+
+    }
     public function sendEmail()
     {
-        $this->email = User::defaultMail();
-        $subject = 'Activeer jouw account voor de VVOG app';
-        return Yii::$app
-            ->mailer
-            ->compose(
-                ['html' => 'emailVerify-appuser-html', 'text' => 'emailVerify-appuser-text'],
-                ['user' => $this]
-            )
-            ->setFrom([Yii::$app->params['supportEmail'] => 'Sales | Business only'])
-            ->setTo($this->email)
-            ->setSubject($subject)
-            ->send();
+
+        $mailer = new Mailer();
+        $mailer->to = User::defaultMail();
+        $mailer->subject = 'Activeer jouw account voor de VVOG app';
+        $mailer->body = self::bodyNewUser($this);
+        $mailer->from = [Yii::$app->params['supportEmail'] => 'Sales | Business only'];
+
+        return  $mailer->send();
+        // $this->email = User::defaultMail();
+        // $subject = 'Activeer jouw account voor de VVOG app';
+        // return Yii::$app
+        //     ->mailer
+        //     ->compose(
+        //         ['html' => 'emailVerify-appuser-html', 'text' => 'emailVerify-appuser-text'],
+        //         ['user' => $this]
+        //     )
+        //     ->setFrom([Yii::$app->params['supportEmail'] => 'Sales | Business only'])
+        //     ->setTo($this->email)
+        //     ->setSubject($subject)
+        //     ->send();
     }
 
     public function afterSave($insert, $changedAttributes)

@@ -95,6 +95,7 @@ class UserController extends Controller
                 }
                
                 if($model->sendEmail()){
+                    
                     Yii::$app->session->setFlash('success','De gebruiker is succesvol aangemaakt');
                 }
                 
