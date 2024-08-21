@@ -16,6 +16,7 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use frontend\models\Subscribe;
 
 /**
  * Site controller
@@ -38,7 +39,7 @@ class SiteController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['logout','index'],
+                        'actions' => ['logout','index','list-subscribers','claimed-matches'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -69,6 +70,15 @@ class SiteController extends Controller
         ];
     }
 
+    public function actionListSubscribers(){
+        $subscribers = Subscribe::find()->all();
+        
+        return $this->render('list-subscribers');
+    }
+
+    public function actionClaimedMatches(){
+        return $this->render('claimed-matches');
+    }
     /**
      * Displays homepage.
      *

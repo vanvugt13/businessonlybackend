@@ -24,6 +24,10 @@ class EventSponsor extends \yii\db\ActiveRecord
     const SPONSOR_TYPE_SCORE = 30;
     
 
+    public $username;
+    public $event_description;
+    public $sponsor_typedescription;
+
     public function behaviors()
     {
         return [
@@ -45,6 +49,7 @@ class EventSponsor extends \yii\db\ActiveRecord
     {
         return [
             [['event_id', 'user_id', 'sponsor_type', 'created_at', 'updated_at'], 'integer'],
+            [['username','event_description','sponsor_typedescription'],'safe'],
         ];
     }
 
@@ -65,6 +70,10 @@ class EventSponsor extends \yii\db\ActiveRecord
 
     public function getUser(){
         return $this->hasOne(User::class,['id'=>'user_id']);
+    }
+
+    public function getEvent(){
+        return $this->hasOne(Post::class,['id'=>'event_id']);
     }
 
     public function afterSave($insert, $changedAttributes)

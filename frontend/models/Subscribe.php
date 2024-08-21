@@ -19,6 +19,11 @@ use yii\behaviors\TimestampBehavior;
  */
 class Subscribe extends \yii\db\ActiveRecord
 {
+    public $username;
+    public $event_description;
+    public $news_description;
+    public $post_description;
+
     /**
      * {@inheritdoc}
      */
@@ -64,6 +69,7 @@ class Subscribe extends \yii\db\ActiveRecord
     {
         return [
             [['news_id', 'post_id', 'event_id', 'user_id', 'created_at', 'updated_at'], 'integer'],
+            [['username','event_description','post_description','news_description'],'safe'],
         ];
     }
 
@@ -81,6 +87,17 @@ class Subscribe extends \yii\db\ActiveRecord
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
+    }
+
+    public function getNews(){
+        return $this->hasOne(News::class,['id'=>'news_id']);
+    }
+
+    public function getEvent(){
+        return $this->hasOne(Post::class,['id'=>'event_id'])->alias('event');
+    }
+    public function getPost(){
+        return $this->hasOne(Post::class,['id'=>'post_id']);
     }
 
     public function getUser(){

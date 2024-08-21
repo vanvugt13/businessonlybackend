@@ -40,6 +40,9 @@ AppAsset::register($this);
         ['label' => 'Gebruikers', 'url' => ['/user/index']],
       //  ['label' => 'Nieuws', 'url' => ['/news/index']],
         ['label' => 'Items', 'url' => ['/post/index']],
+        ['label' => 'Geclaimde wedstrijden', 'url' => ['/event-sponsor/index']],
+        ['label' => 'Lijst met aanmeldingen', 'url' => ['/subscribe/index']],
+
         
 
     ];
