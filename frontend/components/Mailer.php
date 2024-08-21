@@ -22,6 +22,10 @@ class Mailer {
             $error =true;
             $error_message[] = '"defaultFrom" niet goed geset';
         }
+        if((new Mailer())->getTo()===null){
+            $error =true;
+            $error_message[] = '"defaultTo" niet goed geset';
+        }
         if((new Mailer())->getBeheerderMail()===null){
             $error = true;
             $error_message[] = '"beheerderMail" niet goed geset';
@@ -36,9 +40,10 @@ class Mailer {
     public function send(){
 
         if(!$this->checkValues()){
+            echo implode(',',$this->errors);
             return false;
         }
-        $this->to = 'sponsorcommissie@vvog.nl';
+        $this->to = $this->getTo();//'sponsorcommissie@vvog.nl';
         $this->from = $this->getFrom();
         $mailer = Yii::$app->mailer->compose()
         ->setTo($this->to)
@@ -52,13 +57,27 @@ class Mailer {
     }
 
 
+    public function getTo(){
+        if(strtolower(Yii::$app->params['mode']) == 'live'){
+            if(!isset(Yii::$app->params['defaultTo'])){
+                Yii::warning('defaultTo not set');
+                return null;
+            }
+            return $this->to??Yii::$app->params['defaultTo'];
+        }
+        if(!isset(Yii::$app->params['defaultTo_test'])){
+            Yii::warning('defaultTo_test not set');
+            return null;
+        }
+        return Yii::$app->params['defaultTo_test'];
+    }
     public function getFrom(){
         if(strtolower(Yii::$app->params['mode']) == 'live'){
             if(!isset(Yii::$app->params['defaultFrom'])){
                 Yii::warning('defaultFrom not set');
                 return null;
             }
-            return Yii::$app->params['defaultFrom'];
+            return $this->from??Yii::$app->params['defaultFrom'];
         }
         if(!isset(Yii::$app->params['defaultFrom_test'])){
             Yii::warning('defaultFrom_test not set');
@@ -72,7 +91,7 @@ class Mailer {
                 Yii::warning('beheerderMail not set');
                 return null;
             }
-            return Yii::$app->params['beheerderMail'];
+            return $this->to??Yii::$app->params['beheerderMail'];
         }
         if(!isset(Yii::$app->params['beheerderMail_test'])){
             Yii::warning('beheerderMail_test not set');
@@ -85,6 +104,7 @@ class Mailer {
             $this->setError('To of From is leeg');
             return false;
         }
+        return true;
     }
 
     private function setError($message){
