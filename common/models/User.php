@@ -367,27 +367,12 @@ HTML;
         $mailer->subject = 'Activeer jouw account voor de VVOG app';
         $mailer->body = self::bodyNewUser($this);
         $mailer->from = [Yii::$app->params['supportEmail'] => 'Sales | Business only'];
-
         return  $mailer->send();
-        // $this->email = User::defaultMail();
-        // $subject = 'Activeer jouw account voor de VVOG app';
-        // return Yii::$app
-        //     ->mailer
-        //     ->compose(
-        //         ['html' => 'emailVerify-appuser-html', 'text' => 'emailVerify-appuser-text'],
-        //         ['user' => $this]
-        //     )
-        //     ->setFrom([Yii::$app->params['supportEmail'] => 'Sales | Business only'])
-        //     ->setTo($this->email)
-        //     ->setSubject($subject)
-        //     ->send();
     }
 
     public function afterSave($insert, $changedAttributes)
     {
         parent::afterSave($insert,$changedAttributes);
-
-      
     }
     public function beforeSave($insert)
     {
