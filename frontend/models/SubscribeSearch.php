@@ -19,7 +19,7 @@ class SubscribeSearch extends Subscribe
     {
         return [
             [['id', 'news_id', 'post_id', 'event_id', 'user_id', 'created_at', 'updated_at'], 'integer'],
-            [['username'],'safe'],
+            [['username','news_description','event_description','post_description'],'safe'],
         ];
     }
 

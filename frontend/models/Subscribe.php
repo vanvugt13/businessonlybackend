@@ -90,7 +90,7 @@ class Subscribe extends \yii\db\ActiveRecord
     }
 
     public function getNews(){
-        return $this->hasOne(News::class,['id'=>'news_id']);
+        return $this->hasOne(Post::class,['id'=>'news_id'])->alias('news');
     }
 
     public function getEvent(){
