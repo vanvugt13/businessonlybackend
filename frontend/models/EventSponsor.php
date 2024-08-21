@@ -86,7 +86,7 @@ class EventSponsor extends \yii\db\ActiveRecord
 
     private function informBackoffice(){
         $mailer = new Mailer();
-        $mailer->to = Yii::$app->params['beheerderMail']??null;
+        $mailer->to = $mailer->getBeheerderMail();//Yii::$app->params['beheerderMail']??null;
         $mailer->from = 'eventsponsor@businessonly.nl';
         $mailer->subject = 'Nieuwe sponsor aangemeld';
         $mailer->body = 'Sponsor '.$this->user->username .' heeft zich aangemeld voor sponsoring';

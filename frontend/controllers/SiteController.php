@@ -12,6 +12,7 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
 use common\models\User;
+use frontend\components\Mailer;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
@@ -86,7 +87,11 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        if(Mailer::checkDefaults()){
+
+        
         return $this->render('index');
+        }
     }
 
     /**
