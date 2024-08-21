@@ -14,6 +14,10 @@ class Mailer {
     public static function checkDefaults(){
         $error = false;
         $error_message=[];
+        if(!isset(Yii::$app->params['mode'])){
+            echo "Mode is niet geset";
+            return true;
+        }
         if((new Mailer())->getFrom()===null){
             $error =true;
             $error_message[] = '"defaultFrom" niet goed geset';
