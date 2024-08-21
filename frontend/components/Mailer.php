@@ -16,7 +16,7 @@ class Mailer {
         $error_message=[];
         if(!isset(Yii::$app->params['mode'])){
             echo "Mode is niet geset";
-            return true;
+            return false;
         }
         if((new Mailer())->getFrom()===null){
             $error =true;
