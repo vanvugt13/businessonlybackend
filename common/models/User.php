@@ -330,8 +330,10 @@ class User extends ActiveRecord implements IdentityInterface
 $verifyLink = Yii::$app->urlManager->createAbsoluteUrl(['/site/verify-email', 'token' => $user->verification_token]);
 $html =<<<HTML
 <div class="verify-email">
-<p>Hallo <?=$user->contactperson?>,</p> 
-
+<p>Hallo 
+HTML; 
+    $html .= $user->contactperson.',';
+    $html .= <<<HTML
     <p>De sponsorcommissie van VVOG heeft een account voor je aangemaakt voor de business app van VVOG.<br><br>
 
 Om er zeker van te zijn dat we het juiste email adres van je hebben, klik hieronder op de activatie button en je ontvangt direct daarna een email met instructies en inlog gegevens.
@@ -364,7 +366,7 @@ HTML;
 
         $mailer = new Mailer();
         $mailer->to = User::defaultMail();
-        $mailer->subject = 'Activeer jouw account voor de VVOG app '.$this->contactperson;
+        $mailer->subject = 'Activeer jouw account voor de VVOG app ';
         $mailer->body = self::bodyNewUser($this);
         $mailer->from = [Yii::$app->params['supportEmail'] => 'Sales | Business only'];
         return  $mailer->send();
