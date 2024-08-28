@@ -307,7 +307,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
     public function sendPassword()
     {
-        $this->email = $this->to;
+   //     $this->email = $this->to;
         //TODO variable subject
         $subject = 'Welkom en log direct in!';
         return Yii::$app
