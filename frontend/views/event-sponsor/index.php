@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['attribute'=>'event_id',
             'format'=>'raw',
             'value'=>function($model){
-                return Html::a('link','https://wwww.vvog.nl'.$model->event_id);
+                return Html::a('link','https://www.vvog.nl/teams/senioren/1/wedstrijd/'.$model->event_id,['target'=>'_new']);
             }],
             //'updated_at',
             [

@@ -6,6 +6,7 @@ use common\models\User;
 use frontend\components\Mailer;
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\helpers\Html;
 
 /**
  * This is the model class for table "event_sponsor".
@@ -97,7 +98,7 @@ class EventSponsor extends \yii\db\ActiveRecord
         $mailer->to = $mailer->getBeheerderMail();//Yii::$app->params['beheerderMail']??null;
         $mailer->from = 'eventsponsor@businessonly.nl';
         $mailer->subject = 'Nieuwe sponsor aangemeld';
-        $mailer->body = 'Sponsor '.$this->user->username .' heeft zich aangemeld voor '.$this->getSponsorType().' sponsoring wedstrijd id '.$this->event_id;
+        $mailer->body = 'Sponsor '.$this->user->username .' heeft zich aangemeld voor '.$this->getSponsorType().' sponsoring wedstrijd. Klik op de '.Html::a('link','https://www.vvog.nl/teams/senioren/1/wedstrijd/'.$this->event_id,['target'=>'_new']);
         $mailer->send();
     }
 }
