@@ -56,7 +56,8 @@ class EventSponsorSearch extends EventSponsor
             'created_at',
             'event_description',
             'sponsor_type_description',
-        ]
+        ],
+        'defaultOrder' => ['created_at' => SORT_DESC]
         ]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

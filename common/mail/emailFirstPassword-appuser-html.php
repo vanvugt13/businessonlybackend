@@ -8,7 +8,7 @@ use yii\helpers\Html;
 
 ?>
 <div class="verify-email">
-    <p>Hallo,</p> 
+    <p>Hallo <?=$user->contactperson?>,</p> 
 
 Welkom bij de businessclub app van VVOG! Je bent er bijna.<br><br>
 
@@ -18,7 +18,7 @@ Klik op onderstaande link om naar de inlogpagina van de app te gaan. De app is e
 
 Afhankelijk van je telefoon of browser, zal de app direct worden geïnstalleerd op je beginscherm of moet je hem zelf toevoegen door te klikken op de button "Toevoegen aan beginscherm"
 <br><br>
- Je Gebruikersnaam is je emailadres.
+ Je Gebruikersnaam is: <?=$user->username?>
 <br><br>
 Het wachtwoord is: <?=$user->password?>
 <br><br>
@@ -31,5 +31,6 @@ Deze businessclub app is een product van businessonly.nl. Voor vragen kun je con
 Met vriendelijke groeten,<br>
 Team Onboarding
 <br><br>
-Businessonly    
+Businessonly<br>
+...    
 </div>

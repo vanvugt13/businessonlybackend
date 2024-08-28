@@ -9,7 +9,7 @@ use yii\helpers\Html;
 
 $verifyLink = User::baseAppLoginUrl().Yii::$app->urlManager->createUrl(['site/verify-email', 'token' => $user->verification_token]);
 ?>
-Hallo,
+Hallo <?=$user->contactperson?>,
 
 <p>Wat leuk dat je een account hebt aangevraagd voor de business app van VVOG.<br><br>
 

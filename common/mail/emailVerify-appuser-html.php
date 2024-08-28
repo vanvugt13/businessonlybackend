@@ -10,7 +10,7 @@ $verifyLink = User::baseAppLoginUrl();
 $verifyLink = Yii::$app->urlManager->createAbsoluteUrl(['/site/verify-email', 'token' => $user->verification_token]);
 ?>
 <div class="verify-email">
-    <p>Hallo,</p>
+    <p>Hallo <?=$user->contactperson?>,</p> 
 
     <p>Wat leuk dat je een account hebt aangevraagd voor de business app van VVOG.<br><br>
 
@@ -31,4 +31,5 @@ Met vriendelijke groeten,
 <br>
 Team Onboarding</p>
 <p>Businessonly</p>
+<P>..</p>
 </div>
