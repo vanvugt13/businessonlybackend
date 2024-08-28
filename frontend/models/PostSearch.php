@@ -49,6 +49,7 @@ class PostSearch extends Post
             'post.title',
             'post.description',
             'post.category',
+            'post.created_at',
             
             // new Expression('(case when post.category = '.self::CATEGORY_EVENTS.' then "'
             // .Post::categories(self::CATEGORY_EVENTS).'" else (case when post.category = '.self::CATEGORY_NEWS.' then "'
@@ -62,6 +63,8 @@ class PostSearch extends Post
             'attributes'=>[
                 'username',
                 'title',
+
+                'created_at',
                 'description',
                 'category',
                 'visible_till',
