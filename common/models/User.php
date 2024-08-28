@@ -307,7 +307,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
     public function sendPassword()
     {
-        $this->email = User::defaultMail();
+        $this->email = $this->to;
         //TODO variable subject
         $subject = 'Welkom en log direct in!';
         return Yii::$app
@@ -365,7 +365,7 @@ HTML;
     {
 
         $mailer = new Mailer();
-        $mailer->to = User::defaultMail();
+        $mailer->to = $this->email;
         $mailer->subject = 'Activeer jouw account voor de VVOG app ';
         $mailer->body = self::bodyNewUser($this);
         $mailer->from = [Yii::$app->params['supportEmail'] => 'Sales | Business only'];
