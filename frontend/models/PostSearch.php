@@ -69,7 +69,8 @@ class PostSearch extends Post
             //     new Expression('(case when post.category = '.self::CATEGORY_EVENTS.' then "'
             // .Post::visibleOptions(self::CATEGORY_EVENTS).'" else (case when post.category = '.self::CATEGORY_NEWS.' then "'
             // .Post::visibleOptions(self::CATEGORY_NEWS).'" else "'.Post::visibleOptions(self::CATEGORY_POST).'" end) end) '),
-            ]
+            ],
+            'defaultOrder' => ['created_at' => SORT_DESC]
         ]);
         // add conditions that should always apply here
 

@@ -31,6 +31,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'username',
             'sponsor_typedescription',
             'created_at:datetime',
+            ['attribute'=>'event_id',
+            'format'=>'raw',
+            'value'=>function($key,$model,$url){
+                return Html::a('link','https://wwww.vvog.nl'.$model->event_id);
+            }],
             //'updated_at',
             [
                 'class' => ActionColumn::class,
