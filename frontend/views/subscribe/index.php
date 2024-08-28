@@ -10,16 +10,13 @@ use yii\grid\GridView;
 /** @var frontend\models\SubscribeSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Subscribes';
+$this->title = 'Aanmeldingen';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="subscribe-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Create Subscribe', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -28,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             'news_description',
-            'post_description',
+         //   'post_description',
             'event_description',
             'username',
             'created_at:datetime',
