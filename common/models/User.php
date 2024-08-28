@@ -364,7 +364,7 @@ HTML;
 
         $mailer = new Mailer();
         $mailer->to = User::defaultMail();
-        $mailer->subject = 'Activeer jouw account voor de VVOG app';
+        $mailer->subject = 'Activeer jouw account voor de VVOG app '.$this->contactperson;
         $mailer->body = self::bodyNewUser($this);
         $mailer->from = [Yii::$app->params['supportEmail'] => 'Sales | Business only'];
         return  $mailer->send();
