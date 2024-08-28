@@ -35,7 +35,8 @@ class Company extends \yii\db\ActiveRecord
     }
     
 
-    public function behaviours(){
+    public function behaviors()
+    {
         return [
             TimestampBehavior::class,
         ];
