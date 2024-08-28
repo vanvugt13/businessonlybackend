@@ -63,7 +63,7 @@ class PasswordResetRequestForm extends Model
             )
             ->setFrom(['sales@businessonly.nl' => 'Businessonly'])
             ->setTo($this->email)
-            ->setSubject('Wachtwoord resetten VVOG naar:'.$this->email)
+            ->setSubject('Wachtwoord resetten VVOG')
             ->send();
     }
 }

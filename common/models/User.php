@@ -294,7 +294,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     public function sendResetPasswordLink():bool{
-        $this->email = User::defaultMail();
+      //  $this->email = User::defaultMail();
         $model = new PasswordResetRequestForm();
         $model->email = $this->email;
         if ($model->validate()) {
