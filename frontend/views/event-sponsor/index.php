@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'created_at:datetime',
             ['attribute'=>'event_id',
             'format'=>'raw',
-            'value'=>function($url,$key,$model){
+            'value'=>function($model){
                 return Html::a('link','https://wwww.vvog.nl'.$model->event_id);
             }],
             //'updated_at',
