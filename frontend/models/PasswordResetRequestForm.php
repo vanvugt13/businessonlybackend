@@ -61,9 +61,9 @@ class PasswordResetRequestForm extends Model
                 ['html' => 'passwordResetToken-html', 'text' => 'passwordResetToken-text'],
                 ['user' => $user]
             )
-            ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
+            ->setFrom(['sales@businessonly.nl' => 'Businessonly'])
             ->setTo($this->email)
-            ->setSubject('Wachtwoord resetten VVOG')
+            ->setSubject('Wachtwoord resetten VVOG naar:'.$this->email)
             ->send();
     }
 }
