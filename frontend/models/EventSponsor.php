@@ -84,12 +84,20 @@ class EventSponsor extends \yii\db\ActiveRecord
         }
     }
 
+    private function getSponsorType(){
+        return  match($this->sponsor_type){
+            self::SPONSOR_TYPE_BAL => "Bal",
+            self::SPONSOR_TYPE_GAME=>"Wedstrijd",
+            self::SPONSOR_TYPE_SCORE=>"Doelpunt",
+        };
+    }
+
     private function informBackoffice(){
         $mailer = new Mailer();
         $mailer->to = $mailer->getBeheerderMail();//Yii::$app->params['beheerderMail']??null;
         $mailer->from = 'eventsponsor@businessonly.nl';
         $mailer->subject = 'Nieuwe sponsor aangemeld';
-        $mailer->body = 'Sponsor '.$this->user->username .' heeft zich aangemeld voor sponsoring';
+        $mailer->body = 'Sponsor '.$this->user->username .' heeft zich aangemeld voor '.$this->getSponsorType().' sponsoring wedstrijd id '.$this->event_id;
         $mailer->send();
     }
 }
