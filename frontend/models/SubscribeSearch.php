@@ -59,7 +59,8 @@ class SubscribeSearch extends Subscribe
             'post_description',
             'username',
             'created_at',
-        ]
+        ],
+        'defaultOrder' => ['created_at' => SORT_DESC]
         ]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
