@@ -96,7 +96,7 @@ class EventSponsor extends \yii\db\ActiveRecord
     private function informBackoffice(){
         $mailer = new Mailer();
         $mailer->to = $mailer->getBeheerderMail();//Yii::$app->params['beheerderMail']??null;
-        $mailer->from = 'eventsponsor@businessonly.nl';
+        $mailer->from = 'sales@businessonly.nl';
         $mailer->subject = 'Nieuwe sponsor aangemeld';
         $mailer->body = 'Sponsor '.$this->user->contactpersoon .'('.$this->user->username.') heeft zich aangemeld voor '.$this->getSponsorType().' sponsoring wedstrijd. Klik op de '.Html::a('link','https://www.vvog.nl/teams/senioren/1/wedstrijd/'.$this->event_id,['target'=>'_new']);
         $mailer->send();
