@@ -83,8 +83,8 @@ class SubscribeSearch extends Subscribe
             'user_id' => $this->user_id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            ['like','event.title'=>$this->event_description],
-            ['like','news.title'=>$this->news_description],
+            ['like','event.title',$this->event_description],
+            ['like','news.title',$this->news_description],
         ]);
 
         return $dataProvider;
