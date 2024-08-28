@@ -5,6 +5,7 @@ namespace frontend\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use frontend\models\Company;
+use yii\data\Sort;
 
 /**
  * CompanySearch represents the model behind the search form of `frontend\models\Company`.
@@ -44,8 +45,12 @@ class CompanySearch extends Company
 
         // add conditions that should always apply here
 
+        $sort = new Sort([
+            'defaultOrder' => ['created_at' => SORT_DESC]
+        ]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort'=>$sort,
         ]);
 
         $this->load($params);

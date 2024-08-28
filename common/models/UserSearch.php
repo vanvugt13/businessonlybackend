@@ -61,7 +61,8 @@ class UserSearch extends User
             'status',
             'statusDescription',
             'created_at',
-        ]]);
+        ],
+        'defaultOrder' => ['created_at' => SORT_DESC]]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'sort'=>$sort
