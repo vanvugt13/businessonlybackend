@@ -359,7 +359,7 @@ class ApiController extends Controller
         {
             return json_encode(['error'=>'not authorized']);
         }
-        $subscribes = Subscribe::find()->where(['news_id'=>$id])->all();
+        $subscribes = Subscribe::find()->where(['event_id'=>$id])->all();
         $array= [];
         foreach($subscribes as $subscribe){
             $array[] = [
@@ -376,7 +376,7 @@ class ApiController extends Controller
         {
             return json_encode(['error'=>'not authorized']);
         }
-        if(Subscribe::add(user_id:$this->user->id,news_id:$id)){
+        if(Subscribe::add(user_id:$this->user->id,event_id:$id)){
             return $this->actionSubscribedNews($id);
         }
     }
