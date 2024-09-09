@@ -54,6 +54,9 @@ class Company extends \yii\db\ActiveRecord
         ];
     }
 
+    public function getCompanyImage(){
+        return $this->hasOne(CompanyImage::class,['company_id'=>'id']);
+    }
     public function beforeSave($insert)
     {
         if(parent::beforeSave($insert))

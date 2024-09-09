@@ -364,7 +364,6 @@ class ApiController extends Controller
         foreach($subscribes as $subscribe){
             $array[] = [
                 'id'=>$subscribe->id,
-             //   'profile_image'=>$subscribe->user->image,
                 'user_image'=>$subscribe->user->getFilename(),
                 'user_id'=>$subscribe->user_id,
             ];
@@ -391,7 +390,6 @@ class ApiController extends Controller
         foreach($subscribes as $subscribe){
             $array[] = [
                 'id'=>$subscribe->id,
-             //   'profile_image'=>$subscribe->user->image,
                 'user_image'=>$subscribe->user->getFilename(),
                 'user_id'=>$subscribe->user_id,
             ];
@@ -591,7 +589,6 @@ class ApiController extends Controller
         foreach($sponsorevents as $sponsorevent){
             $event[]    =   [
                 'user_id'=>$sponsorevent->user_id,
-          //      'profile_image'=>$sponsorevent->user->image,
                 'user_image'=>$sponsorevent->user->getFilename(),
                 'sponsor_type'=>$sponsorevent->sponsor_type
             ];

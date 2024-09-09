@@ -304,7 +304,6 @@ class ContactController extends Controller
         }
      
         $array    =   ['id'=>$user->id,
-   //     'profielimage'=>$user->image,
         'user_image'=>$user->getFilename(),
         'name'=>$user->username,
         'phone_number'=>$user->phone_number,

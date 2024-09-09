@@ -222,6 +222,10 @@ class Post extends \yii\db\ActiveRecord
         ];
     }
 
+    public function getPostImage(){
+        return $this->hasOne(PostImage::class,['post_id'=>'id']);
+    }
+
     public function getUser(){
         return $this->hasOne(User::class,['id'=>'user_id']);
     }

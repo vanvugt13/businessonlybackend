@@ -9,6 +9,7 @@ use frontend\components\Mailer;
 use frontend\models\Company;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\SignupForm;
+use frontend\models\UserImage;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
@@ -376,6 +377,11 @@ HTML;
     {
         parent::afterSave($insert,$changedAttributes);
     }
+
+
+    public function getUserImage(){
+        return $this->hasOne(UserImage::class,['user_id'=>'id']);
+    }
     public function beforeSave($insert)
     {
         if(parent::beforeSave($insert))
@@ -393,6 +399,16 @@ HTML;
             if(isset($this->imageApp)){ $this->unique_id=null;  $this->image = $this->imageApp;}
             if($insert){
                 $this->email = $this->username;
+            }
+
+            if(isset($this->image)){
+                $userimage=  $this->getUserImage();
+                if(!$userimage){
+                    $userimage = new UserImage();
+                    $userimage->user_id = $this->id;
+                }
+                $userimage->image = $this->image;
+                $this->image = null;
             }
             return true;
         }
