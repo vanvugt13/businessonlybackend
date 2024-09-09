@@ -408,6 +408,7 @@ HTML;
                     $userimage->user_id = $this->id;
                 }
                 $userimage->image = $this->image;
+                $userimage->save();
                 $this->image = null;
             }
             return true;
