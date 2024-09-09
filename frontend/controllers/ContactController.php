@@ -386,12 +386,8 @@ class ContactController extends Controller
             if($this->user->save()){
                 return json_encode(['success'=>'gelukt']);
             }
-            print_R($this->user->getErrors());
-            exit;
              return json_encode(['success'=>'niet gelukt']);
         }
-        
-    
 
     }
 

@@ -47,28 +47,28 @@ in this example i'll use standard JPG
     }
 
     private static function generateUniqueId(User|Company|Post $model){
-        if($model instanceof Company and !empty($model->getCompanyImage()->logo) ){
+        if($model instanceof Company and !empty($model->companyImage->logo) ){
                 $model->unique_id = uniqid('CP');
         }
-        if($model instanceof User AND !empty($model->getUserImage()->image)){
+        if($model instanceof User AND !empty($model->userImage->image)){
                 $model->unique_id = uniqid('US');
         }
-        if($model instanceof Post AND !empty($model->getPostImage()->image) ){
+        if($model instanceof Post AND !empty($model->postImage->image) ){
                 $model->unique_id = uniqid('PS');
         } 
     }
 
     private static function getAttribute(User|Company|Post $model){
        if($model instanceof User )
-        return 'getUserImage()->image';
+        return $model->userImage->image;
         if( $model instanceof Post)
-        return 'getPostImage()->image';
+        return $model->postImage->image;
         if($model instanceof Company )
-        return 'getCompanyImage()->logo';
+        return $model->companyImage->logo;
     }
 
     private static function generateFile(User|Company|Post $model,string $absoluteimagepath){
-        $blob = $model->{self::getAttribute($model)};
+        $blob = self::getAttribute($model);
         file_put_contents($absoluteimagepath,base64_decode((string)$blob));
     }
 
