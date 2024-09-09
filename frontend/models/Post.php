@@ -126,6 +126,14 @@ class Post extends \yii\db\ActiveRecord
             (new PushSubscribers())->sendNotification(
                 $notify_users
                 ,$this->title,$this->description,type:$type);
+
+            $postimage=  $this->postImage;
+            if(!$postimage){
+                $postimage = new PostImage();
+                $postimage->post_id = $this->id;
+            }
+            $postimage->image = $this->imageApp;
+            $postimage->save();
         }
         
     }
@@ -191,7 +199,7 @@ class Post extends \yii\db\ActiveRecord
             else{
                 $this->image = $this->oldAttributes['image']??null;
             }
-            if(isset($this->image)){
+            if(isset($this->image) and !$insert){
                 $postimage=  $this->postImage;
                 if(!$postimage){
                     $postimage = new PostImage();
@@ -200,7 +208,10 @@ class Post extends \yii\db\ActiveRecord
                 $postimage->image = $this->image;
                 $postimage->save();
                 $this->image = null;
+            }else{
+                $this->imageApp = $this->image;
             }
+            
             return !$this->hasErrors();
         }
         $this->revertValue();
