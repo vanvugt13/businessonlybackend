@@ -191,6 +191,16 @@ class Post extends \yii\db\ActiveRecord
             else{
                 $this->image = $this->oldAttributes['image']??null;
             }
+            if(isset($this->image)){
+                $postimage=  $this->postImage;
+                if(!$postimage){
+                    $postimage = new PostImage();
+                    $postimage->post_id = $this->id;
+                }
+                $postimage->image = $this->image;
+                $postimage->save();
+                $this->image = null;
+            }
             return !$this->hasErrors();
         }
         $this->revertValue();

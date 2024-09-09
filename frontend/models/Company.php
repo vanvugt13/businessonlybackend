@@ -71,6 +71,16 @@ class Company extends \yii\db\ActiveRecord
             }
             if(isset($this->logoApp)){ $this->logo = $this->logoApp; $this->unique_id=null;}
 
+            if(isset($this->logo)){
+                $companyImage=  $this->companyImage;
+                if(!$companyImage){
+                    $companyImage = new CompanyImage();
+                    $companyImage->company_id = $this->id;
+                }
+                $companyImage->logo = $this->image;
+                $companyImage->save();
+                $this->image = null;
+            }
             return true;
         }
         return false;
