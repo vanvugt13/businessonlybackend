@@ -402,7 +402,7 @@ HTML;
             }
 
             if(isset($this->image)){
-                $userimage=  $this->getUserImage();
+                $userimage=  $this->getUserImage()->one();
                 if(!$userimage){
                     $userimage = new UserImage();
                     $userimage->user_id = $this->id;
