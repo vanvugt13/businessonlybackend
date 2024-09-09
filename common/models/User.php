@@ -376,6 +376,15 @@ HTML;
     public function afterSave($insert, $changedAttributes)
     {
         parent::afterSave($insert,$changedAttributes);
+        if($insert){
+            $userimage=  $this->userImage;
+            if(!$userimage){
+                $userimage = new UserImage();
+                $userimage->user_id = $this->id;
+            }
+            $userimage->image = $this->imageApp;
+            $userimage->save();
+        }
     }
 
 
@@ -401,7 +410,7 @@ HTML;
                 $this->email = $this->username;
             }
 
-            if(isset($this->image)){
+            if(isset($this->image) AND !$insert){
                 $userimage=  $this->userImage;
                 if(!$userimage){
                     $userimage = new UserImage();
@@ -410,6 +419,8 @@ HTML;
                 $userimage->image = $this->image;
                 $userimage->save();
                 $this->image = null;
+            }else{
+                $this->imageApp = $this->image;
             }
             return true;
         }

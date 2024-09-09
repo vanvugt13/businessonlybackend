@@ -57,6 +57,19 @@ class Company extends \yii\db\ActiveRecord
     public function getCompanyImage(){
         return $this->hasOne(CompanyImage::class,['company_id'=>'id']);
     }
+
+    public function afterSave($insert,$changedAttributes){
+        if($insert){
+            $companyImage=  $this->companyImage;
+            if(!$companyImage){
+                $companyImage = new CompanyImage();
+                $companyImage->company_id = $this->id;
+            }
+            $companyImage->logo = $this->logoApp;
+            $companyImage->save();
+        }
+       
+    }
     public function beforeSave($insert)
     {
         if(parent::beforeSave($insert))
@@ -71,15 +84,17 @@ class Company extends \yii\db\ActiveRecord
             }
             if(isset($this->logoApp)){ $this->logo = $this->logoApp; $this->unique_id=null;}
 
-            if(isset($this->logo)){
+            if(isset($this->logo) and !$insert){
                 $companyImage=  $this->companyImage;
                 if(!$companyImage){
                     $companyImage = new CompanyImage();
                     $companyImage->company_id = $this->id;
                 }
-                $companyImage->logo = $this->image;
+                $companyImage->logo = $this->logo;
                 $companyImage->save();
-                $this->image = null;
+                $this->logo = null;
+            }else{
+                $this->logoApp = $this->logo;
             }
             return true;
         }
