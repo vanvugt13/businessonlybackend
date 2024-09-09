@@ -60,11 +60,11 @@ in this example i'll use standard JPG
 
     private static function getAttribute(User|Company|Post $model){
        if($model instanceof User )
-        return $model->userImage->image;
+        return $model->userImage->image??$model->image;
         if( $model instanceof Post)
-        return $model->postImage->image;
+        return $model->postImage->image??$model->image;
         if($model instanceof Company )
-        return $model->companyImage->logo;
+        return $model->companyImage->logo??$model->logo;
     }
 
     private static function generateFile(User|Company|Post $model,string $absoluteimagepath){
