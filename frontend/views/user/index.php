@@ -39,6 +39,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'email:email',
             ['attribute'=>'statusDescription',
             'filter'=>[User::STATUS_ACTIVE=>'Actief',User::STATUS_INACTIVE=>"Moet nog geactiveerd worden"],
+            'filterInputOptions' => [
+                'placeholder' => 'Search Name..',
+                'emptyText'=>'Alle statussen',
+                
+            ],
         ],
             'created_at:datetime',
             //'updated_at',
