@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'filterInputOptions' => [
                 'placeholder' => 'Search Name..',
                 'prompt'=>'Alle statussen',
-                'class'=>"form-controll",
+                'class'=>"form-control",
                 
             ],
         ],
