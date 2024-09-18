@@ -41,7 +41,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'filter'=>[User::STATUS_ACTIVE=>'Actief',User::STATUS_INACTIVE=>"Moet nog geactiveerd worden"],
             'filterInputOptions' => [
                 'placeholder' => 'Search Name..',
-                'emptyText'=>'Alle statussen',
+                'prompt'=>'Alle statussen',
+                'class'=>"form-controll",
                 
             ],
         ],
