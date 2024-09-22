@@ -90,7 +90,7 @@ class Company extends \yii\db\ActiveRecord
                     $companyImage = new CompanyImage();
                     $companyImage->company_id = $this->id;
                 }
-                $companyImage->logo = $this->logo;
+                $companyImage->image = $this->logo;
                 $companyImage->save();
                 $this->logo = null;
             }else{
