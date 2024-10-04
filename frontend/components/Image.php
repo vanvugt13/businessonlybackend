@@ -47,7 +47,7 @@ in this example i'll use standard JPG
     }
 
     private static function generateUniqueId(User|Company|Post $model){
-        if($model instanceof Company and !empty($model->companyImage->logo) ){
+        if($model instanceof Company and !empty($model->companyImage->image) ){
                 $model->unique_id = uniqid('CP');
         }
         if($model instanceof User AND !empty($model->userImage->image)){
@@ -64,7 +64,7 @@ in this example i'll use standard JPG
         if( $model instanceof Post)
         return $model->postImage->image??$model->image;
         if($model instanceof Company )
-        return $model->companyImage->logo??$model->logo;
+        return $model->companyImage->image??$model->logo;
     }
 
     private static function generateFile(User|Company|Post $model,string $absoluteimagepath){

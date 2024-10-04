@@ -485,7 +485,7 @@ class ContactController extends Controller
                 'name'=>$users->username,
                 'company_name'=>$users->company?->name,
                 'contactperson'=>$users->contactperson,
-                'companyDescription'=>$users->company?->description,
+            //    'companyDescription'=>$users->company?->description,
                 'companyUrl'=>$users->company?->company_url,
                 'companyImage'=>$users->company?->getFilename(),
             ];
