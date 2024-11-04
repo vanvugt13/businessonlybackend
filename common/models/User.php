@@ -131,6 +131,7 @@ class User extends ActiveRecord implements IdentityInterface
             'created_at'=>'Aangemaakt op',
             'status'=>'Status',
             'email'=>'Email / Gebruikersnaam',
+            'skipActivate'=>"Sla activeringsmail over",
         ];
     }
 
@@ -312,6 +313,11 @@ class User extends ActiveRecord implements IdentityInterface
     {
    //     $this->email = $this->to;
         //TODO variable subject
+        if(!$this->password){
+            $this->password = rand(10000,1000000);
+            $this->setPassword($this->password);
+            $this->save();
+        }
         $subject = 'Welkom en log direct in!';
         return Yii::$app
             ->mailer
