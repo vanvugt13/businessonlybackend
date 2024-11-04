@@ -38,11 +38,12 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'skipActivate')->checkbox() ?>
    
 
-    <div class="form-group ">
-        <?= Html::a('Terug',['/user/index'], ['class' => 'btn btn-primary']) ?>
-    </div>
     <div class="form-group float-end">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+      
+    </div>
+    <div class="form-group">
+        <?= Html::a('Terug',['/user/index'], ['class' => 'btn btn-primary']) ?> 
     </div>
 
     <?php ActiveForm::end(); ?>
