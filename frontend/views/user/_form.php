@@ -35,13 +35,13 @@ use yii\widgets\ActiveForm;
     <?php if(!$model->isNewRecord)echo Html::a('Reset wachtwoord',['/site/request-password-reset']);?>
     
 
-    
+    <?= $form->field($model, 'skipActivate')->checkbox() ?>
    
 
-    <div class="form-group float-end">
+    <div class="form-group ">
         <?= Html::a('Terug',['/user/index'], ['class' => 'btn btn-primary']) ?>
     </div>
-    <div class="form-group">
+    <div class="form-group float-end">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>
 

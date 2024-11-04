@@ -94,8 +94,12 @@ class UserController extends Controller
                     }
                 }
                
-                if($model->sendEmail()){
-                    
+                if($model->skipActivate){
+                    $result = $model->sendPassword();
+                }else{
+                    $result = $model->sendEmail();
+                }
+                if($result){
                     Yii::$app->session->setFlash('success','De gebruiker is succesvol aangemaakt');
                 }
                 
