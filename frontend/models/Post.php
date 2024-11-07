@@ -210,6 +210,7 @@ class Post extends \yii\db\ActiveRecord
                 $this->image = null;
             }else{
                 $this->imageApp = $this->image;
+                $this->image = null;
             }
             
             return !$this->hasErrors();
