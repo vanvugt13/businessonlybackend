@@ -95,7 +95,9 @@ class UserController extends Controller
                 }
                
                 if($model->skipActivate){
+                    $model->status = User::STATUS_ACTIVE;
                     $result = $model->sendPassword();
+                    $model->save();
                 }else{
                     $result = $model->sendEmail();
                 }

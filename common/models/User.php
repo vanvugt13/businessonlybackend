@@ -316,7 +316,7 @@ class User extends ActiveRecord implements IdentityInterface
         if(!$this->password){
             $this->password = rand(10000,1000000);
             $this->setPassword($this->password);
-            $this->save();
+           
         }
         $subject = 'Welkom en log direct in!';
         return Yii::$app
