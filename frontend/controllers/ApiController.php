@@ -553,6 +553,7 @@ class ApiController extends Controller
             'company_name'=>$post->user->company->name,
             'subscribe_news'=>$post->subscribe_news,
             'subscribe_event'=>$post->subscribe_event,
+            'user_image'=>$post->user->getFilename(),
             
 
         ];
