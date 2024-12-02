@@ -23,13 +23,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); 
+    ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-      //      ['class' => 'yii\grid\SerialColumn'],
+            //      ['class' => 'yii\grid\SerialColumn'],
 
             // 'id',
             'username',
@@ -37,26 +38,30 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'password_hash',
             // 'password_reset_token',
             'email:email',
-            ['attribute'=>'statusDescription',
-            
-            'filter'=>[User::STATUS_ACTIVE=>'Actief',User::STATUS_INACTIVE=>"Moet nog geactiveerd worden"],
-            'filterInputOptions' => [
-                'placeholder' => 'Search Name..',
-                'prompt'=>'Alle statussen',
-                'class'=>"form-control",
-                
+            [
+                'attribute' => 'statusDescription',
+
+                'filter' => [User::STATUS_ACTIVE => 'Actief', User::STATUS_INACTIVE => "Moet nog geactiveerd worden"],
+                'filterInputOptions' => [
+                    'placeholder' => 'Search Name..',
+                    'prompt' => 'Alle statussen',
+                    'class' => "form-control",
+
+                ],
+
             ],
-            'lastPostSeenDate:datetime',
+            ['attribute'=>'lastPostSeenDate:datetime',
+            'label'=>'Datum laatste bekeken post',
         ],
             'created_at:datetime',
             //'updated_at',
             //'verification_token',
             [
                 'class' => ActionColumn::className(),
-                'template'=>'{update}{delete}',
+                'template' => '{update}{delete}',
                 'urlCreator' => function ($action, User $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                }
             ],
         ],
     ]); ?>
