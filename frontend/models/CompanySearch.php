@@ -49,7 +49,13 @@ class CompanySearch extends Company
             new Expression('(select group_concat(username,",") from user where company_id=company.id)  as loginaccount')
         ]);
         $sort = new Sort([
-            'defaultOrder' => ['created_at' => SORT_DESC]
+            'defaultOrder' => ['created_at' => SORT_DESC],
+            'attributes'=>[
+                'company.name',
+                'company.description',
+                'company.created_at',
+                'loginaccounts',
+            ]
         ]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -73,7 +79,8 @@ class CompanySearch extends Company
 
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'description', $this->description])
-            ->andFilterWhere(['like', 'logo', $this->logo]);
+            ->andFilterWhere(['like', 'logo', $this->logo])
+            ->andFilterWhere(['like', '(select group_concat(username,",") from user where company_id=company.id)', $this->loginaccount]);
 
         return $dataProvider;
     }
