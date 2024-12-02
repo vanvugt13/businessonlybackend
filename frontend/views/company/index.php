@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'description:ntext',
            ['attribute'=>'loginaccount',
            'value'=>function($model){
-            return wordwrap($model->loginaccount,60,"\r\n",TRUE);
+            return wordwrap($model->loginaccount,30,"\r\n",TRUE);
            }],
             'created_at:datetime',
             //'updated_at',
