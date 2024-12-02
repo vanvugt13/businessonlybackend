@@ -61,6 +61,7 @@ class User extends ActiveRecord implements IdentityInterface
     public $imageApp;
     public string $statusDescription='';
 
+    public $lastPostSeenDate;
     public $skipActivate = false;
 
     /**

@@ -51,10 +51,10 @@ class CompanySearch extends Company
         $sort = new Sort([
             'defaultOrder' => ['created_at' => SORT_DESC],
             'attributes'=>[
-                'company.name',
-                'company.description',
-                'company.created_at',
-                'loginaccounts',
+                'name',
+                'description',
+                'created_at',
+                'loginaccount',
             ]
         ]);
         $dataProvider = new ActiveDataProvider([

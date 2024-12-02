@@ -38,6 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'password_reset_token',
             'email:email',
             ['attribute'=>'statusDescription',
+            
             'filter'=>[User::STATUS_ACTIVE=>'Actief',User::STATUS_INACTIVE=>"Moet nog geactiveerd worden"],
             'filterInputOptions' => [
                 'placeholder' => 'Search Name..',
@@ -45,6 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class'=>"form-control",
                 
             ],
+            'lastPostSeenDate:datetime',
         ],
             'created_at:datetime',
             //'updated_at',

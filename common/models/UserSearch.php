@@ -21,7 +21,7 @@ class UserSearch extends User
     {
         return [
             [['id', 'status', 'created_at', 'updated_at'], 'integer'],
-            [['username', 'auth_key', 'password_hash', 'password_reset_token', 'email', 'verification_token','statusDescription'], 'safe'],
+            [['username', 'auth_key', 'password_hash', 'password_reset_token', 'email', 'verification_token','statusDescription','lastPostSeenDate'], 'safe'],
         ];
     }
 
@@ -50,6 +50,7 @@ class UserSearch extends User
             'username',
             'status',
             new Expression('(case when status = 9 then "Moet nog geactiveerd worden" else "Actief" end ) as statusDescription'),
+            new Expression('(SELECT max(from_unixtime(created_at)) FROM post_seen where user_id=user.id ) as lastPostSeenDate'),
             'created_at',
         ]);
 
@@ -61,6 +62,7 @@ class UserSearch extends User
             'status',
             'statusDescription',
             'created_at',
+            'lastPostSeenDate',
         ],
         'defaultOrder' => ['created_at' => SORT_DESC]]);
         $dataProvider = new ActiveDataProvider([
