@@ -31,7 +31,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             'name',
             'description:ntext',
-           'loginaccount',
+           ['attribute'=>'loginaccount',
+           'value'=>function($model){
+            return wordwrap($model->loginaccount,100,"\r\n",TRUE);
+           }],
             'created_at:datetime',
             //'updated_at',
             [
