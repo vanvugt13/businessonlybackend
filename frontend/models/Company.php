@@ -2,6 +2,7 @@
 
 namespace frontend\models;
 
+use common\models\User;
 use frontend\components\Image;
 use PHPHtmlParser\Dom;
 use yii\web\UploadedFile;
@@ -24,7 +25,8 @@ use yii\behaviors\TimestampBehavior;
  */
 class Company extends \yii\db\ActiveRecord
 {
-
+    
+    public $loginaccount;
     public $logoApp;
     /**
      * {@inheritdoc}
@@ -103,6 +105,10 @@ class Company extends \yii\db\ActiveRecord
 
     public function getFilename(){
         return Image::getImageUrl($this);
+    }
+
+    public function getUser(){
+        return $this->hasMany(User::class,['company_id'=>'id']);
     }
 
     public function fetchImage($url){

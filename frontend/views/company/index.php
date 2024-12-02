@@ -29,16 +29,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-       //     ['class' => 'yii\grid\SerialColumn'],
-
-       //     'id',
             'name',
             'description:ntext',
-           
+           'loginaccount',
             'created_at:datetime',
             //'updated_at',
             [
-                'class' => ActionColumn::className(),
+                'class' => ActionColumn::class,
                 'urlCreator' => function ($action, Company $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                  }

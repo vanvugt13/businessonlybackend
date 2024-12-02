@@ -6,6 +6,7 @@ use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use frontend\models\Company;
 use yii\data\Sort;
+use yii\db\Expression;
 
 /**
  * CompanySearch represents the model behind the search form of `frontend\models\Company`.
@@ -19,7 +20,7 @@ class CompanySearch extends Company
     {
         return [
             [['id', 'created_at', 'updated_at'], 'integer'],
-            [['name', 'description', 'logo'], 'safe'],
+            [['name', 'description', 'logo','loginaccount'], 'safe'],
         ];
     }
 
@@ -42,9 +43,11 @@ class CompanySearch extends Company
     public function search($params)
     {
         $query = Company::find();
-
+      //  $query->joinWith("user");
         // add conditions that should always apply here
-
+        $query->select(['company.*',
+            new Expression('select group_concat(username,",") from user where company_id=company.id  as loginaccount')
+        ]);
         $sort = new Sort([
             'defaultOrder' => ['created_at' => SORT_DESC]
         ]);
