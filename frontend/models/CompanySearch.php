@@ -46,7 +46,7 @@ class CompanySearch extends Company
       //  $query->joinWith("user");
         // add conditions that should always apply here
         $query->select(['company.*',
-            new Expression('select group_concat(username,",") from user where company_id=company.id  as loginaccount')
+            new Expression('(select group_concat(username,",") from user where company_id=company.id)  as loginaccount')
         ]);
         $sort = new Sort([
             'defaultOrder' => ['created_at' => SORT_DESC]
