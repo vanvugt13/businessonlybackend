@@ -50,8 +50,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
 
             ],
-            ['attribute'=>'lastPostSeenDate:datetime',
+            ['attribute'=>'lastPostSeenDate',
             'label'=>'Datum laatste bekeken post',
+            'format'=>'datetime',
         ],
             'created_at:datetime',
             //'updated_at',
