@@ -86,11 +86,13 @@ class EventSponsor extends \yii\db\ActiveRecord
     }
 
     private function getSponsorType(){
-        return  match($this->sponsor_type){
-            self::SPONSOR_TYPE_BAL => "Bal",
-            self::SPONSOR_TYPE_GAME=>"Wedstrijd",
-            self::SPONSOR_TYPE_SCORE=>"Doelpunt",
-        };
+        $sponsortype = SettingSponsortype::find()->where(['type'=>$this->sponsor_type])->all();
+        return $sponsortype->name??'Onbekend';
+        // return  match($this->sponsor_type){
+        //     self::SPONSOR_TYPE_BAL => "Bal",
+        //     self::SPONSOR_TYPE_GAME=>"Wedstrijd",
+        //     self::SPONSOR_TYPE_SCORE=>"Doelpunt",
+        // };
     }
 
     private function informBackoffice(){
