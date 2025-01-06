@@ -86,7 +86,7 @@ class EventSponsor extends \yii\db\ActiveRecord
     }
 
     private function getSponsorType(){
-        $sponsortype = SettingSponsortype::find()->where(['type'=>$this->sponsor_type])->all();
+        $sponsortype = SettingSponsortype::find()->where(['type'=>$this->sponsor_type])->one();
         return $sponsortype->name??'Onbekend';
         // return  match($this->sponsor_type){
         //     self::SPONSOR_TYPE_BAL => "Bal",
