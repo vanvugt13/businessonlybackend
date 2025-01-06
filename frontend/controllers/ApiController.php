@@ -22,6 +22,7 @@ use frontend\models\EventSponsor;
 use frontend\models\Post;
 use frontend\models\PostSeen;
 use frontend\models\PushSubscribers;
+use frontend\models\Setting;
 use frontend\models\Subscribe;
 use Minishlink\WebPush\WebPush;
 use Minishlink\WebPush\Subscription;
@@ -561,6 +562,9 @@ class ApiController extends Controller
         return json_encode($array);
     }
 
+    public function actionCustomconfig(){
+        return json_encode(Setting::customConfigApiData());
+    }
     public function actionAddSponsor(){
         $rawdata = file_get_contents("php://input");
         $data = json_decode($rawdata);

@@ -42,6 +42,9 @@ AppAsset::register($this);
         ['label' => 'Items', 'url' => ['/post/index']],
         ['label' => 'Geclaimde wedstrijden', 'url' => ['/event-sponsor/index']],
         ['label' => 'Lijst met aanmeldingen', 'url' => ['/subscribe/index']],
+        ['label' => 'Instellingen', 'url' => ['/setting/index']],
+        ['label' => 'Emailopmaak', 'url' => ['/setting-email/index']],
+        ['label' => 'Sponsortypen', 'url' => ['/setting-sponsortype/index']],
 
         
 

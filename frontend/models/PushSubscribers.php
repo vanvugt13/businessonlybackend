@@ -113,33 +113,13 @@ class PushSubscribers extends \yii\db\ActiveRecord
                 'notification' => [
                     'title' => $title,
                     'tag'=>$tag,
-                    //'image'=>"https://socialsapp.familie-van-vugt.nl/assets/images/telefoon.png",
-                        'icon'=>"assets/icons/icon-144x144.png",
-                      //   'badge'=>"/assets/images/chat.png",
-                    // 'options' => [
-                    //     'body' => $message,
-                    //     'icon' => "assets/main-page-logo-small-hat.png",
-                    //     'badge' => "assets/main-page-logo-small-hat.png",
-                    //     'vibrate' => [100, 50, 100],
-                    //     "data" => [
-                    //         "dateOfArrival" => time(),
-                    //         'primaryKey' => 1,
-                    //         'silent' => false,
-                    //     ],
-                    // ],
-                    //  'actions' => [["action"=>"URI","uri" => "https://vvog.businessonly.nl", "title" => "Ga naar app2"],
-                    //  ["action"=>"URI","uri" => "https://socialsapp.familie-van-vugt.nl", "title" => "Ga de testapp"]],
+                    'icon'=>"assets/icons/icon-144x144.png",
                     "data"=>[
                         "onActionClick"=>[
                           "default"=>["operation"=>"openWindow", "url"=> $url]
                         ]
                     ]
                 ],
-                // 'webpush'=>[
-                //     'fcmOptions'=>[
-                //         'link'=>'https://vvog.businessonly.nl'
-                //     ]
-                // ]
             ];
             $notification =         [
                 'subscription' => Subscription::create(json_decode($item->raw_data,true)), 'payload' => json_encode($payload)
@@ -159,17 +139,13 @@ class PushSubscribers extends \yii\db\ActiveRecord
         foreach ($webPush->flush() as $report) {
            // echo '<pre>';
             $endpoint = $report->getRequest()->getUri()->__toString();
-         //   echo  "number $i<br>";
             if (in_array($endpoint, $already_done)) {
-          //      echo "verwijeren! met $endpoint";
                 $this->removeEndpoint($endpoint);
                 continue;
             }
             $already_done[]    =    $endpoint;
             if ($report->isSuccess()) {
-           //     echo "[v] Message sent successfully for subscription {$endpoint}.";
             } else {
-            //    echo "[x] Message failed to sent for subscription {$endpoint}: {$report->getReason()}";
                 $this->removeEndpoint($endpoint);
             }
             $i++;

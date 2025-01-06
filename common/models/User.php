@@ -114,14 +114,14 @@ class User extends ActiveRecord implements IdentityInterface
         return Yii::$app->request->hostInfo.'/endpoints/';
     }
 
-    public static function baseAppLoginUrl(){
+    // public static function baseAppLoginUrl(){
 
-        return 'https://vvog.businessonly.nl/endpoints/';
-    }
-    public static function baseEndpointsUrl(){
+    //     return 'https://vvog.businessonly.nl/endpoints/';
+    // }
+    // public static function baseEndpointsUrl(){
 
-        return 'https://vvog.businessonly.nl/endpoints/';
-    }
+    //     return 'https://vvog.businessonly.nl/endpoints/';
+    // }
     public function attributeLabels()
     {
         return [
@@ -336,7 +336,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     private static function bodyNewUser(User $user){
       
-        $verifyLink = User::baseAppLoginUrl();
+        $verifyLink = User::baseUrl();
 $verifyLink = Yii::$app->urlManager->createAbsoluteUrl(['/site/verify-email', 'token' => $user->verification_token]);
 $html =<<<HTML
 <div class="verify-email">

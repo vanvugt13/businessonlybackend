@@ -7,7 +7,7 @@ use yii\helpers\Html;
 
 /** @var common\models\User $user */
 
-$verifyLink = User::baseAppLoginUrl().Yii::$app->urlManager->createUrl(['site/verify-email', 'token' => $user->verification_token]);
+$verifyLink = User::baseUrl().Yii::$app->urlManager->createUrl(['site/verify-email', 'token' => $user->verification_token]);
 ?>
 Hallo <?=$user->contactperson?>,
 
