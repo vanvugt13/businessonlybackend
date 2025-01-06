@@ -49,6 +49,8 @@ class Setting extends \yii\db\ActiveRecord
         $setting = Setting::find()->one();
         $array = [
             'title'=>$setting->title,
+            'theme_color'=>$setting->theme_color,
+            'sponsorTypes'=>SettingSponsortype::getApiData(),
         ];
 
         return $array;
