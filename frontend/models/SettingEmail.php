@@ -2,6 +2,7 @@
 
 namespace frontend\models;
 
+use frontend\components\Mailing;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 
@@ -59,14 +60,14 @@ class SettingEmail extends \yii\db\ActiveRecord
             'to' => 'Aan',
             'cc' => 'Cc',
             'bcc' => 'Bcc',
-            'created_at' => 'Created At',
+            'created_at' => 'Aangemaakt op',
             'updated_at' => 'Updated At',
         ];
     }
 
     public static array $mailTypes = [
-        10=>'Aanmeldingsmail',
-        20=>"Wachtwoord vergeten",
-        30=>"Nieuw sponsor",
+        Mailing::MAILING_NEW_USER=>'Aanmeldingsmail',
+        Mailing::MAILING_FORGOT_PASSWORD=>"Wachtwoord vergeten",
+        Mailing::MAILING_NEW_SPONSOR=>"Nieuw sponsor",
     ];
 }

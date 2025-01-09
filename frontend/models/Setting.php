@@ -69,7 +69,7 @@ class Setting extends \yii\db\ActiveRecord
             'to_test' => 'Aan-adres (in testmode)',
             'title' => 'Titel',
             'theme_color' => 'Kleurcode bv (#fa849d)',
-            'created_at' => 'Created At',
+            'created_at' => 'Aangemaakt op',
             'updated_at' => 'Updated At',
         ];
     }

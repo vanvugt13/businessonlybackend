@@ -4,6 +4,7 @@ namespace frontend\models;
 
 use common\models\User;
 use frontend\components\Mailer;
+use frontend\components\Mailing;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\helpers\Html;
@@ -64,7 +65,7 @@ class EventSponsor extends \yii\db\ActiveRecord
             'event_id' => 'Event ID',
             'user_id' => 'User ID',
             'sponsor_type' => 'Sponsor Type',
-            'created_at' => 'Created At',
+            'created_at' => 'Aangemaakt op',
             'updated_at' => 'Updated At',
         ];
     }
@@ -96,11 +97,12 @@ class EventSponsor extends \yii\db\ActiveRecord
     }
 
     private function informBackoffice(){
-        $mailer = new Mailer();
+        $mailer = new Mailing(Mailing::MAILING_NEW_SPONSOR,$this);
+        
         $mailer->to = $mailer->getBeheerderMail();//Yii::$app->params['beheerderMail']??null;
         $mailer->from = 'sales@businessonly.nl';
         $mailer->subject = 'Nieuwe sponsor aangemeld';
-        $mailer->body = 'Sponsor '.$this->user->contactperson .' ('.$this->user->username.') heeft zich aangemeld voor '.$this->getSponsorType().' sponsoring wedstrijd. Klik op de '.Html::a('link','https://www.vvog.nl/teams/senioren/1/wedstrijd/'.$this->event_id,['target'=>'_new']);
+     //   $mailer->body = 'Sponsor '.$this->user->contactperson .' ('.$this->user->username.') heeft zich aangemeld voor '.$this->getSponsorType().' sponsoring wedstrijd. Klik op de '.Html::a('link','https://www.vvog.nl/teams/senioren/1/wedstrijd/'.$this->event_id,['target'=>'_new']);
         $mailer->send();
     }
 }
