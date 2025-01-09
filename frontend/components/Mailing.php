@@ -67,10 +67,10 @@ class Mailing extends Mailer{
     }
     
     private function parseText($textToParse){
-        $text = str_replace('{{UserEmailAddress}}',$this->userModel->email,$textToParse);
-        $text = str_replace('{{UserContactPerson}}',$this->userModel->contactperson,$textToParse);
-        $text = str_replace('{{UserUserName}}',$this->userModel->username,$textToParse);
-        $text = str_replace('{{SponsorTypeDescription}}',$this->eventSponsorModel->getSponsorType(),$textToParse);
-        return $text;
+        $textToParse = str_replace('{{UserEmailAddress}}',$this->userModel->email,$textToParse);
+        $textToParse = str_replace('{{UserContactPerson}}',$this->userModel->contactperson,$textToParse);
+        $textToParse = str_replace('{{UserUserName}}',$this->userModel->username,$textToParse);
+        $textToParse = str_replace('{{SponsorTypeDescription}}',$this->eventSponsorModel->getSponsorType(),$textToParse);
+        return $textToParse;
     }
 }
