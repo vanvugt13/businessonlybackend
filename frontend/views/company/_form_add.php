@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'name')->textInput(['maxlength' => true])->label("Bedrijfsnaam") ?>
 
   
-    <?= $form->field($model, 'url')->textInput()->label('Website sponsor pagina VVOG') ?>
+    <?= $form->field($model, 'url')->textInput()->label('Website sponsor pagina') ?>
 
 
 

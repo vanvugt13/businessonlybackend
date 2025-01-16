@@ -18,7 +18,7 @@ class SettingSearch extends Setting
     {
         return [
             [['id', 'mode', 'created_at', 'updated_at'], 'integer'],
-            [['beheerderMail_test', 'from_test', 'to_test', 'title', 'theme_color'], 'safe'],
+            [['beheerderMail_test', 'from_test', 'to_test', 'title', 'theme_color','background_color','background_template'], 'safe'],
         ];
     }
 
@@ -68,6 +68,8 @@ class SettingSearch extends Setting
             ->andFilterWhere(['like', 'from_test', $this->from_test])
             ->andFilterWhere(['like', 'to_test', $this->to_test])
             ->andFilterWhere(['like', 'title', $this->title])
+            ->andFilterWhere(['like', 'background_color',$this->background_color])
+            ->andFilterWhere(['like', 'background_template',$this->background_template])
             ->andFilterWhere(['like', 'theme_color', $this->theme_color]);
 
         return $dataProvider;

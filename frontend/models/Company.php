@@ -153,7 +153,7 @@ class Company extends \yii\db\ActiveRecord
             'created_at' => 'Aangemaakt op',
             'updated_at' => 'Gewijzigd op',
             'company_url'=>"Bedrijfswebsite",
-            'url'=>"URL sponsorpagina VVOG",
+            'url'=>"URL sponsorpagina ",
         ];
     }
 }

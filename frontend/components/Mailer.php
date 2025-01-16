@@ -43,7 +43,7 @@ class Mailer {
             echo implode(',',$this->errors);
             return false;
         }
-        $this->to = $this->getTo();//'sponsorcommissie@vvog.nl';
+        $this->to = $this->getTo();
         $this->from = $this->getFrom();
         $mailer = Yii::$app->mailer->compose()
         ->setTo($this->to)

@@ -10,7 +10,7 @@ return [
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
-    'name'=>'VVOG Backend',
+    'name'=>'Business only APP Backend',
     'language'=>'nl',
     'controllerNamespace' => 'frontend\controllers',
     'components' => [

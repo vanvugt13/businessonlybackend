@@ -13,7 +13,7 @@ use yii\helpers\ArrayHelper;
  * This is the model class for table "news".
  *
  * @property int $id
- * @property int|null $vvog_id
+ * @property int|null $news_id_customer
  * @property string|null $title
  * @property string|null $intro
  * @property string|null $text
@@ -39,7 +39,7 @@ class News extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['vvog_id'], 'integer'],
+            [['news_id_customer'], 'integer'],
             [['intro', 'text', 'image', 'url'], 'string'],
             [['date'], 'safe'],
             [['title', 'category'], 'string', 'max' => 255],
@@ -50,12 +50,12 @@ class News extends \yii\db\ActiveRecord
         $homepage = file_get_contents(self::NEWS_URL);
         $data = json_decode($homepage);
        
-        $vvog_ids = ArrayHelper::map(News::find()->all(),'vvog_id','vvog_id');
+        $news_ids_customer = ArrayHelper::map(News::find()->all(),'news_id_customer','news_id_customer');
         foreach($data as $item){
-            if(!in_array($item->id,$vvog_ids)){
+            if(!in_array($item->id,$news_ids_customer)){
                 //new item
                 $news_item = new News();
-                $news_item->vvog_id = $item->id;
+                $news_item->news_id_customer = $item->id;
                 $news_item->title = $item->titel;
                 $news_item->intro = $item->intro;
                 $news_item->image   =   $item->afbeelding;
@@ -91,7 +91,7 @@ class News extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'vvog_id' => 'Vvog ID',
+            'news_id_customer' => 'News ID of Customer',
             'title' => 'Title',
             'intro' => 'Intro',
             'text' => 'Text',

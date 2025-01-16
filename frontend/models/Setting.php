@@ -15,6 +15,11 @@ use yii\behaviors\TimestampBehavior;
  * @property string|null $to_test
  * @property string|null $title
  * @property string|null $theme_color
+ * @property string|null $background_color
+ * @property string|null $background_template
+ * @property string|null $logo_url
+ * @property string|null $logo_blob
+ * 
  * @property int|null $created_at
  * @property int|null $updated_at
  */
@@ -40,16 +45,21 @@ class Setting extends \yii\db\ActiveRecord
     {
         return [
             [['mode', 'created_at', 'updated_at'], 'integer'],
-            [['beheerderMail_test', 'from_test', 'to_test', 'title'], 'string'],
+            [['beheerderMail_test', 'from_test', 'to_test', 'title','logo_url','background_color','background_template'], 'string'],
             [['theme_color'], 'string', 'max' => 10],
+            [['logo_blob'],'safe'],
         ];
     }
 
     public static function customConfigApiData() :array{
+        /** @var \frontend\models\Setting $setting */
         $setting = Setting::find()->one();
         $array = [
             'title'=>$setting->title,
             'theme_color'=>$setting->theme_color,
+            'logo_url'=>$setting->logo_url,
+            'background_color'=>$setting->background_color,
+            'background_template'=>$setting->background_template,
             'sponsorTypes'=>SettingSponsortype::getApiData(),
         ];
 

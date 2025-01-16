@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Nieuw bedrijf', ['create'], ['class' => 'btn btn-success']) ?>
-        <?= Html::a('Haal gegevens op van VVOG website', ['fetchdata'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Haal gegevens op van website', ['fetchdata'], ['class' => 'btn btn-success']) ?>
         <?= Html::a('Resize images', ['check-images'], ['class' => 'btn btn-success']) ?>
     </p>
 

@@ -113,15 +113,6 @@ class User extends ActiveRecord implements IdentityInterface
 
         return Yii::$app->request->hostInfo.'/endpoints/';
     }
-
-    // public static function baseAppLoginUrl(){
-
-    //     return 'https://vvog.businessonly.nl/endpoints/';
-    // }
-    // public static function baseEndpointsUrl(){
-
-    //     return 'https://vvog.businessonly.nl/endpoints/';
-    // }
     public function attributeLabels()
     {
         return [

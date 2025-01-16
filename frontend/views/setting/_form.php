@@ -24,7 +24,8 @@ use yii\helpers\Html;
     <?= $form->field($model, 'title')->textInput() ?>
 
     <?= $form->field($model, 'theme_color')->textInput(['maxlength' => true]) ?>
-
+    <?= $form->field($model, 'background_color')->textInput() ?>
+    <?= $form->field($model, 'background_template')->textInput() ?>
 
     <div class="form-group float-end">
         <?= Html::submitButton('Opslaan', ['class' => 'btn btn-success']) ?>
