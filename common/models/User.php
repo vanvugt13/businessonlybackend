@@ -52,6 +52,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     const TYPE_SYSTEMUSER = 10;
     const TYPE_APPUSER = 20;
+    const TYPE_BUSINESSONLY_ADMIN = 30;
 
     public $password;
     public $chat_user_id;
@@ -158,6 +159,17 @@ class User extends ActiveRecord implements IdentityInterface
     public static function findByUsername($username)
     {
         return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
+    }
+
+    /**
+     * Finds user by username
+     *
+     * @param string $username
+     * @return static|null
+     */
+    public static function findBackendUserByUsername($username)
+    {
+        return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE,'type'=>[User::TYPE_SYSTEMUSER,User::TYPE_BUSINESSONLY_ADMIN]]);
     }
 
     /**

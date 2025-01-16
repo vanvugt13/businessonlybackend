@@ -3,6 +3,7 @@
 /** @var \yii\web\View $this */
 /** @var string $content */
 
+use common\models\User;
 use common\widgets\Alert;
 use frontend\assets\AppAsset;
 use yii\bootstrap5\Breadcrumbs;
@@ -34,21 +35,22 @@ AppAsset::register($this);
             'class' => 'navbar navbar-expand-md navbar-dark bg-dark fixed-top',
         ],
     ]);
-    $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'Bedrijven', 'url' => ['/company/index']],
-        ['label' => 'Gebruikers', 'url' => ['/user/index']],
-      //  ['label' => 'Nieuws', 'url' => ['/news/index']],
-        ['label' => 'Items', 'url' => ['/post/index']],
-        ['label' => 'Geclaimde wedstrijden', 'url' => ['/event-sponsor/index']],
-        ['label' => 'Lijst met aanmeldingen', 'url' => ['/subscribe/index']],
-        ['label' => 'Instellingen', 'url' => ['/setting/index']],
-        ['label' => 'Emailopmaak', 'url' => ['/setting-email/index']],
-        ['label' => 'Sponsortypen', 'url' => ['/setting-sponsortype/index']],
+    if(!Yii::$app->user->isGuest){
+        $menuItems = [
+            ['label' => 'Home', 'url' => ['/site/index']],
+            ['label' => 'Bedrijven', 'url' => ['/company/index']],
+            ['label' => 'Gebruikers', 'url' => ['/user/index']],
+        //  ['label' => 'Nieuws', 'url' => ['/news/index']],
+            ['label' => 'Items', 'url' => ['/post/index']],
+            ['label' => 'Geclaimde wedstrijden', 'url' => ['/event-sponsor/index']],
+            ['label' => 'Lijst met aanmeldingen', 'url' => ['/subscribe/index']],
+            ['label' => 'Instellingen', 'url' => ['/setting/index'],'visible'=>Yii::$app->user->identity->type == User::TYPE_BUSINESSONLY_ADMIN],
+            ['label' => 'Emailopmaak', 'url' => ['/setting-email/index'],'visible'=>Yii::$app->user->identity->type == User::TYPE_BUSINESSONLY_ADMIN],
+            ['label' => 'Sponsortypen', 'url' => ['/setting-sponsortype/index'],'visible'=>Yii::$app->user->identity->type == User::TYPE_BUSINESSONLY_ADMIN]
+        ];
+    }
 
-        
-
-    ];
+    
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Aanmelden', 'url' => ['/site/signup']];
     }
@@ -84,7 +86,6 @@ AppAsset::register($this);
 <footer class="footer mt-auto py-3 text-muted">
     <div class="container">
         <p class="float-start">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
-        <p class="float-end"><?= Yii::powered() ?></p>
     </div>
 </footer>
 
