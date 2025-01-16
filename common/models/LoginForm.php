@@ -36,6 +36,8 @@ class LoginForm extends Model
     {
         return [
             'password'=>'Wachtwoord',
+            'username'=>'Gebruikersnaam',
+            'rememberMe'=>'Herinner mij',
         ];
     }
     /**

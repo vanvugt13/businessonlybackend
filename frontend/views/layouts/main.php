@@ -52,7 +52,7 @@ AppAsset::register($this);
 
     
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Aanmelden', 'url' => ['/site/signup']];
+       // $menuItems[] = ['label' => 'Aanmelden', 'url' => ['/site/signup']];
     }
 
     echo Nav::widget([
