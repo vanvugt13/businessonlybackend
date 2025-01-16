@@ -35,6 +35,7 @@ AppAsset::register($this);
             'class' => 'navbar navbar-expand-md navbar-dark bg-dark fixed-top',
         ],
     ]);
+    $menuItems = [];
     if(!Yii::$app->user->isGuest){
         $menuItems = [
             ['label' => 'Home', 'url' => ['/site/index']],
