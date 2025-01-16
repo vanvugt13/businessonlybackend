@@ -70,6 +70,7 @@ class SettingSearch extends Setting
             ->andFilterWhere(['like', 'title', $this->title])
             ->andFilterWhere(['like', 'background_color',$this->background_color])
             ->andFilterWhere(['like', 'background_template',$this->background_template])
+            ->andFilterWhere(['like', 'logo_url',$this->logo_url])
             ->andFilterWhere(['like', 'theme_color', $this->theme_color]);
 
         return $dataProvider;

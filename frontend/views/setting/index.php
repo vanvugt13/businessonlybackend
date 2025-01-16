@@ -41,6 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'to_test:ntext',
             'title:ntext',
             'theme_color',
+            'logo_url',
             'background_color',
             'background_template',
             //'created_at',

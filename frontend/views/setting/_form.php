@@ -22,7 +22,7 @@ use yii\helpers\Html;
     <?= $form->field($model, 'to_test')->textInput() ?>
 
     <?= $form->field($model, 'title')->textInput() ?>
-
+    <?= $form->field($model, 'logo_url')->textInput() ?>
     <?= $form->field($model, 'theme_color')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'background_color')->textInput() ?>
     <?= $form->field($model, 'background_template')->textInput() ?>
