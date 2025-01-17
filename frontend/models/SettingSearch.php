@@ -18,7 +18,7 @@ class SettingSearch extends Setting
     {
         return [
             [['id', 'mode', 'created_at', 'updated_at'], 'integer'],
-            [['beheerderMail_test', 'from_test', 'to_test', 'title', 'theme_color','background_color','background_template'], 'safe'],
+            [['beheerderMail_test', 'from_test', 'to_test', 'title', 'theme_color','background_color','background_template','logo_url'], 'safe'],
         ];
     }
 

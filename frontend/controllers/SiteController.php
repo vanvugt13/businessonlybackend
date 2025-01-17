@@ -191,12 +191,12 @@ class SiteController extends Controller
         $model = new PasswordResetRequestForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
-                Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
+                Yii::$app->session->setFlash('success', 'Check je mail voor verdere instructies.');
 
                 return $this->goHome();
             }
 
-            Yii::$app->session->setFlash('error', 'Sorry, we are unable to reset password for the provided email address.');
+            Yii::$app->session->setFlash('error', 'Sorry, we zijn niet in staat om het wachtwoord te resetten met opgegeven emailadres.');
         }
 
         return $this->render('requestPasswordResetToken', [
@@ -273,10 +273,10 @@ class SiteController extends Controller
         $model = new ResendVerificationEmailForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
-                Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
+                Yii::$app->session->setFlash('success', 'Check je mail voor verdere instructies.');
                 return $this->goHome();
             }
-            Yii::$app->session->setFlash('error', 'Sorry, we are unable to resend verification email for the provided email address.');
+            Yii::$app->session->setFlash('error', 'Sorry, we zijn niet in staat om je verificatie mail te sturen met opgegeven emailadres.');
         }
 
         return $this->render('resendVerificationEmail', [
