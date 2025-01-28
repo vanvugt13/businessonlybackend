@@ -117,24 +117,28 @@ class Setting extends \yii\db\ActiveRecord
 
     private function generateIcons(){
         $tempPath = Yii::getAlias('@runtime').'/tempIcon.png';
-        $tempPath72 = Yii::getAlias('@webroot').'/images/icon-72x72.png';
-        if(file_exists($tempPath72)) return true;
-        file_put_contents($tempPath,$this->favo_icon);
-        $source = imagecreatefrompng($tempPath);
-        list($width, $height) = getimagesize($tempPath);
+        $imagesToCreate=[72,96,128,144,152,192,384,512];
+        foreach($imagesToCreate as $neededSize){
+            $tempPathResized = Yii::getAlias('@webroot').'/images/icon-72x72.png';
+            if(file_exists($tempPathResized)) return true;
+            file_put_contents($tempPath,$this->favo_icon);
+            $source = imagecreatefrompng($tempPath);
+            list($width, $height) = getimagesize($tempPath);
+            
+            // Define new dimensions (200x200 pixels)
+            $newWidth = $neededSize;
+            $newHeight = $neededSize;
+            
+            // Create a new image
+            $thumb = imagecreatetruecolor($newWidth, $newHeight);
+            
+            // Resize
+            imagecopyresized($thumb, $source, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+            
+            // Save the resized image
+            imagejpeg($thumb, $tempPathResized, 100);
+        }
         
-        // Define new dimensions (200x200 pixels)
-        $newWidth = 72;
-        $newHeight = 72;
-        
-        // Create a new image
-        $thumb = imagecreatetruecolor($newWidth, $newHeight);
-        
-        // Resize
-        imagecopyresized($thumb, $source, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
-        
-        // Save the resized image
-        imagejpeg($thumb, $tempPath72, 100);
 
     }
 }
