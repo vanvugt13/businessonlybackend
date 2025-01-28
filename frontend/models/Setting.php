@@ -120,7 +120,7 @@ class Setting extends \yii\db\ActiveRecord
         $imagesToCreate=[72,96,128,144,152,192,384,512];
         foreach($imagesToCreate as $neededSize){
             $tempPathResized = Yii::getAlias('@webroot').'/images/icon-'.$neededSize.'x'.$neededSize.'.png';
-            if(file_exists($tempPathResized)) continue;
+            //if(file_exists($tempPathResized)) continue;
             file_put_contents($tempPath,$this->favo_icon);
             $source = imagecreatefrompng($tempPath);
             list($width, $height) = getimagesize($tempPath);
