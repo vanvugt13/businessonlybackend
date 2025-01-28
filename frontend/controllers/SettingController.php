@@ -4,6 +4,8 @@ namespace frontend\controllers;
 
 use frontend\models\Setting;
 use frontend\models\SettingSearch;
+use Yii;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -21,8 +23,18 @@ class SettingController extends Controller
         return array_merge(
             parent::behaviors(),
             [
+                'access'=>[
+                    'class'=>AccessControl::class,
+                    'rules'=>[
+                        [
+                            'actions' => ['update', 'index','create','create-manifest'],
+                            'allow' => true,
+                            'roles' => ['@'],
+                        ],
+                    ]
+                    ],
                 'verbs' => [
-                    'class' => VerbFilter::className(),
+                    'class' => VerbFilter::class,
                     'actions' => [
                         'delete' => ['POST'],
                     ],
@@ -130,5 +142,13 @@ class SettingController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionCreateManifest(){
+        if(Setting::createManifest()){
+            Yii::$app->user->setFlash('success','Manifest aangemaakt');
+        }else{
+            Yii::$app->user->setFlash('warning','Niet gelukt om manifest aan te maken');
+        }
     }
 }

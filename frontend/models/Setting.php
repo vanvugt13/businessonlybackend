@@ -25,6 +25,7 @@ use yii\web\UploadedFile;
  * @property string|null $news_url
  * @property string|null $calendar_url
  * @property string|null $sponsor_options_url Link to show in the dialog if sponsor type is used
+ * @property string|null $application_name
  * 
  * @property int|null $created_at
  * @property int|null $updated_at
@@ -52,7 +53,7 @@ class Setting extends \yii\db\ActiveRecord
     {
         return [
             [['mode', 'created_at', 'updated_at'], 'integer'],
-            [['beheerderMail_test', 'from_test', 'to_test', 'title','logo_url','background_color','background_template','home_team','sponsor_options_url','news_url','calendar_url'], 'string'],
+            [['beheerderMail_test', 'from_test', 'to_test','application_name', 'title','logo_url','background_color','background_template','home_team','sponsor_options_url','news_url','calendar_url'], 'string'],
             [['theme_color'], 'string', 'max' => 10],
             [['logo_blob','favo_icon','favo_iconField'],'safe'],
         ];
@@ -75,6 +76,71 @@ class Setting extends \yii\db\ActiveRecord
         ];
 
         return $array;
+    }
+
+    public static function createManifest(){
+        /** @var \frontend\models\Setting $setting */
+        $setting = self::find()->one();
+        $manifest = [
+            'name'=>$setting->application_name,
+            'background_color'=>$setting->background_color,
+            'display'=>'standalone',
+            'scope'=>'./',
+            'start_url'=>'./',
+            'icons'=>[
+                [
+                    "src"=> "backend/images/icon-72x72.png",
+                    "sizes"=> "72x72",
+                    "type"=> "image/png",
+                    "purpose"=> "maskable any"
+                ],
+                [
+                    "src"=> "backend/images/icon-96x96.png",
+                    "sizes"=> "96x96",
+                    "type"=> "image/png",
+                    "purpose"=> "maskable any"
+                ],
+                [
+                    "src"=> "backend/images/icon-128x128.png",
+                    "sizes"=> "128x128",
+                    "type"=> "image/png",
+                    "purpose"=> "maskable any"
+                ],
+                [
+                    "src"=> "backend/images/icon-144x144.png",
+                    "sizes"=> "144x144",
+                    "type"=> "image/png",
+                    "purpose"=> "maskable any"
+                ],
+                [
+                    "src"=> "backend/images/icon-152x152.png",
+                    "sizes"=> "152x152",
+                    "type"=> "image/png",
+                    "purpose"=> "maskable any"
+                ],
+                [
+                    "src"=> "backend/images/icon-192x192.png",
+                    "sizes"=> "192x192",
+                    "type"=> "image/png",
+                    "purpose"=> "maskable any"
+                ],
+                [
+                    "src"=> "backend/images/icon-384x384.png",
+                    "sizes"=> "152x152",
+                    "type"=> "image/png",
+                    "purpose"=> "maskable any"
+                ],
+                [
+                    "src"=> "backend/images/icon-512x512.png",
+                    "sizes"=> "512x512",
+                    "type"=> "image/png",
+                    "purpose"=> "maskable any"
+                ],
+            ]
+        ];
+
+        $manifestPath = Yii::getAlias('@webroot').'/manifest.webmanifest';
+        return file_put_contents($manifestPath,json_encode($manifest));
     }
 
     /**

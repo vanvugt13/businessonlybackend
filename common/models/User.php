@@ -111,7 +111,6 @@ class User extends ActiveRecord implements IdentityInterface
 
 
     public static function baseUrl(){
-
         return Yii::$app->request->hostInfo.'/backend/';
     }
     public function attributeLabels()

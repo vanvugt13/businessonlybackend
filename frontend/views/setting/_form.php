@@ -22,6 +22,7 @@ use yii\helpers\Html;
     <?= $form->field($model, 'to_test')->textInput() ?>
 
     <?= $form->field($model, 'title')->textInput() ?>
+    <?= $form->field($model, 'application_name')->textInput() ?>
     <?= $form->field($model, 'logo_url')->textInput() ?>
     <?= $form->field($model, 'news_url')->textInput() ?>
     <?= $form->field($model, 'sponsor_options_url')->textInput() ?>

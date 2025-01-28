@@ -19,6 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?php echo Setting::find()->one()?"":Html::a('Maak instelling', ['create'], ['class' => 'btn btn-success']) ?>
+        <?php echo Html::a('Genereer manifest file', ['create-manifest'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -40,6 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'from_test:ntext',
             'to_test:ntext',
             'title:ntext',
+            'application_name:ntext',
             'theme_color',
             'logo_url',
             'news_url',
