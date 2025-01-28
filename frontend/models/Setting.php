@@ -86,52 +86,52 @@ class Setting extends \yii\db\ActiveRecord
             'background_color'=>$setting->background_color,
             'display'=>'standalone',
             'scope'=>'./',
-            'start_url'=>'./',
+            'start_url'=>'/',
             'icons'=>[
                 [
-                    "src"=> "backend/images/icon-72x72.png",
+                    "src"=> "images/icon-72x72.png",
                     "sizes"=> "72x72",
                     "type"=> "image/png",
                     "purpose"=> "maskable any"
                 ],
                 [
-                    "src"=> "backend/images/icon-96x96.png",
+                    "src"=> "images/icon-96x96.png",
                     "sizes"=> "96x96",
                     "type"=> "image/png",
                     "purpose"=> "maskable any"
                 ],
                 [
-                    "src"=> "backend/images/icon-128x128.png",
+                    "src"=> "images/icon-128x128.png",
                     "sizes"=> "128x128",
                     "type"=> "image/png",
                     "purpose"=> "maskable any"
                 ],
                 [
-                    "src"=> "backend/images/icon-144x144.png",
+                    "src"=> "images/icon-144x144.png",
                     "sizes"=> "144x144",
                     "type"=> "image/png",
                     "purpose"=> "maskable any"
                 ],
                 [
-                    "src"=> "backend/images/icon-152x152.png",
+                    "src"=> "images/icon-152x152.png",
                     "sizes"=> "152x152",
                     "type"=> "image/png",
                     "purpose"=> "maskable any"
                 ],
                 [
-                    "src"=> "backend/images/icon-192x192.png",
+                    "src"=> "images/icon-192x192.png",
                     "sizes"=> "192x192",
                     "type"=> "image/png",
                     "purpose"=> "maskable any"
                 ],
                 [
-                    "src"=> "backend/images/icon-384x384.png",
+                    "src"=> "images/icon-384x384.png",
                     "sizes"=> "152x152",
                     "type"=> "image/png",
                     "purpose"=> "maskable any"
                 ],
                 [
-                    "src"=> "backend/images/icon-512x512.png",
+                    "src"=> "images/icon-512x512.png",
                     "sizes"=> "512x512",
                     "type"=> "image/png",
                     "purpose"=> "maskable any"
