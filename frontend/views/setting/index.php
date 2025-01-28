@@ -42,6 +42,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'title:ntext',
             'theme_color',
             'logo_url',
+            'news_url',
+            'calendar_url',
+            'sponsor_options_url',
+
             'background_color',
             'background_template',
             //'created_at',

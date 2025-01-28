@@ -23,6 +23,9 @@ use yii\helpers\Html;
 
     <?= $form->field($model, 'title')->textInput() ?>
     <?= $form->field($model, 'logo_url')->textInput() ?>
+    <?= $form->field($model, 'news_url')->textInput() ?>
+    <?= $form->field($model, 'sponsor_options_url')->textInput() ?>
+    <?= $form->field($model, 'calendar_url')->textInput() ?>
     <?= $form->field($model, 'theme_color')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'background_color')->textInput() ?>
     <?= $form->field($model, 'background_template')->textInput() ?>
