@@ -61,13 +61,14 @@ class Company extends \yii\db\ActiveRecord
     }
 
     public function afterSave($insert,$changedAttributes){
+        /** @var frontend\models\CompanyImage $companyImage */
         if($insert){
             $companyImage=  $this->companyImage;
             if(!$companyImage){
                 $companyImage = new CompanyImage();
                 $companyImage->company_id = $this->id;
             }
-            $companyImage->logo = $this->logoApp;
+            $companyImage->image = $this->logoApp;
             $companyImage->save();
         }
        
