@@ -146,9 +146,9 @@ class SettingController extends Controller
 
     public function actionCreateManifest(){
         if(Setting::createManifest()){
-            Yii::$app->user->setFlash('success','Manifest aangemaakt');
+            Yii::$app->session->setFlash('success','Manifest aangemaakt');
         }else{
-            Yii::$app->user->setFlash('warning','Niet gelukt om manifest aan te maken');
+            Yii::$app->session->setFlash('warning','Niet gelukt om manifest aan te maken');
         }
     }
 }

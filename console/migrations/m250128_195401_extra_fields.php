@@ -12,7 +12,7 @@ class m250128_195401_extra_fields extends Migration
      */
     public function safeUp()
     {
-        $this->addColumn('setting','name_application','VARCHAR(255)');
+        $this->addColumn('setting','application_name','VARCHAR(255)');
     }
 
     /**
