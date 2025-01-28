@@ -150,5 +150,6 @@ class SettingController extends Controller
         }else{
             Yii::$app->session->setFlash('warning','Niet gelukt om manifest aan te maken');
         }
+        return $this->redirect('index');
     }
 }
