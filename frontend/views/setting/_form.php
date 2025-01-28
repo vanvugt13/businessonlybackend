@@ -11,7 +11,7 @@ use yii\helpers\Html;
 
 <div class="setting-form">
 
-    <?php $form = ActiveForm::begin(['layout'=>'horizontal']); ?>
+    <?php $form = ActiveForm::begin(['layout'=>'horizontal','options'=>['enctype'=>'multipart/form-data']]); ?>
 
     <?= $form->field($model, 'mode')->dropDownList([10=>'Test',20=>'Live']) ?>
 
@@ -26,6 +26,7 @@ use yii\helpers\Html;
     <?= $form->field($model, 'theme_color')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'background_color')->textInput() ?>
     <?= $form->field($model, 'background_template')->textInput() ?>
+    <?= $form->field($model, 'favo_iconField')->fileInput() ?>
 
     <div class="form-group float-end">
         <?= Html::submitButton('Opslaan', ['class' => 'btn btn-success']) ?>
