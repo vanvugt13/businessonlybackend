@@ -83,7 +83,7 @@ class UserController extends Controller
     public function actionCreate()
     {
         $model = new User();
-
+        $model->skipActivate = 1;
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
                 if(empty($model->company_id)){

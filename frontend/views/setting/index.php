@@ -44,6 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'application_name:ntext',
             'theme_color',
             'logo_url',
+            'home_team',
             'news_url',
             'calendar_url',
             'sponsor_options_url',
