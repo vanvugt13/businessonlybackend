@@ -125,6 +125,7 @@ class UserController extends Controller
         foreach ($userimages as $userimage) {
             $new_image = Image::resizeImage(base64_decode($userimage->image));
             if(!empty($new_image)){
+                $userimage->checked = true;
                 $userimage->user->imageApp = base64_encode($new_image);
                 if($userimage->user->save()){
                     

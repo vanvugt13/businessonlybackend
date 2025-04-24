@@ -82,6 +82,7 @@ class CompanyController extends Controller
             $new_image = Image::resizeImage(base64_decode($companyImage->image));
             if(!empty($new_image)){
                 $companyImage->image = base64_encode($new_image);
+                $companyImage->checked = 1;
                 if(!$companyImage->save()){
                    echo "mislukt";
                    exit;
