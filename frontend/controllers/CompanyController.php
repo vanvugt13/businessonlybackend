@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use frontend\components\Image;
 use frontend\models\Company;
+use frontend\models\CompanyImage;
 use frontend\models\CompanySearch;
 use Yii;
 use yii\filters\AccessControl;
@@ -75,25 +76,19 @@ class CompanyController extends Controller
     }
 
     public function actionCheckImages(){
-        $companies = Company::find()->where('logo != ""')->all();
-        foreach($companies as $company){
+        $companyImages = CompanyImage::find()->where('logo != ""')->andWhere(['checked'=>0])->all();
+        foreach($companyImages as $companyImage){
            
-            $new_image = Image::resizeImage(base64_decode($company->logo));
+            $new_image = Image::resizeImage(base64_decode($companyImage->image));
             if(!empty($new_image)){
-                $company->logo = base64_encode($new_image);
-                if(!$company->save()){
+                $companyImage->logo = base64_encode($new_image);
+                if(!$companyImage->save()){
                    echo "mislukt";
                    exit;
                     
-                }
-                else{
-                    echo "isge lukt";
-                    //exit;
-                }
-                
+                }                
             }
         }
-        exit; 
         return $this->redirect('index');
     }
     public function actionFetchdata()

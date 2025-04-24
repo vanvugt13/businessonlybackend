@@ -51,6 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'background_color',
             'background_template',
+            'background_image',
             //'created_at',
             //'updated_at',
             [

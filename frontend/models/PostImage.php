@@ -10,6 +10,7 @@ use Yii;
  * @property int $id
  * @property int|null $post_id
  * @property resource|null $image
+ * @property int $checked
  *
  * @property Post $post
  */
@@ -29,7 +30,7 @@ class PostImage extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['post_id'], 'integer'],
+            [['post_id','checked'], 'integer'],
             [['image'], 'string'],
             [['post_id'], 'exist', 'skipOnError' => true, 'targetClass' => Post::class, 'targetAttribute' => ['post_id' => 'id']],
         ];

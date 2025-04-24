@@ -18,6 +18,7 @@ use yii\web\UploadedFile;
  * @property string|null $theme_color
  * @property string|null $background_color
  * @property string|null $background_template
+ * @property string|null $background_image
  * @property string|null $logo_url
  * @property string|null $logo_blob
  * @property string|null $favo_icon
@@ -53,7 +54,7 @@ class Setting extends \yii\db\ActiveRecord
     {
         return [
             [['mode', 'created_at', 'updated_at'], 'integer'],
-            [['beheerderMail_test', 'from_test', 'to_test','application_name', 'title','logo_url','background_color','background_template','home_team','sponsor_options_url','news_url','calendar_url'], 'string'],
+            [['beheerderMail_test', 'from_test', 'to_test','application_name', 'title','logo_url','background_color','background_template','background_image','home_team','sponsor_options_url','news_url','calendar_url'], 'string'],
             [['theme_color'], 'string', 'max' => 10],
             [['logo_blob','favo_icon','favo_iconField'],'safe'],
         ];
@@ -70,6 +71,7 @@ class Setting extends \yii\db\ActiveRecord
             'background_template'=>$setting->background_template,
             'sponsorTypes'=>SettingSponsortype::getApiData(),
             'home_team'=>$setting->home_team,
+            'background_image'=>$setting->background_image,
             'news_url'=>$setting->news_url,
             'sponsor_options_url'=>$setting->sponsor_options_url,
             'calendar_url'=>$setting->calendar_url,

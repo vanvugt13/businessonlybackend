@@ -10,6 +10,7 @@ use Yii;
  * @property int $id
  * @property int|null $company_id
  * @property resource|null $image
+ * @property int $checked
  *
  * @property Company $company
  */
@@ -29,7 +30,7 @@ class CompanyImage extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['company_id'], 'integer'],
+            [['company_id','checked'], 'integer'],
             [['image'], 'string'],
             [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => Company::class, 'targetAttribute' => ['company_id' => 'id']],
         ];

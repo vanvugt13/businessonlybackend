@@ -11,7 +11,7 @@ use yii\helpers\Url;
 class Image 
 {
     const DEFAULT_HEIGHT = 700;
-    public static function resizeImage(string $imagedata) : string{
+    public static function resizeImage(string $imagedata) : string | null{
         $max=   self::DEFAULT_HEIGHT;
 /*
 here you can insert any specific "if-else",
@@ -19,8 +19,12 @@ or "switch" type of detector of what type of picture this is.
 in this example i'll use standard JPG
 */
 
+        
         $src_img=imagecreatefromstring($imagedata);
 
+        if($src_img === false){
+            return null;
+        }
         $oh = imagesy($src_img);  # original height
         $ow = imagesx($src_img);  # original width
 

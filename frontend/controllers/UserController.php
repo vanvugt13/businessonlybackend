@@ -6,6 +6,7 @@ use common\models\User;
 use common\models\UserSearch;
 use frontend\components\Image;
 use frontend\models\Company;
+use frontend\models\UserImage;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -119,13 +120,13 @@ class UserController extends Controller
 
 
     public function actionCheckImages(){
-        $users = User::find()->where('image != ""')
-        ->all();
-        foreach ($users as $user) {
-            $new_image = Image::resizeImage(base64_decode($user->image));
+        $userimages = UserImage::find()->where(['!=','image',''])->andWhere(['checked'=>false])->all();
+
+        foreach ($userimages as $userimage) {
+            $new_image = Image::resizeImage(base64_decode($userimage->image));
             if(!empty($new_image)){
-                $user->imageApp = base64_encode($new_image);
-                if($user->save()){
+                $userimage->user->imageApp = base64_encode($new_image);
+                if($userimage->user->save()){
                     
                 }   
             } 

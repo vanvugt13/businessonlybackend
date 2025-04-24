@@ -31,6 +31,7 @@ use yii\helpers\Html;
     <?= $form->field($model, 'theme_color')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'background_color')->textInput() ?>
     <?= $form->field($model, 'background_template')->textInput() ?>
+    <?= $form->field($model, 'background_image')->textInput() ?>
     <?= $form->field($model, 'favo_iconField')->fileInput() ?>
 
     <div class="form-group float-end">

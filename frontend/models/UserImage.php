@@ -11,6 +11,7 @@ use Yii;
  * @property int $id
  * @property int|null $user_id
  * @property resource|null $image
+ * @property int $checked
  *
  * @property User $user
  */
@@ -30,7 +31,7 @@ class UserImage extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id'], 'integer'],
+            [['user_id','checked'], 'integer'],
             [['image'], 'string'],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
