@@ -76,12 +76,12 @@ class CompanyController extends Controller
     }
 
     public function actionCheckImages(){
-        $companyImages = CompanyImage::find()->where('logo != ""')->andWhere(['checked'=>0])->all();
+        $companyImages = CompanyImage::find()->where('image != ""')->andWhere(['checked'=>0])->all();
         foreach($companyImages as $companyImage){
            
             $new_image = Image::resizeImage(base64_decode($companyImage->image));
             if(!empty($new_image)){
-                $companyImage->logo = base64_encode($new_image);
+                $companyImage->image = base64_encode($new_image);
                 if(!$companyImage->save()){
                    echo "mislukt";
                    exit;
