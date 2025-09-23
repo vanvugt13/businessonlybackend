@@ -342,7 +342,7 @@ class ApiController extends Controller
                 'titel'=>$post['title'],
                 'intro'=>$post['title'],
                 'datum'=>date("Y-m-d H:i:s",$post["created_at"]),
-                'tekst'=>$post["description"],
+                'tekst'=>nl2br($post["description"]),
                 'category'=>1,
                 'afbeelding'=>$afbeelding,
                 'url'=>User::baseUrl().'/api/bc-news-item?id='.$post["id"],
