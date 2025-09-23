@@ -310,7 +310,7 @@ class ContactController extends Controller
         'email_address'=>$user->email_address,
         'company_name'=>$user->company?->name,
         'contactperson'=>$user->contactperson,
-        'companyDescription'=>$user->company?->description,
+        'companyDescription'=>nl2br($user->company?->description),
         'companyUrl'=>$user->company?->company_url,
         'companyImage'=>$user->company?->getFilename(),
         'description'=>$user->description];
@@ -336,7 +336,7 @@ class ContactController extends Controller
                 'name'=>$users->username,
                 'company_name'=>$users->company?->name,
                 'contactperson'=>$users->contactperson,
-                'companyDescription'=>$users->company?->description,
+                'companyDescription'=>nl2br($users->company?->description),
                 'companyUrl'=>$users->company?->company_url,
                 'companyImage'=>$users->company?->getFilename(),
                 'phone_number'=>$users->phone_number,
