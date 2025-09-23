@@ -43,7 +43,7 @@ class SettingSponsortype extends \yii\db\ActiveRecord
     }
 
     public static function getApiData():array{
-        return  self::find()->select(['type','name','price','maximumAllowedSubscribers','order'])->asArray()->all();
+        return  self::find()->select(['type','name','price','maximumAllowedSubscribers','order'])->asArray()->orderBy('order')->all();
         //foreach($sponsorTypes as $sponsortype)
     }
 
