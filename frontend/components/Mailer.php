@@ -30,6 +30,11 @@ class Mailer {
             $error = true;
             $error_message[] = '"beheerderMail" niet  ingesteld';
         }
+
+        if(!isset(Yii::$app->params['appUrl'])){
+            $error = true;
+            $error_message[] = '"appUrl" niet  ingesteld';
+        }
         if($error){
             echo  implode(',',$error_message);
 
