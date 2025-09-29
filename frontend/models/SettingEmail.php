@@ -67,7 +67,8 @@ class SettingEmail extends \yii\db\ActiveRecord
 
     public static array $mailTypes = [
         Mailing::MAILING_NEW_USER=>'Aanmeldingsmail',
+        Mailing::MAILING_NEW_USER_WITHOUT_ACTIVATION=>'Aanmeldingsmail zonder activatie (standaard)',
         Mailing::MAILING_FORGOT_PASSWORD=>"Wachtwoord vergeten",
-        Mailing::MAILING_NEW_SPONSOR=>"Nieuw sponsor",
+        Mailing::MAILING_NEW_SPONSOR=>"Nieuwe sponsor optie",
     ];
 }

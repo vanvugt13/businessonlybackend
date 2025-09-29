@@ -15,6 +15,7 @@ class Mailing extends Mailer
     const MAILING_NEW_USER = 20;
     const MAILING_FORGOT_PASSWORD = 30;
     const MAILING_ACTIVATE_ACCOUNT = 40;
+    const MAILING_NEW_USER_WITHOUT_ACTIVATION = 50;
 
     // private Mailer $mailer;
     // public static function getMailing(int $mailing,Mailer $mailer){
@@ -86,14 +87,17 @@ class Mailing extends Mailer
     }
     private function parseText($textToParse)
     {
+        
         foreach ($this->getParseVariables() as $var) {
             if (str_contains($textToParse, $var)) {
                 $var = 'replaceVariable' . str_replace("{", "", str_replace("}", "", $var));
+                
                 if (is_callable([$this, $var])) {
                     $textToParse = $this->$var($textToParse);
                 }
             }
         }
+        return $textToParse;
     }
 
     private function replaceVariableUserEmailAddress($textToParse)
