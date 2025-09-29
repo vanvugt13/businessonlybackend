@@ -83,6 +83,7 @@ class Mailing extends Mailer
             '{{VerificationLink}}',
             '{{AppUrl}}',
             '{{Password}}',
+            '{{CompanyName}}',
         ];
     }
     private function parseText($textToParse)
@@ -98,6 +99,11 @@ class Mailing extends Mailer
             }
         }
         return $textToParse;
+    }
+
+    private function replaceVariableCompanyName($textToParse)
+    {
+        return str_replace('{{CompanyName}}', $this->userModel->company->name, $textToParse);
     }
 
     private function replaceVariableUserEmailAddress($textToParse)
