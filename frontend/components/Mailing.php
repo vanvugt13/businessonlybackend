@@ -81,6 +81,7 @@ class Mailing extends Mailer
             '{{SponsorTypeDescription}}',
             '{{VerificationLink}}',
             '{{AppUrl}}',
+            '{{Password}}',
         ];
     }
     private function parseText($textToParse)
@@ -129,5 +130,15 @@ class Mailing extends Mailer
         $link = Html::a(Html::encode($appUrl), $appUrl);
         $textToParse = str_replace('{{AppUrl}}', $link, $textToParse);
         return $textToParse;
+    }
+
+    private function replaceVariablePassword($textToParse)
+    { 
+        if(!$this->userModel->password){
+
+            $this->userModel->password = rand(10000,1000000);
+            $this->userModel->setPassword($this->userModel->password);
+        }
+        return str_replace('{{Password}}', $this->userModel->password, $textToParse);
     }
 }
